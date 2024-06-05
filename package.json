@@ -1,0 +1,69 @@
+{
+  "name": "firmachain-koala-event-web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@firmachain/firma-js": "^0.2.57",
+    "@reduxjs/toolkit": "1.9.7",
+    "axios": "^1.7.2",
+    "notistack": "^3.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-qrcode-logo": "^3.0.0",
+    "react-redux": "8.1.3",
+    "react-responsive": "^10.0.0",
+    "react-scripts": "5.0.1",
+    "react-spinners": "^0.14.1",
+    "react-svg": "^16.1.34",
+    "redux": "4.2.1",
+    "redux-persist": "6.0.0",
+    "redux-thunk": "2.4.2",
+    "styled-components": "^6.1.11",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.101",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-svg": "^5.0.0",
+    "@types/styled-components": "^5.1.34",
+    "assert": "^2.1.0",
+    "browserify-fs": "^1.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "react-app-env": "^1.2.3",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "url": "^0.11.3",
+    "vm-browserify": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-app-rewired start"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
