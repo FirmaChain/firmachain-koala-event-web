@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import useWallet from '../hooks/useWallet';
 
+import StageLoading from '../components/stageLoading';
 import Header from '../layouts/header';
 import Intro from '../layouts/intro';
 import Footer from '../layouts/footer';
@@ -40,6 +41,7 @@ const HomePage = () => {
   return (
     <MainContainer>
       <Header isLogin={shouldShowStage} handleOnLogout={handleOnLogout} />
+      <StageLoading isPlayStageLoading={isPlayStageLoading} onLoaded={handleOnLoaded} onEnded={handleOnEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
       <Footer isLogin={shouldShowStage} />
     </MainContainer>
