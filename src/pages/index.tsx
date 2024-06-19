@@ -6,6 +6,7 @@ import StageLoading from '../components/stageLoading';
 import Header from '../layouts/header';
 import Intro from '../layouts/intro';
 import Footer from '../layouts/footer';
+import Stage from '../layouts/stage';
 
 import { MainContainer } from '../styles/common';
 
@@ -43,6 +44,7 @@ const HomePage = () => {
       <Header isLogin={shouldShowStage} handleOnLogout={handleOnLogout} />
       <StageLoading isPlayStageLoading={isPlayStageLoading} onLoaded={handleOnLoaded} onEnded={handleOnEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
+      {shouldShowStage && <Stage isReady={inOnEnded} />}
       <Footer isLogin={shouldShowStage} />
     </MainContainer>
   );
