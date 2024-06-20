@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { IMission, IUserData } from '../../../contexts/missionProvider';
+
 import theme from '../../../styles/themes';
 import {
   Container,
@@ -75,8 +77,16 @@ const stages = [
   { xOffset: 1, yOffset: 16, flip: true }, // 26
 ];
 
-const SectionBoard = ({ isReady }: { isReady: boolean }) => {
-  const [stepIndex, setStepIndex] = useState(0);
+const SectionBoard = ({
+  isReady,
+  missionList,
+  userData,
+}: {
+  isReady: boolean;
+  missionList: IMission[];
+  userData: IUserData;
+}) => {
+  const [stepIndex, setStepIndex] = useState(userData.currentMissionStep);
   const [jumpAnimate, setJumpAnimate] = useState(false);
   const [spawnAnimate, setSpawnAnimate] = useState(false);
   const [showMessageBox, setShowMessageBox] = useState(false);
