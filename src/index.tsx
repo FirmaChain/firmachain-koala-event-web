@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import ModalProvider from './contexts/modalProvider';
 import ScreenProvider from './contexts/screenProvider';
 import WalletProvider from './contexts/walletProvider';
+import MissionProvider from './contexts/missionProvider';
 
 import store from './redux/store';
 
@@ -25,17 +26,19 @@ ReactDOM.createRoot(rootElement as HTMLElement).render(
         <ModalProvider>
           <ScreenProvider>
             <WalletProvider>
-              <SnackbarProvider
-                maxSnack={3}
-                style={{ fontSize: '1rem' }}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-              >
-                <Portal />
-                <App />
-              </SnackbarProvider>
+              <MissionProvider>
+                <SnackbarProvider
+                  maxSnack={3}
+                  style={{ fontSize: '1rem' }}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                >
+                  <Portal />
+                  <App />
+                </SnackbarProvider>
+              </MissionProvider>
             </WalletProvider>
           </ScreenProvider>
         </ModalProvider>
