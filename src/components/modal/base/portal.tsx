@@ -4,9 +4,13 @@ import { createPortal } from 'react-dom';
 import { ModalStateContext } from '../../../contexts/modalProvider';
 
 import walletConnect from '../walletConnect';
+import missionList from '../missionList';
+import achievementList from '../achievementList';
 
 const MODAL_COMPONENTS: any = {
   walletConnect,
+  missionList,
+  achievementList,
 };
 
 const Portal = () => {
