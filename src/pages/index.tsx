@@ -10,6 +10,7 @@ import Header from '../layouts/header';
 import Intro from '../layouts/intro';
 import Footer from '../layouts/footer';
 import Stage from '../layouts/stage';
+import Hud from '../layouts/hud';
 
 import { MainContainer } from '../styles/common';
 
@@ -90,6 +91,7 @@ const HomePage = () => {
       <StageLoading isPlayStageLoading={isPlayStageLoading} onLoaded={handleOnLoaded} onEnded={handleOnEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
       {shouldShowStage && <Stage isReady={inOnEnded} missionList={missionList} userData={userData} />}
+      {shouldShowStage && <Hud />}
       <Footer isLogin={shouldShowStage} />
     </MainContainer>
   );
