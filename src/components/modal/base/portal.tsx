@@ -6,11 +6,15 @@ import { ModalStateContext } from '../../../contexts/modalProvider';
 import walletConnect from '../walletConnect';
 import missionList from '../missionList';
 import achievementList from '../achievementList';
+import quiz from '../quiz';
+import survey from '../survey';
 
 const MODAL_COMPONENTS: any = {
   walletConnect,
   missionList,
   achievementList,
+  quiz,
+  survey,
 };
 
 const Portal = () => {
