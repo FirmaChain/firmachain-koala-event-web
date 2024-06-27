@@ -20,15 +20,15 @@ import {
 const AchievementListModal = () => {
   const { closeModal } = useModal();
 
-  const onCloseModal = () => {
+  const handleCloseModal = () => {
     closeModal();
   };
 
   return (
-    <Modal visible={true} onClose={onCloseModal} width={'782px'}>
+    <Modal visible={true} handleClose={handleCloseModal} width={'782px'}>
       <ModalDefaultContainer>
         <Borders color='#51290c'>
-          <CloseButton onClick={() => onCloseModal()}>
+          <CloseButton onClick={() => handleCloseModal()}>
             <CloseIcon />
           </CloseButton>
           <ContentsWrapper>

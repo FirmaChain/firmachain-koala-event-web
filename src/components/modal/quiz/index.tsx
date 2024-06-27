@@ -25,15 +25,15 @@ import {
 const QuizModal = () => {
   const { closeModal } = useModal();
 
-  const onCloseModal = () => {
+  const handleCloseModal = () => {
     closeModal();
   };
 
   return (
-    <Modal visible={true} onClose={onCloseModal} width={'776px'}>
+    <Modal visible={true} handleClose={handleCloseModal} width={'776px'}>
       <ModalDefaultContainer>
         <Borders color='#51290c'>
-          <CloseButton onClick={() => onCloseModal()}>
+          <CloseButton onClick={() => handleCloseModal()}>
             <CloseIcon />
           </CloseButton>
           <ContentsWrapper>

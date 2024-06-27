@@ -7,13 +7,13 @@ import { QRContainer, QRTimerText, RefreshIconButton } from './styles';
 
 interface IProps {
   module: string;
-  onSuccess: (requestData: Object) => void;
-  onFailed: (requestData: Object) => void;
+  handleSuccess: (requestData: Object) => void;
+  handleFailed: (requestData: Object) => void;
   params?: Object;
   signer?: string;
 }
 
-const RequestQR = ({ module, onSuccess, onFailed, params = {}, signer = '' }: IProps) => {
+const RequestQR = ({ module, handleSuccess, handleFailed, params = {}, signer = '' }: IProps) => {
   const { checkRequest, generateRequestQR } = useAPI();
 
   const [requestKey, setRequestKey] = useState('');
@@ -50,14 +50,14 @@ const RequestQR = ({ module, onSuccess, onFailed, params = {}, signer = '' }: IP
     requestQR();
   };
 
-  const onTickCheckRequest = async () => {
+  const handleTick = async () => {
     checkRequest(requestKey).then((requestData) => {
       if (Number(requestData.status) === 1) {
         setActiveQR(false);
-        onSuccess(requestData);
+        handleSuccess(requestData);
       } else if (Number(requestData.status) === -2) {
         setActiveQR(false);
-        onFailed(requestData);
+        handleFailed(requestData);
       }
     });
   };
@@ -72,12 +72,12 @@ const RequestQR = ({ module, onSuccess, onFailed, params = {}, signer = '' }: IP
         setTimerText={(value: string) => {
           setTimerText(value);
         }}
-        onExpired={() => {
+        handleExpired={() => {
           setActiveQR(false);
           refreshRequestQR();
         }}
-        onTick={() => {
-          onTickCheckRequest();
+        handleTick={() => {
+          handleTick();
         }}
       />
       {qrcode !== '' && (

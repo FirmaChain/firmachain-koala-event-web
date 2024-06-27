@@ -20,7 +20,7 @@ const Intro = ({ handleLoading }: { handleLoading: () => void }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { openModal } = useModal();
 
-  const onClose = (address: string, success: boolean) => {
+  const handleClose = (address: string, success: boolean) => {
     walletActions.handleWalletAddress(address);
 
     handleLoading();
@@ -39,7 +39,7 @@ const Intro = ({ handleLoading }: { handleLoading: () => void }) => {
   };
 
   const handleWalletConnectModal = () => {
-    openModal({ type: 'walletConnect', props: { onClose } });
+    openModal({ type: 'walletConnect', props: { handleClose } });
   };
 
   return (

@@ -31,7 +31,7 @@ const QuizModal = () => {
   const [rating, setRating] = useState<number>(0);
   const [surveyText, setSurveyText] = useState<string>('');
 
-  const onCloseModal = () => {
+  const handleCloseModal = () => {
     closeModal();
   };
 
@@ -46,10 +46,10 @@ const QuizModal = () => {
   };
 
   return (
-    <Modal visible={true} onClose={onCloseModal} width={'776px'}>
+    <Modal visible={true} handleClose={handleCloseModal} width={'776px'}>
       <ModalDefaultContainer>
         <Borders color='#51290c'>
-          <CloseButton onClick={() => onCloseModal()}>
+          <CloseButton onClick={() => handleCloseModal()}>
             <CloseIcon />
           </CloseButton>
           <ContentsWrapper>

@@ -32,19 +32,15 @@ import {
 const MissionListModal = () => {
   const { closeModal } = useModal();
 
-  const onCloseModal = () => {
+  const handleCloseModal = () => {
     closeModal();
   };
 
-  const handleDisconnect = () => {
-    window.location.reload();
-  };
-
   return (
-    <Modal visible={true} onClose={onCloseModal} width={'700px'}>
+    <Modal visible={true} handleClose={handleCloseModal} width={'700px'}>
       <ModalDefaultContainer>
         <Borders color='#51290c'>
-          <CloseButton onClick={() => onCloseModal()}>
+          <CloseButton onClick={() => handleCloseModal()}>
             <CloseIcon />
           </CloseButton>
           <ContentsWrapper>

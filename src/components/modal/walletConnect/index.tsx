@@ -44,25 +44,25 @@ const WalletConnectModal = () => {
   const { closeModal, props } = useModal();
   const [step, setStep] = useState(1);
 
-  const onCloseModal = () => {
-    props.onClose('test', true);
+  const handleCloseModal = () => {
+    props.handleClose('test', true);
     closeModal();
   };
 
-  const onSuccess = (requestData: any) => {
-    props.onClose(requestData.signer, true);
-    onCloseModal();
+  const handleSuccess = (requestData: any) => {
+    props.handleClose(requestData.signer, true);
+    handleCloseModal();
   };
 
-  const onFailed = () => {
-    props.onClose('', false);
-    onCloseModal();
+  const handleFailed = () => {
+    props.handleClose('', false);
+    handleCloseModal();
   };
 
   return (
-    <Modal visible={true} onClose={onCloseModal} width={'500px'}>
+    <Modal visible={true} handleClose={handleCloseModal} width={'500px'}>
       <WalletConnectContainer>
-        <CloseButton src={theme.urls.close} onClick={() => onCloseModal()} />
+        <CloseButton src={theme.urls.close} onClick={() => handleCloseModal()} />
         <WalletConnectContents>
           {step === 1 && (
             <Step1Wrapper>
@@ -73,7 +73,7 @@ const WalletConnectModal = () => {
                 </WalletConnectSubTitleTypo>
               </WalletConnectTopWrapper>
               <QrWrapper>
-                <RequestQR module='/login' onSuccess={onSuccess} onFailed={onFailed} />
+                <RequestQR module='/login' handleSuccess={handleSuccess} handleFailed={handleFailed} />
               </QrWrapper>
             </Step1Wrapper>
           )}

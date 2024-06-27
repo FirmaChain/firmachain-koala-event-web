@@ -88,7 +88,7 @@ const HomePage = () => {
   return (
     <MainContainer>
       <Header isLogin={shouldShowStage} handleOnLogout={handleOnLogout} />
-      <StageLoading isPlayStageLoading={isPlayStageLoading} onLoaded={handleOnLoaded} onEnded={handleOnEnded} />
+      <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleOnLoaded} handleEnded={handleOnEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
       {shouldShowStage && <Stage isReady={inOnEnded} missionList={missionList} userData={userData} />}
       {shouldShowStage && <Hud />}

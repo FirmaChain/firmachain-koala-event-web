@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React from 'react';
-import { CHAIN_CONFIG } from '../config';
 
 interface IMissionContext {
   getMissionStatus: () => Promise<IMissionStatus>;
@@ -46,6 +45,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
   const getMissionStatus = async (): Promise<IMissionStatus> => {
     try {
       const response = await axios.get(`${apiHost}/missions/status`);
+      console.log(response.data);
 
       return {
         startDate: '',
@@ -80,6 +80,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
   const getTierList = async (): Promise<ITier[]> => {
     try {
       const response = await axios.get(`${apiHost}/missions/tiers`);
+      console.log(response.data);
 
       return [];
     } catch (e) {
@@ -91,6 +92,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
   const getUserMissionData = async (userAddress: string): Promise<IUserData> => {
     try {
       const response = await axios.get(`${apiHost}/missions/${userAddress}`);
+      console.log(response.data);
 
       return {
         currentMissionStep: 0,
@@ -111,6 +113,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
   const completeMission = async () => {
     try {
       const response = await axios.get(`${apiHost}/missions/complete`);
+      console.log(response.data);
     } catch (e) {
       console.error(e);
     }
@@ -119,6 +122,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
   const clickFloatingCoin = async () => {
     try {
       const response = await axios.get(`${apiHost}/missions/coin`);
+      console.log(response.data);
     } catch (e) {
       console.error(e);
     }
@@ -127,6 +131,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
   const openTreasureBox = async () => {
     try {
       const response = await axios.get(`${apiHost}/missions/treasure`);
+      console.log(response.data);
     } catch (e) {
       console.error(e);
     }

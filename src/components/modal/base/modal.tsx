@@ -3,18 +3,18 @@ import React, { useEffect } from 'react';
 import { ModalOverlay, ModalWrapper, ModalInner } from './styles';
 
 interface IProps {
-  onClose: () => void;
+  handleClose: () => void;
   maskClosable?: boolean;
   visible: boolean;
   width: string;
   children?: React.ReactNode;
 }
 
-const Modal = ({ onClose, visible, width, maskClosable = false, children }: IProps) => {
-  const onMaskClick = (e: React.MouseEvent<HTMLInputElement>) => {
+const Modal = ({ handleClose, visible, width, maskClosable = false, children }: IProps) => {
+  const handleClickMask = (e: React.MouseEvent<HTMLInputElement>) => {
     if (maskClosable) {
       if (e.target === e.currentTarget) {
-        onClose();
+        handleClose();
       }
     }
   };
@@ -31,7 +31,7 @@ const Modal = ({ onClose, visible, width, maskClosable = false, children }: IPro
   return (
     <>
       <ModalOverlay $visible={visible} />
-      <ModalWrapper tabIndex={-1} $visible={visible} onClick={onMaskClick}>
+      <ModalWrapper tabIndex={-1} $visible={visible} onClick={handleClickMask}>
         <ModalInner tabIndex={0} $width={width}>
           {children}
         </ModalInner>

@@ -11,13 +11,13 @@ interface IProps {
   expireDate: Date | null;
   isActive: boolean;
   setTimerText: (timerText: string) => void;
-  onExpired: () => void;
-  onTick: () => void;
+  handleExpired: () => void;
+  handleTick: () => void;
 }
 
-const ConnectQR = ({ qrSize, qrcode, expireDate, isActive, setTimerText, onExpired, onTick }: IProps) => {
-  const tick = () => onTick();
-  const expired = () => onExpired();
+const ConnectQR = ({ qrSize, qrcode, expireDate, isActive, setTimerText, handleExpired, handleTick }: IProps) => {
+  const tick = () => handleTick();
+  const expired = () => handleExpired();
 
   useInterval(
     () => {

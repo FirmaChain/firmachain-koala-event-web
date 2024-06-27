@@ -4,12 +4,12 @@ import { DimmedLayer, LoadingSpinner, SpinnerImage, CurtainLeft, CurtainRight, L
 
 const LoadingScreen = ({
   isPlayStageLoading,
-  onLoaded,
-  onEnded,
+  handleLoaded,
+  handleEnded,
 }: {
   isPlayStageLoading: boolean;
-  onLoaded: () => void;
-  onEnded: () => void;
+  handleLoaded: () => void;
+  handleEnded: () => void;
 }) => {
   const [isPlayOpen, setIsPlayOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -19,13 +19,13 @@ const LoadingScreen = ({
     if (isPlayStageLoading) {
       setIsLoading(true);
       setTimeout(() => {
-        onLoaded();
+        handleLoaded();
         setIsLoaded(true);
         setTimeout(() => {
           setIsPlayOpen(true);
           setIsLoaded(false);
           setTimeout(() => {
-            onEnded();
+            handleEnded();
             setIsLoading(false);
             setIsPlayOpen(false);
           }, 500);
