@@ -34,8 +34,16 @@ export interface ITier {
 
 export interface IUserData {
   currentMissionStep: number;
-  treasure: { count: number; isAvailable: boolean; prevDate: string; nextDate: string };
-  floating: { count: number; isAvailable: boolean; prevDate: string; nextDate: string };
+  achievementList: number[];
+  treasure: IParticipation;
+  floating: IParticipation;
+}
+
+export interface IParticipation {
+  count: number;
+  isAvailable: boolean;
+  prevDate: string;
+  nextDate: string;
 }
 
 export const MissionContext = React.createContext<IMissionContext | null>(null);
@@ -44,8 +52,8 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
   const apiHost = 'http://localhost:3001';
   const getMissionStatus = async (): Promise<IMissionStatus> => {
     try {
-      const response = await axios.get(`${apiHost}/missions/status`);
-      console.log(response.data);
+      // const response = await axios.get(`${apiHost}/missions/status`);
+      // console.log(response.data);
 
       return {
         startDate: '',
@@ -65,10 +73,10 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getMissionList = async (): Promise<IMission[]> => {
     try {
-      const response = await axios.get(`${apiHost}/missions`);
-      const missionList = response.data.result.missionList;
+      // const response = await axios.get(`${apiHost}/missions`);
+      // const missionList = response.data.result.missionList;
 
-      if (missionList === undefined) throw new Error('No Mission List');
+      // if (missionList === undefined) throw new Error('No Mission List');
 
       return [];
     } catch (e) {
@@ -79,8 +87,8 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getTierList = async (): Promise<ITier[]> => {
     try {
-      const response = await axios.get(`${apiHost}/missions/tiers`);
-      console.log(response.data);
+      // const response = await axios.get(`${apiHost}/missions/tiers`);
+      // console.log(response.data);
 
       return [];
     } catch (e) {
@@ -91,11 +99,12 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getUserMissionData = async (userAddress: string): Promise<IUserData> => {
     try {
-      const response = await axios.get(`${apiHost}/missions/${userAddress}`);
-      console.log(response.data);
+      // const response = await axios.get(`${apiHost}/missions/${userAddress}`);
+      // console.log(response.data);
 
       return {
         currentMissionStep: 0,
+        achievementList: [],
         treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
         floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
       };
@@ -104,6 +113,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       return {
         currentMissionStep: 0,
+        achievementList: [],
         treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
         floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
       };

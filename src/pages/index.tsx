@@ -18,13 +18,14 @@ const HomePage = () => {
   const { isLogin, logout, address } = useWallet();
   const { getMissionStatus, getMissionList, getTierList, getUserMissionData } = useMission();
   const [isPlayStageLoading, setPlayStageLoading] = React.useState(false);
-  const [isOnLoaded, setOnLoaded] = React.useState(false);
-  const [inOnEnded, setOnEnded] = React.useState(false);
+  const [isLoaded, setLoaded] = React.useState(false);
+  const [isEnded, setEnded] = React.useState(false);
 
   const [missionList, setMissionList] = React.useState<IMission[]>([]);
   const [tierList, setTierList] = React.useState<ITier[]>([]);
   const [userData, setUserData] = React.useState<IUserData>({
     currentMissionStep: 0,
+    achievementList: [],
     treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
     floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
   });
@@ -40,8 +41,9 @@ const HomePage = () => {
           getUserMissionData(address),
         ]);
 
-        if (missionList.length !== MISSION_COUNT) throw new Error('Failed to get mission data');
-        if (tierList.length !== TIER_COUNT) throw new Error('Failed to get tier data');
+        // if (missionList.length !== MISSION_COUNT) throw new Error('Failed to get mission data');
+        // if (tierList.length !== TIER_COUNT) throw new Error('Failed to get tier data');
+        // userData.currentMissionStep = 15;
 
         setMissionList(missionList);
         setTierList(tierList);
@@ -61,37 +63,37 @@ const HomePage = () => {
     if (isLogin) {
       initialize()
         .then(() => {
-          setOnLoaded(true);
-          setOnEnded(true);
+          setLoaded(true);
+          setEnded(true);
         })
         .catch(() => {});
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleLoading = () => setPlayStageLoading(true);
-  const handleOnLoaded = async () => {
+  const handleLoaded = async () => {
     await initialize();
-    setOnLoaded(true);
+    setLoaded(true);
   };
-  const handleOnEnded = () => setOnEnded(true);
-  const handleOnLogout = () => reset();
+  const handleEnded = () => setEnded(true);
+  const handleLogout = () => reset();
 
   const reset = () => {
     setPlayStageLoading(false);
-    setOnLoaded(false);
-    setOnEnded(false);
+    setLoaded(false);
+    setEnded(false);
   };
 
-  const shouldShowIntro = React.useMemo(() => !isOnLoaded, [isOnLoaded]);
-  const shouldShowStage = React.useMemo(() => isLogin && isOnLoaded, [isLogin, isOnLoaded]);
+  const shouldShowIntro = React.useMemo(() => !isLoaded, [isLoaded]);
+  const shouldShowStage = React.useMemo(() => isLogin && isLoaded, [isLogin, isLoaded]);
 
   return (
     <MainContainer>
-      <Header isLogin={shouldShowStage} handleOnLogout={handleOnLogout} />
-      <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleOnLoaded} handleEnded={handleOnEnded} />
+      <Header isLogin={shouldShowStage} handleLogout={handleLogout} />
+      <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleLoaded} handleEnded={handleEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
-      {shouldShowStage && <Stage isReady={inOnEnded} missionList={missionList} userData={userData} />}
-      {shouldShowStage && <Hud />}
+      {shouldShowStage && <Stage isReady={isEnded} missionList={missionList} userData={userData} />}
+      {shouldShowStage && <Hud tierList={tierList} userData={userData} />}
       <Footer isLogin={shouldShowStage} />
     </MainContainer>
   );

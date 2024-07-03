@@ -41,6 +41,8 @@ const urls = {
     process.env.PUBLIC_URL + '/images/ic_tier_4.png',
     process.env.PUBLIC_URL + '/images/ic_tier_5.png',
   ],
+  tierBg: process.env.PUBLIC_URL + '/images/img_tier_bg.png',
+  tierCoin: process.env.PUBLIC_URL + '/images/img_tier_coin.png',
   achievementList: [
     {
       enable: process.env.PUBLIC_URL + '/images/img_badge_bronze.png',
@@ -75,6 +77,10 @@ const urls = {
       disable: process.env.PUBLIC_URL + '/images/img_medal_udc_disable.png',
     },
   ],
+  hudHoverLeft: process.env.PUBLIC_URL + '/images/img_hud_message_left.png',
+  hudHoverCenter: process.env.PUBLIC_URL + '/images/img_hud_message_center.png',
+  hudHoverRight: process.env.PUBLIC_URL + '/images/img_hud_message_right.png',
+
   quizIcon: process.env.PUBLIC_URL + '/images/ic_quiz.png',
   bead: process.env.PUBLIC_URL + '/images/ic_bead.png',
   torch: process.env.PUBLIC_URL + '/images/img_torch.gif',
@@ -114,7 +120,6 @@ const urls = {
   achievementListItemBg: process.env.PUBLIC_URL + '/images/img_achievement_list_item_bg.png',
   lock: process.env.PUBLIC_URL + '/images/ic_lock.png',
   check: process.env.PUBLIC_URL + '/images/ic_check.png',
-
   ratingStar: process.env.PUBLIC_URL + '/images/img_rating_star.png',
   ratingStarEmpty: process.env.PUBLIC_URL + '/images/img_rating_star_empty.png',
   cloud: process.env.PUBLIC_URL + '/images/img_cloud.png',

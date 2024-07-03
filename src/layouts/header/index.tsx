@@ -45,14 +45,14 @@ import {
   TimerValue,
 } from './styles';
 
-const Header = ({ isLogin, handleOnLogout }: { isLogin: boolean; handleOnLogout: () => void }) => {
+const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
   const { address, logout } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
   const [currentTier, setCurrentTier] = useState(0);
 
-  const handleLogout = () => {
+  const handleLogoutHeader = () => {
     logout();
-    handleOnLogout();
+    handleLogout();
   };
 
   const handleClipboard = () => {
@@ -123,7 +123,7 @@ const Header = ({ isLogin, handleOnLogout }: { isLogin: boolean; handleOnLogout:
                       </CoinItem>
                     </CoinList>
                   </MenuItem>
-                  <MenuItem onClick={() => handleLogout()}>
+                  <MenuItem onClick={() => handleLogoutHeader()}>
                     <MenuLabel>
                       <MenuIcon src={theme.urls.logout} />
                       <MenuTypo>Logout</MenuTypo>
