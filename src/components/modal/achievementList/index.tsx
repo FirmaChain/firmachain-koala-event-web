@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
-import { IAchievement } from '../../../contexts/missionProvider';
+import { IAchievement, IUserData } from '../../../contexts/missionProvider';
 
 import Borders from '../../../components/borders';
 import {
@@ -19,23 +19,26 @@ import {
   LockIcon,
 } from './styles';
 
-const AchievementListModal = () => {
-  const { closeModal, props } = useModal();
-  const [achievementList, setAchievementList] = React.useState<IAchievement[]>([]);
-  const [completeList, setCompleteList] = React.useState<boolean[]>([]);
+const AchievementListModal = ({
+  achievementList,
+  userData,
+}: {
+  achievementList: IAchievement[];
+  userData: IUserData;
+}) => {
+  const { closeModal } = useModal();
 
-  useEffect(() => {
-    let completes: boolean[] = [];
-    props.achievementList.forEach((achievement: IAchievement, index: number) => {
-      if (props.userData.achievementList.includes(achievement.id)) {
-        completes[index] = true;
+  const completeList = useMemo(() => {
+    let result: boolean[] = [];
+    achievementList.forEach((achievement: IAchievement, index: number) => {
+      if (userData.achievementList.includes(achievement.id)) {
+        result[index] = true;
       } else {
-        completes[index] = false;
+        result[index] = false;
       }
     });
-    setAchievementList(props.achievementList);
-    setCompleteList(completes);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    return result;
+  }, [achievementList, userData]);
 
   const handleCloseModal = () => {
     closeModal();

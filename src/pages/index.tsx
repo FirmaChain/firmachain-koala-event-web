@@ -90,7 +90,7 @@ const HomePage = () => {
 
   return (
     <MainContainer>
-      <Header isLogin={shouldShowStage} handleLogout={handleLogout} />
+      <Header isLogin={shouldShowStage} tierList={tierList} userData={userData} handleLogout={handleLogout} />
       <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleLoaded} handleEnded={handleEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
       {shouldShowStage && <Stage isReady={isEnded} missionList={missionList} userData={userData} />}

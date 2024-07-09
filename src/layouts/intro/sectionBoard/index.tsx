@@ -8,9 +8,9 @@ import {
   SubCharacterImage,
   NinjaCharacterImage,
   Wrapper,
-  NinjaCharacter2Image,
-  TreeImage,
   PoweredFirma,
+  MissionBoardImage,
+  BirdImage,
 } from './styles';
 
 const SectionBoard = () => {
@@ -18,11 +18,10 @@ const SectionBoard = () => {
     <Container>
       <Fance />
       <Wrapper>
+        <MissionBoardImage />
+        <BirdImage />
         <NinjaCharacterImage />
-        <NinjaCharacter2Image />
-        <TreeImage />
         <PoweredFirma />
-
         <SubCharacterImage />
       </Wrapper>
       <BackgroundWrapper>

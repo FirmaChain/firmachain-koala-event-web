@@ -107,7 +107,7 @@ export const NinjaCharacterImage = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: 140px;
     height: 140px;
-    left: 300px;
+    left: 360px;
   }
 `;
 

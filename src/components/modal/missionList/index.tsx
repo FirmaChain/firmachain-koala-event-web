@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
 import { IMission, IUserData } from '../../../contexts/missionProvider';
+import { MISSION_COUNT } from '../../../constants/common';
 
 import Borders from '../../../components/borders';
 import {
@@ -29,7 +30,6 @@ import {
   SubInfoLabel,
   SubInfoValue,
 } from './styles';
-import { MISSION_COUNT } from '../../../constants/common';
 
 const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; userData: IUserData }) => {
   const { closeModal } = useModal();
@@ -55,7 +55,7 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
     setTargetMissionList(targetMissions);
     setCompletedMissionList(completedMissions);
     setNextMissionList(nextMissions);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [missionList, userData]);
 
   const handleCloseModal = () => {
     closeModal();
@@ -77,7 +77,7 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
             <SubInfo>
               <SubInfoLabel>My Mission</SubInfoLabel>
               <SubInfoValue>
-                <span>{userData.currentMissionStep}</span>
+                <span>{userData.currentMissionStep + 1}</span>
                 <span>/</span>
                 <span>{MISSION_COUNT}</span>
               </SubInfoValue>

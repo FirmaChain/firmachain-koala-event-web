@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 
 import useWallet from '../../hooks/useWallet';
 import { copyToClipboard, createTextEllipsis } from '../../utils/common';
+import { ITier, IUserData } from '../../contexts/missionProvider';
 
 import theme from '../../styles/themes';
 import {
@@ -45,10 +46,32 @@ import {
   TimerValue,
 } from './styles';
 
-const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
+const Header = ({
+  isLogin,
+  tierList,
+  userData,
+  handleLogout,
+}: {
+  isLogin: boolean;
+  tierList: ITier[];
+  userData: IUserData;
+  handleLogout: () => void;
+}) => {
   const { address, logout } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
-  const [currentTier, setCurrentTier] = useState(0);
+
+  const currentTier = useMemo(() => {
+    const tier = tierList.reduceRight<ITier | undefined>((found, tier) => {
+      if (!found && tier.value <= userData.currentMissionStep) {
+        return tier;
+      }
+      return found;
+    }, undefined);
+
+    if (!tier) return { order: 0, name: 'Beginner', value: 0 };
+
+    return tier;
+  }, [tierList, userData]);
 
   const handleLogoutHeader = () => {
     logout();
@@ -93,9 +116,9 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
                   <CopyIcon src={theme.urls.copy} />
                 </AddressInfo>
 
-                <TierLabel $tier={currentTier}>
+                <TierLabel $tier={currentTier.order}>
                   <TierIcon />
-                  <TierTypo>Beginner</TierTypo>
+                  <TierTypo>{currentTier.name}</TierTypo>
                 </TierLabel>
 
                 <MenuWrapper>

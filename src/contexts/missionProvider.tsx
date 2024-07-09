@@ -152,7 +152,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       return {
         currentMissionStep: 0,
-        achievementList: [],
+        achievementList: [0, 6, 7],
         treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
         floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
       };
