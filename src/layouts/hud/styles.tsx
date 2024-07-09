@@ -242,14 +242,14 @@ export const TierCoin = styled.div`
 `;
 
 export const TierIcon = styled.div<{ $index: number; $active: boolean }>`
-  ${({ $active }) => ($active ? 'display:flex' : 'display:none;')}
+  display: flex;
   z-index: 13;
   position: absolute;
   bottom: calc(${({ $index }) => `124px * ${$index}`} + 140px);
   left: calc(50% - 30px);
   width: 60px;
   height: 60px;
-  background-image: url('${({ theme, $index }) => theme.urls.tierList[$index]}');
+  background-image: url('${({ theme, $active, $index }) => ($active ? theme.urls.tierList[$index] : '')}');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;

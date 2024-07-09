@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import useWallet from '../hooks/useWallet';
 import useMission from '../hooks/useMission';
-import { IMission, ITier, IUserData } from '../contexts/missionProvider';
+import { IAchievement, IMission, ITier, IUserData } from '../contexts/missionProvider';
 import { EVENT_OPEN_STATUS, MISSION_COUNT, TIER_COUNT } from '../constants/common';
 
 import StageLoading from '../components/stageLoading';
@@ -16,13 +16,14 @@ import { MainContainer } from '../styles/common';
 
 const HomePage = () => {
   const { isLogin, logout, address } = useWallet();
-  const { getMissionStatus, getMissionList, getTierList, getUserMissionData } = useMission();
+  const { getMissionStatus, getMissionList, getTierList, getAchievementList, getUserMissionData } = useMission();
   const [isPlayStageLoading, setPlayStageLoading] = React.useState(false);
   const [isLoaded, setLoaded] = React.useState(false);
   const [isEnded, setEnded] = React.useState(false);
 
   const [missionList, setMissionList] = React.useState<IMission[]>([]);
   const [tierList, setTierList] = React.useState<ITier[]>([]);
+  const [achievementList, setAchievementList] = React.useState<IAchievement[]>([]);
   const [userData, setUserData] = React.useState<IUserData>({
     currentMissionStep: 0,
     achievementList: [],
@@ -35,9 +36,10 @@ const HomePage = () => {
       const missionStatus = await getMissionStatus();
 
       if (missionStatus.status === EVENT_OPEN_STATUS) {
-        const [missionList, tierList, userData] = await Promise.all([
+        const [missionList, tierList, achievementList, userData] = await Promise.all([
           getMissionList(),
           getTierList(),
+          getAchievementList(),
           getUserMissionData(address),
         ]);
 
@@ -47,6 +49,7 @@ const HomePage = () => {
 
         setMissionList(missionList);
         setTierList(tierList);
+        setAchievementList(achievementList);
         setUserData(userData);
       } else {
         throw new Error('Event is not open');
@@ -93,7 +96,7 @@ const HomePage = () => {
       <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleLoaded} handleEnded={handleEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
       {shouldShowStage && <Stage isReady={isEnded} missionList={missionList} userData={userData} />}
-      {shouldShowStage && <Hud tierList={tierList} userData={userData} />}
+      {shouldShowStage && <Hud tierList={tierList} achievementList={achievementList} userData={userData} />}
       <Footer isLogin={shouldShowStage} />
     </MainContainer>
   );

@@ -85,7 +85,7 @@ export const DailyWrapper = styled.div`
 export const DailyLabelTypo = styled.div`
   line-height: 20px;
   margin-top: 2px;
-  color: var(--Blue-900, #363c60);
+  color: #363c60;
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -202,7 +202,7 @@ export const UserCharacter = styled.div`
 `;
 
 export const AddressTypo2 = styled.div`
-  color: var(--Gray-Gray-800, #383838);
+  color: #383838;
   flex: 1;
   text-align: center;
   font-family: Poppins;
@@ -382,7 +382,7 @@ export const TimerText = styled.div`
 `;
 
 export const TimerLabel = styled.div`
-  color: var(--Blue-900, #363c60);
+  color: #363c60;
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -392,7 +392,7 @@ export const TimerLabel = styled.div`
 `;
 
 export const TimerValue = styled.div`
-  color: var(--Gray-Gray-800, #383838);
+  color: #383838;
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;

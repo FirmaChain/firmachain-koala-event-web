@@ -117,12 +117,13 @@ export const MissionItem = styled.div<{ $status: number }>`
           & > ${MissionInfo} > ${MissionTag} {background: linear-gradient(87deg, #FFC701 12.16%, #FA5C12 86.63%);}
           & > ${MissionInfo} > ${MissionTitleTypo} {color: white;}
           & > ${MissionInfo} > ${MissionDescriptionTypo} {color:rgba(255, 255, 255, 0.8);}
-          outline: 5px solid #F4763B;
+          outline: 5px solid #F90;
           background: #c8946d;
           box-shadow: 4px 4px 0px 0px rgba(81, 41, 12, 0.6) inset;
         `;
       case 2:
         return `
+          & > ${MissionIcon} {opacity: 0.3}
           background: linear-gradient(0deg, rgba(16, 16, 16, 0.2) 0%, rgba(16, 16, 16, 0.2) 100%), #c8946d;
           box-shadow: 4px 4px 0px 0px rgba(81, 41, 12, 0.6) inset;
         `;
@@ -136,7 +137,6 @@ export const MissionIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-image: url('${({ theme }) => theme.urls.missionListItemBg}');
   background-repeat: no-repeat;
   background-size: contain;

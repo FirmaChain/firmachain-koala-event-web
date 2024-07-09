@@ -167,7 +167,7 @@ export const DownloadGuide = styled.div`
   color: #363c60;
   font-size: 16px;
   font-weight: 700;
-  border-top: 2px solid var(--text-text-primay, #363c60);
+  border-top: 2px solid #363c60;
   cursor: pointer;
   & > span {
     color: #f2702a;

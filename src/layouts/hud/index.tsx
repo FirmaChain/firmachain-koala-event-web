@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useModal from '../../hooks/useModal';
-import { ITier, IUserData } from '../../contexts/missionProvider';
+import { IAchievement, ITier, IUserData } from '../../contexts/missionProvider';
 
 import {
   TierHUDWrapper,
@@ -23,7 +23,15 @@ import {
   SideMenuMessageBox2,
 } from './styles';
 
-const Hud = ({ tierList, userData }: { tierList: ITier[]; userData: IUserData }) => {
+const Hud = ({
+  tierList,
+  achievementList,
+  userData,
+}: {
+  tierList: ITier[];
+  achievementList: IAchievement[];
+  userData: IUserData;
+}) => {
   const modal = useModal();
 
   const handleOpenMissionModal = () => {
@@ -31,7 +39,7 @@ const Hud = ({ tierList, userData }: { tierList: ITier[]; userData: IUserData })
   };
 
   const handleOpenAchievementModal = () => {
-    modal.openModal({ type: 'achievementList', props: {} });
+    modal.openModal({ type: 'achievementList', props: { achievementList, userData } });
   };
 
   const isActiveTier = (tierValue: number) => {

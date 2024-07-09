@@ -5,6 +5,7 @@ interface IMissionContext {
   getMissionStatus: () => Promise<IMissionStatus>;
   getMissionList: () => Promise<IMission[]>;
   getTierList: () => Promise<ITier[]>;
+  getAchievementList: () => Promise<IAchievement[]>;
   getUserMissionData: (userAddress: string) => Promise<IUserData>;
   completeMission: () => Promise<void>;
   clickFloatingCoin: () => Promise<void>;
@@ -28,6 +29,13 @@ export interface IMission {
 
 export interface ITier {
   order: number;
+  name: string;
+  value: number;
+}
+
+export interface IAchievement {
+  id: number;
+  type: string;
   name: string;
   value: number;
 }
@@ -90,7 +98,34 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
       // const response = await axios.get(`${apiHost}/missions/tiers`);
       // console.log(response.data);
 
+      return [
+        { order: 1, name: 'Tier1', value: 1 },
+        { order: 2, name: 'Tier2', value: 1 },
+        { order: 3, name: 'Tier3', value: 1 },
+        { order: 4, name: 'Tier4', value: 1 },
+        { order: 5, name: 'Tier5', value: 1 },
+      ];
+    } catch (e) {
+      console.error(e);
       return [];
+    }
+  };
+
+  const getAchievementList = async (): Promise<IAchievement[]> => {
+    try {
+      // const response = await axios.get(`${apiHost}/missions/achievements`);
+      // console.log(response.data);
+
+      return [
+        { id: 0, type: 'tier', name: '', value: 1 },
+        { id: 1, type: 'tier', name: '', value: 1 },
+        { id: 2, type: 'tier', name: '', value: 1 },
+        { id: 3, type: 'tier', name: '', value: 1 },
+        { id: 4, type: 'tier', name: '', value: 1 },
+        { id: 5, type: 'medal', name: '', value: 1 },
+        { id: 6, type: 'medal', name: '', value: 1 },
+        { id: 7, type: 'medal', name: '', value: 1 },
+      ];
     } catch (e) {
       console.error(e);
       return [];
@@ -153,6 +188,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         getMissionStatus,
         getMissionList,
         getTierList,
+        getAchievementList,
         getUserMissionData,
         completeMission,
         clickFloatingCoin,

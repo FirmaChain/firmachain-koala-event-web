@@ -81,7 +81,29 @@ export const AchievementList = styled.div`
   background: #c08960;
 `;
 
-export const AchievementItem = styled.div`
+export const AchievementIcon = styled.div<{ $index: number }>`
+  width: 112px;
+  height: 112px;
+  background-image: url('${({ theme, $index }) => theme.urls.achievementList[$index].enable}');
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-position: center;
+  image-rendering: pixelated;
+`;
+
+export const LockIcon = styled.div`
+  z-index: 3;
+  width: 30px;
+  height: 36px;
+  position: absolute;
+
+  background-image: url('${({ theme }) => theme.urls.lock}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const AchievementItem = styled.div<{ $complete: boolean }>`
   width: 160px;
   height: 160px;
   display: flex;
@@ -91,13 +113,9 @@ export const AchievementItem = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
-`;
 
-export const AchievementIcon = styled.div<{ $index: number }>`
-  width: 112px;
-  height: 112px;
-  background-image: url('${({ theme, $index }) => theme.urls.achievementList[$index].enable}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
+  ${({ $complete }) =>
+    $complete
+      ? `& > ${LockIcon}{display: none;}`
+      : `& > ${AchievementIcon}{opacity:0.3;filter: grayscale(100%);background-color: rgba(0, 0, 0, 0.7);}`}
 `;

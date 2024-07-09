@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
+import { IAchievement } from '../../../contexts/missionProvider';
 
 import Borders from '../../../components/borders';
 import {
@@ -15,10 +16,27 @@ import {
   TitleTypo,
   TitleWrapper,
   TorchIcon,
+  LockIcon,
 } from './styles';
 
 const AchievementListModal = () => {
-  const { closeModal } = useModal();
+  const { closeModal, props } = useModal();
+  const [achievementList, setAchievementList] = React.useState<IAchievement[]>([]);
+  const [completeList, setCompleteList] = React.useState<boolean[]>([]);
+
+  useEffect(() => {
+    let completes: boolean[] = [];
+    props.achievementList.map((achievement: IAchievement, index: number) => {
+      if (props.userData.achievementList.includes(achievement.id)) {
+        completes[index] = true;
+      } else {
+        completes[index] = false;
+      }
+    });
+    console.log(completes);
+    setAchievementList(props.achievementList);
+    setCompleteList(completes);
+  }, []);
 
   const handleCloseModal = () => {
     closeModal();
@@ -39,9 +57,10 @@ const AchievementListModal = () => {
             </TitleWrapper>
             <Borders color='#C08960'>
               <AchievementList>
-                {[0, 1, 2, 3, 4, 5, 6, 7].map((achievement, index) => (
-                  <AchievementItem key={index}>
-                    <AchievementIcon $index={achievement} />
+                {achievementList.map((_, index) => (
+                  <AchievementItem key={index} $complete={completeList[index]}>
+                    <AchievementIcon $index={index} />
+                    <LockIcon />
                   </AchievementItem>
                 ))}
               </AchievementList>

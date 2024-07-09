@@ -10,6 +10,7 @@ const useMission = () => {
     getMissionStatus: context.getMissionStatus,
     getMissionList: context.getMissionList,
     getTierList: context.getTierList,
+    getAchievementList: context.getAchievementList,
     getUserMissionData: context.getUserMissionData,
     completeMission: context.completeMission,
     clickFloatingCoin: context.clickFloatingCoin,
