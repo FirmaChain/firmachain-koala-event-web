@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
-import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from 'styled-components';
+import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -15,6 +15,7 @@ import store from './redux/store';
 import App from './App';
 import Portal from './components/modal/base/portal';
 import theme from './styles/themes';
+import { customSnackbarStyles } from './styles/common';
 
 const persistor = persistStore(store);
 const rootElement = document.getElementById('root');
@@ -29,11 +30,11 @@ ReactDOM.createRoot(rootElement as HTMLElement).render(
               <MissionProvider>
                 <SnackbarProvider
                   maxSnack={3}
-                  style={{ fontSize: '1rem' }}
                   anchorOrigin={{
-                    vertical: 'bottom',
+                    vertical: 'top',
                     horizontal: 'center',
                   }}
+                  Components={customSnackbarStyles}
                 >
                   <Portal />
                   <App />

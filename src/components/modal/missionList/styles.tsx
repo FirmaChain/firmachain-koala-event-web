@@ -74,6 +74,7 @@ export const MissionList = styled.div`
   margin-left: 25px;
   padding-left: 5px;
   padding-right: 20px;
+  padding-top: 5px;
   max-height: 440px;
   overflow-y: auto;
   display: flex;

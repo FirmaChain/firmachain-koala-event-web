@@ -86,7 +86,20 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       // if (missionList === undefined) throw new Error('No Mission List');
 
-      return [];
+      let dummyMissionList: IMission[] = [];
+
+      for (let i = 0; i < 26; i++) {
+        dummyMissionList.push({
+          step: i,
+          title: `Mission ${i + 1}`,
+          description: `Mission ${i + 1} description`,
+          btn1: `button1`,
+          btn2: `button2`,
+          hint: `hint`,
+        });
+      }
+
+      return dummyMissionList;
     } catch (e) {
       console.error(e);
       return [];
@@ -100,10 +113,10 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       return [
         { order: 1, name: 'Tier1', value: 1 },
-        { order: 2, name: 'Tier2', value: 1 },
-        { order: 3, name: 'Tier3', value: 1 },
-        { order: 4, name: 'Tier4', value: 1 },
-        { order: 5, name: 'Tier5', value: 1 },
+        { order: 2, name: 'Tier2', value: 2 },
+        { order: 3, name: 'Tier3', value: 3 },
+        { order: 4, name: 'Tier4', value: 4 },
+        { order: 5, name: 'Tier5', value: 5 },
       ];
     } catch (e) {
       console.error(e);

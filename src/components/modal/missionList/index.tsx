@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
+import { IMission, IUserData } from '../../../contexts/missionProvider';
 
 import Borders from '../../../components/borders';
 import {
@@ -28,16 +29,40 @@ import {
   SubInfoLabel,
   SubInfoValue,
 } from './styles';
+import { MISSION_COUNT } from '../../../constants/common';
 
-const MissionListModal = () => {
+const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; userData: IUserData }) => {
   const { closeModal } = useModal();
+  const [targetMissionList, setTargetMissionList] = React.useState<IMission[]>([]);
+  const [completedMissionList, setCompletedMissionList] = React.useState<IMission[]>([]);
+  const [nextMissionList, setNextMissionList] = React.useState<IMission[]>([]);
+
+  useEffect(() => {
+    let targetMissions: IMission[] = [];
+    let completedMissions: IMission[] = [];
+    let nextMissions: IMission[] = [];
+
+    missionList.forEach((mission: IMission) => {
+      if (mission.step < userData.currentMissionStep) {
+        completedMissions.push(mission);
+      } else if (mission.step === userData.currentMissionStep) {
+        targetMissions.push(mission);
+      } else {
+        nextMissions.push(mission);
+      }
+    });
+
+    setTargetMissionList(targetMissions);
+    setCompletedMissionList(completedMissions);
+    setNextMissionList(nextMissions);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleCloseModal = () => {
     closeModal();
   };
 
   return (
-    <Modal visible={true} handleClose={handleCloseModal} width={'700px'}>
+    <Modal visible={true} maskClosable={true} handleClose={handleCloseModal} width={'700px'}>
       <ModalDefaultContainer>
         <Borders color='#51290c'>
           <CloseButton onClick={() => handleCloseModal()}>
@@ -52,142 +77,60 @@ const MissionListModal = () => {
             <SubInfo>
               <SubInfoLabel>My Mission</SubInfoLabel>
               <SubInfoValue>
-                <span>02</span>
+                <span>{userData.currentMissionStep}</span>
                 <span>/</span>
-                <span>26</span>
+                <span>{MISSION_COUNT}</span>
               </SubInfoValue>
             </SubInfo>
             <MissionList>
-              <MissionItem $status={0}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <LockIcon />
-                </MissionStatus>
-              </MissionItem>
+              {targetMissionList.map((mission: IMission, index: number) => (
+                <MissionItem key={index} $status={1}>
+                  <DimLayer />
+                  <MissionIcon>
+                    <MissionIconImage />
+                  </MissionIcon>
+                  <MissionInfo>
+                    <MissionTag>Mission {mission.step + 1}</MissionTag>
+                    <MissionTitleTypo>{mission.title}</MissionTitleTypo>
+                    <MissionDescriptionTypo>{mission.description}</MissionDescriptionTypo>
+                  </MissionInfo>
+                  <MissionStatus></MissionStatus>
+                </MissionItem>
+              ))}
 
-              <MissionItem $status={1}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus></MissionStatus>
-              </MissionItem>
+              {nextMissionList.map((mission: IMission, index: number) => (
+                <MissionItem key={index} $status={0}>
+                  <DimLayer />
+                  <MissionIcon>
+                    <MissionIconImage />
+                  </MissionIcon>
+                  <MissionInfo>
+                    <MissionTag>Mission {mission.step + 1}</MissionTag>
+                    <MissionTitleTypo>{mission.title}</MissionTitleTypo>
+                    <MissionDescriptionTypo>{mission.description}</MissionDescriptionTypo>
+                  </MissionInfo>
+                  <MissionStatus>
+                    <LockIcon />
+                  </MissionStatus>
+                </MissionItem>
+              ))}
 
-              <MissionItem $status={2}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <CheckIcon />
-                </MissionStatus>
-              </MissionItem>
-
-              <MissionItem $status={0}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <LockIcon />
-                </MissionStatus>
-              </MissionItem>
-
-              <MissionItem $status={0}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <LockIcon />
-                </MissionStatus>
-              </MissionItem>
-
-              <MissionItem $status={0}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <LockIcon />
-                </MissionStatus>
-              </MissionItem>
-
-              <MissionItem $status={0}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <LockIcon />
-                </MissionStatus>
-              </MissionItem>
-              <MissionItem $status={0}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <LockIcon />
-                </MissionStatus>
-              </MissionItem>
-              <MissionItem $status={0}>
-                <DimLayer />
-                <MissionIcon>
-                  <MissionIconImage />
-                </MissionIcon>
-                <MissionInfo>
-                  <MissionTag>Mission 01</MissionTag>
-                  <MissionTitleTypo>Welcome to Koala Knights!</MissionTitleTypo>
-                  <MissionDescriptionTypo>Connect to Firma Station.</MissionDescriptionTypo>
-                </MissionInfo>
-                <MissionStatus>
-                  <LockIcon />
-                </MissionStatus>
-              </MissionItem>
+              {completedMissionList.map((mission: IMission, index: number) => (
+                <MissionItem key={index} $status={2}>
+                  <DimLayer />
+                  <MissionIcon>
+                    <MissionIconImage />
+                  </MissionIcon>
+                  <MissionInfo>
+                    <MissionTag>Mission {mission.step + 1}</MissionTag>
+                    <MissionTitleTypo>{mission.title}</MissionTitleTypo>
+                    <MissionDescriptionTypo>{mission.description}</MissionDescriptionTypo>
+                  </MissionInfo>
+                  <MissionStatus>
+                    <CheckIcon />
+                  </MissionStatus>
+                </MissionItem>
+              ))}
             </MissionList>
           </ContentsWrapper>
         </Borders>

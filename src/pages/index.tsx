@@ -43,9 +43,8 @@ const HomePage = () => {
           getUserMissionData(address),
         ]);
 
-        // if (missionList.length !== MISSION_COUNT) throw new Error('Failed to get mission data');
-        // if (tierList.length !== TIER_COUNT) throw new Error('Failed to get tier data');
-        // userData.currentMissionStep = 15;
+        if (missionList.length !== MISSION_COUNT) throw new Error('Failed to get mission data');
+        if (tierList.length !== TIER_COUNT) throw new Error('Failed to get tier data');
 
         setMissionList(missionList);
         setTierList(tierList);
@@ -56,9 +55,8 @@ const HomePage = () => {
       }
     } catch (e) {
       console.error(e);
-      // TODO : error handling
-      // logout();
-      // window.location.reload();
+      logout();
+      window.location.reload();
     }
   };
 
@@ -96,7 +94,9 @@ const HomePage = () => {
       <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleLoaded} handleEnded={handleEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
       {shouldShowStage && <Stage isReady={isEnded} missionList={missionList} userData={userData} />}
-      {shouldShowStage && <Hud tierList={tierList} achievementList={achievementList} userData={userData} />}
+      {shouldShowStage && (
+        <Hud tierList={tierList} achievementList={achievementList} missionList={missionList} userData={userData} />
+      )}
       <Footer isLogin={shouldShowStage} />
     </MainContainer>
   );

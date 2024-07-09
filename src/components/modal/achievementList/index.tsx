@@ -26,24 +26,23 @@ const AchievementListModal = () => {
 
   useEffect(() => {
     let completes: boolean[] = [];
-    props.achievementList.map((achievement: IAchievement, index: number) => {
+    props.achievementList.forEach((achievement: IAchievement, index: number) => {
       if (props.userData.achievementList.includes(achievement.id)) {
         completes[index] = true;
       } else {
         completes[index] = false;
       }
     });
-    console.log(completes);
     setAchievementList(props.achievementList);
     setCompleteList(completes);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleCloseModal = () => {
     closeModal();
   };
 
   return (
-    <Modal visible={true} handleClose={handleCloseModal} width={'782px'}>
+    <Modal visible={true} maskClosable={true} handleClose={handleCloseModal} width={'782px'}>
       <ModalDefaultContainer>
         <Borders color='#51290c'>
           <CloseButton onClick={() => handleCloseModal()}>

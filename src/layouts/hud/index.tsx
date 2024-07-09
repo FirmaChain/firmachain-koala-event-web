@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useModal from '../../hooks/useModal';
-import { IAchievement, ITier, IUserData } from '../../contexts/missionProvider';
+import { IAchievement, IMission, ITier, IUserData } from '../../contexts/missionProvider';
 
 import {
   TierHUDWrapper,
@@ -26,16 +26,18 @@ import {
 const Hud = ({
   tierList,
   achievementList,
+  missionList,
   userData,
 }: {
   tierList: ITier[];
   achievementList: IAchievement[];
+  missionList: IMission[];
   userData: IUserData;
 }) => {
   const modal = useModal();
 
   const handleOpenMissionModal = () => {
-    modal.openModal({ type: 'missionList', props: {} });
+    modal.openModal({ type: 'missionList', props: { missionList, userData } });
   };
 
   const handleOpenAchievementModal = () => {
