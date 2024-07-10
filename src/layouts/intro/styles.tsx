@@ -31,51 +31,42 @@ export const TitleLogoWrapper = styled.div`
   align-items: center;
 `;
 
-export const TitleLogoCharacter = styled.div`
-  z-index: 3;
-  width: 189px;
-  height: 118px;
-  margin-left: -70px;
-  background-image: url('${({ theme }) => theme.urls.introChar}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(189px * 0.8);
-    height: calc(118px * 0.8);
-  }
-
-  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
-    width: calc(189px * 1.4);
-    height: calc(118px * 1.4);
-  }
-`;
-
 export const TitleLogoImage = styled.div`
   z-index: 4;
-  width: 915px;
-  height: 256px;
+  width: 920px;
+  height: 420px;
   margin-top: -50px;
   background-image: url('${({ theme }) => theme.urls.titleLogo}');
   background-repeat: no-repeat;
   background-size: contain;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(915px * 0.8);
-    height: calc(256px * 0.8);
+    width: calc(920px * 0.8);
+    height: calc(420px * 0.8);
     margin-top: calc(-40px * 0.9);
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
-    width: calc(915px * 1.4);
-    height: calc(256px * 1.4);
-    margin-top: calc(-40px * 1.6);
+    width: calc(920px * 1.2);
+    height: calc(420px * 1.2);
+    margin-top: calc(-40px * 1.2);
   }
 `;
 
 export const TitleLabelImage = styled.div`
   z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+
   width: 400px;
   height: 85px;
   margin-top: 40px;
@@ -89,6 +80,7 @@ export const TitleLabelImage = styled.div`
     height: calc(85px * 0.8);
     margin-top: calc(40px * 0.8);
     margin-bottom: calc(150px * 0.8);
+    font-size: 18px;
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
@@ -96,6 +88,7 @@ export const TitleLabelImage = styled.div`
     height: calc(85px * 1.4);
     margin-top: calc(40px * 1.4);
     margin-bottom: calc(150px * 1.4);
+    font-size: 32px;
   }
 `;
 

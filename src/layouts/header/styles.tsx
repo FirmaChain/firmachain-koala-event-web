@@ -23,12 +23,16 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const HeaderLogoImage = styled.div`
+export const HeaderLogoImage = styled(ReactSVG)`
   width: 158px;
   height: 35px;
-  background-image: url('${({ theme }) => theme.urls.headerLogo}');
-  background-repeat: no-repeat;
-  background-size: contain;
+  div {
+    line-height: 0;
+  }
+  svg {
+    width: 158px;
+    height: 35px;
+  }
 `;
 
 export const RightWrapper = styled.div`
@@ -398,4 +402,82 @@ export const TimerValue = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
+`;
+
+export const EcosystemWrapper = styled.div`
+  display: flex;
+  height: 44px;
+  width: 44px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  gap: 18px;
+  padding: 0 18px 0 18px;
+  cursor: pointer;
+  pointer-events: auto;
+
+  border-radius: 30px;
+  border: 2px solid rgba(54, 60, 96, 0.4);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    width: auto;
+
+    & > div:last-child {
+      display: flex;
+    }
+  }
+`;
+
+export const EcosystemIcon = styled(ReactSVG)`
+  width: 20px;
+  height: 20px;
+  div {
+    line-height: 0;
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+export const EcosystemList = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  display: none;
+`;
+
+export const EcosystemItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: #363c60;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 130%;
+`;
+
+export const EcosystemDivider = styled.div`
+  width: 2px;
+  height: 12px;
+  background: rgba(54, 60, 96, 0.12);
+`;
+
+export const EcosystemExternal = styled(ReactSVG)`
+  width: 14px;
+  height: 14px;
+
+  div {
+    line-height: 0;
+  }
+  svg {
+    width: 14px;
+    height: 14px;
+  }
 `;

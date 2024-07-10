@@ -4,6 +4,7 @@ import { useSnackbar } from 'notistack';
 import useWallet from '../../hooks/useWallet';
 import { copyToClipboard, createTextEllipsis } from '../../utils/common';
 import { ITier, IUserData } from '../../contexts/missionProvider';
+import { FIRMACHAIN_URL, FIRMASTATION_URL, KOALA_KNIGHTS_URL } from '../../constants/common';
 
 import theme from '../../styles/themes';
 import {
@@ -44,6 +45,12 @@ import {
   TimerText,
   TimerLabel,
   TimerValue,
+  EcosystemWrapper,
+  EcosystemIcon,
+  EcosystemList,
+  EcosystemItem,
+  EcosystemExternal,
+  EcosystemDivider,
 } from './styles';
 
 const Header = ({
@@ -90,7 +97,7 @@ const Header = ({
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <HeaderLogoImage />
+        <HeaderLogoImage src={theme.urls.headerLogo} />
         {isLogin && (
           <RightWrapper>
             <TimerWrapper>
@@ -156,6 +163,24 @@ const Header = ({
               </UserInfoWrapper>
             </AddressWrapper>
           </RightWrapper>
+        )}
+        {isLogin === false && (
+          <EcosystemWrapper>
+            <EcosystemIcon src={theme.urls.headerEcosystem} />
+            <EcosystemList>
+              <EcosystemItem onClick={() => window.open(FIRMACHAIN_URL)}>
+                FIRMACHAIN <EcosystemExternal src={theme.urls.external} />
+              </EcosystemItem>
+              <EcosystemDivider />
+              <EcosystemItem onClick={() => window.open(FIRMASTATION_URL)}>
+                Firmastation <EcosystemExternal src={theme.urls.external} />
+              </EcosystemItem>
+              <EcosystemDivider />
+              <EcosystemItem onClick={() => window.open(KOALA_KNIGHTS_URL)}>
+                Koala knights <EcosystemExternal src={theme.urls.external} />
+              </EcosystemItem>
+            </EcosystemList>
+          </EcosystemWrapper>
         )}
       </HeaderWrapper>
     </HeaderContainer>

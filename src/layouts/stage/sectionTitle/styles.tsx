@@ -38,22 +38,22 @@ export const TitleCoinImage = styled.img<{ $top: string; $left: string; $widthCu
 
 export const TitleLogoImage = styled.div`
   z-index: 4;
-  width: 672px;
-  height: 184px;
+  width: 673px;
+  height: 230px;
   margin-top: -280px;
-  background-image: url('${({ theme }) => theme.urls.titleLogo}');
+  background-image: url('${({ theme }) => theme.urls.titleLogo2}');
   background-repeat: no-repeat;
   background-size: contain;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(672px * 0.8);
-    height: calc(184px * 0.8);
+    width: calc(673px * 0.6);
+    height: calc(230px * 0.6);
     margin-top: calc(-310px);
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
-    width: calc(672px * 1.4);
-    height: calc(184px * 1.4);
+    width: calc(673px * 1.4);
+    height: calc(230px * 1.4);
     margin-top: calc(-280px * 1.2);
   }
 `;

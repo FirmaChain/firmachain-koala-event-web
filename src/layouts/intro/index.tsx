@@ -6,15 +6,7 @@ import { walletActions } from '../../redux/action';
 
 import SectionTitle from './sectionTitle';
 import SectionBoard from './sectionBoard';
-import {
-  IntroContainer,
-  TitleWrapper,
-  TitleLogoWrapper,
-  TitleLogoCharacter,
-  TitleLogoImage,
-  TitleLabelImage,
-  TitleButton,
-} from './styles';
+import { IntroContainer, TitleWrapper, TitleLogoWrapper, TitleLogoImage, TitleLabelImage, TitleButton } from './styles';
 
 const Intro = ({ handleLoading }: { handleLoading: () => void }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -48,10 +40,9 @@ const Intro = ({ handleLoading }: { handleLoading: () => void }) => {
       <SectionBoard />
       <TitleWrapper>
         <TitleLogoWrapper>
-          <TitleLogoCharacter />
           <TitleLogoImage />
         </TitleLogoWrapper>
-        <TitleLabelImage />
+        <TitleLabelImage>Pre-Opening Festival</TitleLabelImage>
         <TitleButton onClick={() => handleWalletConnectModal()}>START</TitleButton>
       </TitleWrapper>
     </IntroContainer>

@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { FooterContainer, FooterTypo, FooterWrapper, SocialIcon, SocialItem, SocialWrapper } from './styles';
+import { MEDIUM_URL, TELEGRAM_URL, TIWTTER_URL } from '../../constants/common';
+
 import theme from '../../styles/themes';
+import { FooterContainer, FooterTypo, FooterWrapper, SocialIcon, SocialItem, SocialWrapper } from './styles';
 
 const Footer = ({ isLogin }: { isLogin: boolean }) => {
   return (
@@ -9,13 +11,13 @@ const Footer = ({ isLogin }: { isLogin: boolean }) => {
       <FooterWrapper>
         <FooterTypo>ⓒ FIRMACHAIN Pte. Ltd. All rights reserved.</FooterTypo>
         <SocialWrapper>
-          <SocialItem>
+          <SocialItem onClick={() => window.open(MEDIUM_URL)}>
             <SocialIcon src={theme.urls.socialMedium} />
           </SocialItem>
-          <SocialItem>
+          <SocialItem onClick={() => window.open(TIWTTER_URL)}>
             <SocialIcon src={theme.urls.socialX} />
           </SocialItem>
-          <SocialItem>
+          <SocialItem onClick={() => window.open(TELEGRAM_URL)}>
             <SocialIcon src={theme.urls.socialTelegram} />
           </SocialItem>
         </SocialWrapper>
