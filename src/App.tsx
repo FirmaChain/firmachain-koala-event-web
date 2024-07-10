@@ -6,6 +6,7 @@ import useScreen from './hooks/useScreen';
 import Homepage from './pages';
 import MobileGuideLine from './layouts/mobile';
 import Loading from './components/loading';
+import Clear from './components/clear';
 
 import './styles/reset.css';
 import './styles/normalize.css';
@@ -27,6 +28,7 @@ function App() {
       ) : (
         <React.Fragment>
           <Loading isLoading={!loaded} />
+          <Clear />
           <Homepage />
         </React.Fragment>
       )}

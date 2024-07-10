@@ -7,6 +7,11 @@ const useMission = () => {
   if (!context) throw new Error('useMission must be used within a MissionContext');
 
   return {
+    missionList: context.missionList,
+    tierList: context.tierList,
+    achievementList: context.achievementList,
+    userData: context.userData,
+    currentTier: context.currentTier,
     getMissionStatus: context.getMissionStatus,
     getMissionList: context.getMissionList,
     getTierList: context.getTierList,

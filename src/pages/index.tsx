@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import useWallet from '../hooks/useWallet';
 import useMission from '../hooks/useMission';
-import { IAchievement, IMission, ITier, IUserData } from '../contexts/missionProvider';
 import { EVENT_OPEN_STATUS, MISSION_COUNT, TIER_COUNT } from '../constants/common';
 
 import StageLoading from '../components/stageLoading';
@@ -21,22 +20,12 @@ const HomePage = () => {
   const [isLoaded, setLoaded] = React.useState(false);
   const [isEnded, setEnded] = React.useState(false);
 
-  const [missionList, setMissionList] = React.useState<IMission[]>([]);
-  const [tierList, setTierList] = React.useState<ITier[]>([]);
-  const [achievementList, setAchievementList] = React.useState<IAchievement[]>([]);
-  const [userData, setUserData] = React.useState<IUserData>({
-    currentMissionStep: 0,
-    achievementList: [],
-    treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
-    floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
-  });
-
   const initialize = async () => {
     try {
       const missionStatus = await getMissionStatus();
 
       if (missionStatus.status === EVENT_OPEN_STATUS) {
-        const [missionList, tierList, achievementList, userData] = await Promise.all([
+        const [missionList, tierList] = await Promise.all([
           getMissionList(),
           getTierList(),
           getAchievementList(),
@@ -45,11 +34,6 @@ const HomePage = () => {
 
         if (missionList.length !== MISSION_COUNT) throw new Error('Failed to get mission data');
         if (tierList.length !== TIER_COUNT) throw new Error('Failed to get tier data');
-
-        setMissionList(missionList);
-        setTierList(tierList);
-        setAchievementList(achievementList);
-        setUserData(userData);
       } else {
         throw new Error('Event is not open');
       }
@@ -90,13 +74,11 @@ const HomePage = () => {
 
   return (
     <MainContainer>
-      <Header isLogin={shouldShowStage} tierList={tierList} userData={userData} handleLogout={handleLogout} />
+      <Header isLogin={shouldShowStage} handleLogout={handleLogout} />
       <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleLoaded} handleEnded={handleEnded} />
       {shouldShowIntro && <Intro handleLoading={handleLoading} />}
-      {shouldShowStage && <Stage isReady={isEnded} missionList={missionList} userData={userData} />}
-      {shouldShowStage && (
-        <Hud tierList={tierList} achievementList={achievementList} missionList={missionList} userData={userData} />
-      )}
+      {shouldShowStage && <Stage isReady={isEnded} />}
+      {shouldShowStage && <Hud />}
       <Footer isLogin={shouldShowStage} />
     </MainContainer>
   );

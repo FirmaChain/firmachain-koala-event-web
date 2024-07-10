@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { IMission, IUserData } from '../../../contexts/missionProvider';
+import useClear from '../../../hooks/useClear';
+import { MissionType } from '../../../contexts/missionProvider';
 
 import theme from '../../../styles/themes';
 import {
@@ -47,6 +48,8 @@ import {
   MissionMessageBoxMiddle,
   MissionMessageBoxBottom,
 } from './styles';
+import useMission from '../../../hooks/useMission';
+import useWallet from '../../../hooks/useWallet';
 
 const stages = [
   { xOffset: 0, yOffset: 0, flip: true }, // 1
@@ -77,34 +80,38 @@ const stages = [
   { xOffset: 1, yOffset: 16, flip: true }, // 26
 ];
 
-const SectionBoard = ({
-  isReady,
-  missionList,
-  userData,
-}: {
-  isReady: boolean;
-  missionList: IMission[];
-  userData: IUserData;
-}) => {
-  const [stepIndex, setStepIndex] = useState(userData.currentMissionStep);
+const SectionBoard = ({ isReady }: { isReady: boolean }) => {
+  const { address } = useWallet();
+  const { isClear, setClear, setType } = useClear();
+  const { missionList, userData, completeMission, getUserMissionData } = useMission();
+
+  const [stepIndex, setStepIndex] = useState(0);
+  const [btnStep, setBtnStep] = useState(0);
   const [jumpAnimate, setJumpAnimate] = useState(false);
   const [spawnAnimate, setSpawnAnimate] = useState(false);
   const [showMessageBox, setShowMessageBox] = useState(false);
+  const [waitingClear, setWaitingClear] = useState(false);
 
   const characterRef = useRef(null);
   const stageRefs = useRef<HTMLDivElement[]>([]);
 
+  // const stepIndex = useMemo(() => userData.currentMissionStep, [userData.currentMissionStep]);
+
   useEffect(() => {
     if (isReady) {
-      const handleAnimations = () => {
-        playSpawnAnimation();
-        setTimeout(() => setShowMessageBox(true), 800);
-      };
-
+      setStepIndex(userData.currentMissionStep);
       moveInitCurrentStep();
-      setTimeout(handleAnimations, stepIndex === 0 ? 0 : 1000);
+      const timeout = setTimeout(
+        () => {
+          playSpawnAnimation();
+          setTimeout(() => setShowMessageBox(true), 800);
+        },
+        stepIndex === 0 ? 0 : 1000
+      );
+
+      return () => clearTimeout(timeout);
     }
-  }, [isReady]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isReady, stepIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const handleAnimationEnd = () => {
@@ -119,6 +126,36 @@ const SectionBoard = ({
       if (node) node.removeEventListener('animationend', handleAnimationEnd);
     };
   }, [stepIndex]);
+
+  useEffect(() => {
+    if (isClear && waitingClear === false) {
+      console.log('CLEAR ON');
+      setWaitingClear(true);
+    } else if (isClear === false && waitingClear) {
+      console.log('CLEAR OFF');
+      setWaitingClear(false);
+
+      completeMission()
+        .then(() => {
+          getUserMissionData(address);
+        })
+        .catch(() => {});
+    }
+  }, [isClear, waitingClear]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (stepIndex !== userData.currentMissionStep) {
+      console.log('CHANGED STEP', userData.currentMissionStep);
+      setTimeout(() => {
+        setStepIndex(userData.currentMissionStep);
+        setType(0);
+        setBtnStep(0);
+        setClear(false);
+
+        toggleAnimation();
+      }, 0);
+    }
+  }, [userData.currentMissionStep]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const playSpawnAnimation = () => {
     setSpawnAnimate(true);
@@ -141,9 +178,19 @@ const SectionBoard = ({
 
   const moveStep = () => {
     if (stepIndex < stages.length - 1) {
-      setStepIndex(stepIndex + 1);
       setShowMessageBox(false);
       setJumpAnimate(true);
+    }
+  };
+
+  const handleMissionButton = () => {
+    const currentMission = missionList[stepIndex];
+    if (currentMission.type === MissionType.GENERAL && btnStep === 0) {
+      setBtnStep(1);
+      window.open(currentMission.extra1, '_blank');
+    } else {
+      if (currentMission.type === MissionType.TIER) setType(1);
+      setClear(true);
     }
   };
 
@@ -159,13 +206,13 @@ const SectionBoard = ({
         <MissionMessageBoxMiddle>
           <MissionLabel>
             <MissionLabelIcon src={theme.urls.sword} />
-            <MissionLabelTypo>Mission 1</MissionLabelTypo>
+            <MissionLabelTypo>Mission {stepIndex + 1}</MissionLabelTypo>
           </MissionLabel>
-          <MissionTitleTypo>Let’s open today’s treasure box!</MissionTitleTypo>
-          <MissionDescriptionTypo>Click on the treasure box at the top of the page.</MissionDescriptionTypo>
-          <PrimaryButton>
+          <MissionTitleTypo>{missionList[stepIndex].title}</MissionTitleTypo>
+          <MissionDescriptionTypo>{missionList[stepIndex].description}</MissionDescriptionTypo>
+          <PrimaryButton onClick={() => handleMissionButton()}>
             <ButtonLeft />
-            <ButtonCenter>Go</ButtonCenter>
+            <ButtonCenter>{btnStep === 0 ? missionList[stepIndex].btn1 : missionList[stepIndex].btn2}</ButtonCenter>
             <ButtonRight />
           </PrimaryButton>
         </MissionMessageBoxMiddle>
@@ -176,7 +223,6 @@ const SectionBoard = ({
         $yOffset={stages[stepIndex].yOffset}
         $flip={stages[stepIndex].flip}
         $animate={spawnAnimate}
-        onClick={toggleAnimation}
       >
         <CharacterImage ref={characterRef} $animate={jumpAnimate} $isRun={false} />
       </CharacterWrapper>

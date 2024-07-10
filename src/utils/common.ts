@@ -68,3 +68,9 @@ export const convertNumber = (value: string | number | undefined) => {
 export const convertToFctString = (uFctAmount: string) => {
   return FirmaUtil.getFCTStringFromUFCTStr(uFctAmount);
 };
+
+export const truncateString = (str: string, num: number) => {
+  if (str.length <= num) return str;
+
+  return str.slice(0, num) + '...';
+};

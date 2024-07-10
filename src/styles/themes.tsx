@@ -82,6 +82,10 @@ const urls = {
   hudHoverCenter: process.env.PUBLIC_URL + '/images/img_hud_message_center.png',
   hudHoverRight: process.env.PUBLIC_URL + '/images/img_hud_message_right.png',
   floatingKoa: process.env.PUBLIC_URL + '/images/img_floating_koa.gif',
+  clearBg1: process.env.PUBLIC_URL + '/images/img_clear_bg1.png',
+  clearBg2: process.env.PUBLIC_URL + '/images/img_clear_bg2.png',
+  clearBg3: process.env.PUBLIC_URL + '/images/img_clear_bg3.png',
+  clearBg4: process.env.PUBLIC_URL + '/images/img_clear_bg4.png',
 
   quizIcon: process.env.PUBLIC_URL + '/images/ic_quiz.png',
   bead: process.env.PUBLIC_URL + '/images/ic_bead.png',

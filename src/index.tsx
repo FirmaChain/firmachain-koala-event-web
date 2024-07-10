@@ -9,6 +9,7 @@ import ModalProvider from './contexts/modalProvider';
 import ScreenProvider from './contexts/screenProvider';
 import WalletProvider from './contexts/walletProvider';
 import MissionProvider from './contexts/missionProvider';
+import ClearProvider from './contexts/clearProvider';
 
 import store from './redux/store';
 
@@ -28,17 +29,19 @@ ReactDOM.createRoot(rootElement as HTMLElement).render(
           <ScreenProvider>
             <WalletProvider>
               <MissionProvider>
-                <SnackbarProvider
-                  maxSnack={3}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  Components={customSnackbarStyles}
-                >
-                  <Portal />
-                  <App />
-                </SnackbarProvider>
+                <ClearProvider>
+                  <SnackbarProvider
+                    maxSnack={3}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                    Components={customSnackbarStyles}
+                  >
+                    <Portal />
+                    <App />
+                  </SnackbarProvider>
+                </ClearProvider>
               </MissionProvider>
             </WalletProvider>
           </ScreenProvider>

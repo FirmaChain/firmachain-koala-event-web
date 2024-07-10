@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useModal from '../../hooks/useModal';
-import { IAchievement, IMission, ITier, IUserData } from '../../contexts/missionProvider';
+import useMission from '../../hooks/useMission';
 
 import {
   TierHUDWrapper,
@@ -23,18 +23,9 @@ import {
   SideMenuMessageBox2,
 } from './styles';
 
-const Hud = ({
-  tierList,
-  achievementList,
-  missionList,
-  userData,
-}: {
-  tierList: ITier[];
-  achievementList: IAchievement[];
-  missionList: IMission[];
-  userData: IUserData;
-}) => {
+const Hud = () => {
   const modal = useModal();
+  const { missionList, tierList, achievementList, userData } = useMission();
 
   const handleOpenMissionModal = () => {
     modal.openModal({ type: 'missionList', props: { missionList, userData } });
@@ -45,7 +36,7 @@ const Hud = ({
   };
 
   const isActiveTier = (tierValue: number) => {
-    return userData.currentMissionStep >= tierValue;
+    return userData.currentMissionStep > tierValue;
   };
 
   return (

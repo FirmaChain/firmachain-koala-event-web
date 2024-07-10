@@ -4,6 +4,7 @@ import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
 import { IMission, IUserData } from '../../../contexts/missionProvider';
 import { MISSION_COUNT } from '../../../constants/common';
+import { truncateString } from '../../../utils/common';
 
 import Borders from '../../../components/borders';
 import {
@@ -107,7 +108,7 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
                   <MissionInfo>
                     <MissionTag>Mission {mission.step + 1}</MissionTag>
                     <MissionTitleTypo>{mission.title}</MissionTitleTypo>
-                    <MissionDescriptionTypo>{mission.description}</MissionDescriptionTypo>
+                    <MissionDescriptionTypo>{truncateString(mission.description, 45)}</MissionDescriptionTypo>
                   </MissionInfo>
                   <MissionStatus>
                     <LockIcon />
@@ -124,7 +125,7 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
                   <MissionInfo>
                     <MissionTag>Mission {mission.step + 1}</MissionTag>
                     <MissionTitleTypo>{mission.title}</MissionTitleTypo>
-                    <MissionDescriptionTypo>{mission.description}</MissionDescriptionTypo>
+                    <MissionDescriptionTypo>{truncateString(mission.description, 45)}</MissionDescriptionTypo>
                   </MissionInfo>
                   <MissionStatus>
                     <CheckIcon />

@@ -133,8 +133,9 @@ export const MissionItem = styled.div<{ $status: number }>`
 `;
 
 export const MissionIcon = styled.div`
-  width: 74px;
-  height: 74px;
+  width: 80px;
+  height: 80px;
+  align-self: flex-start;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useSnackbar } from 'notistack';
 
 import useWallet from '../../hooks/useWallet';
+import useMission from '../../hooks/useMission';
 import { copyToClipboard, createTextEllipsis } from '../../utils/common';
-import { ITier, IUserData } from '../../contexts/missionProvider';
 import { FIRMACHAIN_URL, FIRMASTATION_URL, KOALA_KNIGHTS_URL } from '../../constants/common';
 
 import theme from '../../styles/themes';
@@ -53,32 +53,10 @@ import {
   EcosystemDivider,
 } from './styles';
 
-const Header = ({
-  isLogin,
-  tierList,
-  userData,
-  handleLogout,
-}: {
-  isLogin: boolean;
-  tierList: ITier[];
-  userData: IUserData;
-  handleLogout: () => void;
-}) => {
+const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
   const { address, logout } = useWallet();
+  const { currentTier } = useMission();
   const { enqueueSnackbar } = useSnackbar();
-
-  const currentTier = useMemo(() => {
-    const tier = tierList.reduceRight<ITier | undefined>((found, tier) => {
-      if (!found && tier.value <= userData.currentMissionStep) {
-        return tier;
-      }
-      return found;
-    }, undefined);
-
-    if (!tier) return { order: 0, name: 'Beginner', value: 0 };
-
-    return tier;
-  }, [tierList, userData]);
 
   const handleLogoutHeader = () => {
     logout();

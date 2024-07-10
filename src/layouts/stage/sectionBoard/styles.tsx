@@ -286,8 +286,8 @@ export const ButtonCenter = styled.div`
   text-transform: uppercase;
 
   background-image: url('${({ theme }) => theme.urls.buttonCenter}');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: repeat no-repeat;
+  background-size: contain;
   image-rendering: pixelated;
 `;
 
