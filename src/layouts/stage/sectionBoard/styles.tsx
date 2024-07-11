@@ -42,7 +42,7 @@ export const Container = styled.div`
 
 export const BackgroundWrapper = styled.div`
   width: 100%;
-  height: 3750px;
+  height: 4100px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@ export const BackgroundWrapper = styled.div`
 
 export const BackgroundGrass = styled.div`
   width: 100%;
-  height: 3750px;
+  height: 4100px;
   position: absolute;
   top: 0;
   left: 0;
@@ -66,14 +66,14 @@ export const BackgroundGrass = styled.div`
 
 export const BackgroundRoad = styled.div`
   width: 100%;
-  height: 3552px;
+  height: 4014px;
   position: absolute;
   top: 0;
   left: 0px;
   background-image: url('${({ theme }) => theme.urls.road}');
   background-repeat: no-repeat;
   background-position: top center;
-  background-size: contain;
+  background-size: auto;
 `;
 
 export const CharacterWrapper = styled.div<{ $xOffset: number; $yOffset: number; $flip: boolean; $animate: boolean }>`
@@ -84,7 +84,7 @@ export const CharacterWrapper = styled.div<{ $xOffset: number; $yOffset: number;
   position: absolute;
   display: ${({ $animate }) => ($animate ? 'flex' : 'none')};
 
-  top: calc(${({ $yOffset }) => $yOffset * 199}px - 40px);
+  top: calc(${({ $yOffset }) => $yOffset * 208}px - 40px);
   left: calc(50% - 200px / 2 + ${({ $xOffset }) => $xOffset * 285}px);
 
   transform: ${({ $flip }) => ($flip ? 'scaleX(-1)' : 'scaleX(1)')};
@@ -141,7 +141,7 @@ export const MissionMessageBox = styled.div<{ $xOffset: number; $yOffset: number
   align-items: center;
   position: absolute;
 
-  top: calc(${({ $yOffset }) => $yOffset * 199}px - 340px);
+  top: calc(${({ $yOffset }) => $yOffset * 208}px - 340px);
   left: calc(50% + ${({ $xOffset }) => $xOffset * 285}px - 290px);
 
   width: 574px;
@@ -307,7 +307,7 @@ export const StageStone = styled.div<{ $active: boolean; $xOffset: number; $yOff
   font-weight: 400;
 
   position: absolute;
-  top: calc(85px + ${({ $yOffset }) => $yOffset * 199}px);
+  top: calc(85px + ${({ $yOffset }) => $yOffset * 208}px);
   left: calc(50% - 164px / 2 + ${({ $xOffset }) => $xOffset * 285}px);
   width: 164px;
   height: 143px;
@@ -441,8 +441,8 @@ export const Character8Image = styled.div`
 export const Character9Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 3400px;
-  left: calc(50% + 390px);
+  top: 3600px;
+  left: calc(50% - 220px);
   width: 214px;
   height: 214px;
   background-image: url('${({ theme }) => theme.urls.character9}');
@@ -453,8 +453,8 @@ export const Character9Image = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(214px * 0.9);
     height: calc(214px * 0.9);
-    top: 3400px;
-    left: calc(50% + 390px);
+    top: 3600px;
+    left: calc(50% - 190px);
   }
 `;
 

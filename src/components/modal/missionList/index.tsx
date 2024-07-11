@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
@@ -38,10 +38,18 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
   const [completedMissionList, setCompletedMissionList] = React.useState<IMission[]>([]);
   const [nextMissionList, setNextMissionList] = React.useState<IMission[]>([]);
 
+  const currentMyMission = useMemo(() => {
+    const step = userData.currentMissionStep + 1;
+    return step > MISSION_COUNT - 1 ? MISSION_COUNT - 1 : step;
+  }, [missionList, userData]);
+
   useEffect(() => {
     let targetMissions: IMission[] = [];
     let completedMissions: IMission[] = [];
     let nextMissions: IMission[] = [];
+
+    // Remove the goal mission
+    if (missionList.length === MISSION_COUNT) missionList.pop();
 
     missionList.forEach((mission: IMission) => {
       if (mission.step < userData.currentMissionStep) {
@@ -78,9 +86,9 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
             <SubInfo>
               <SubInfoLabel>My Mission</SubInfoLabel>
               <SubInfoValue>
-                <span>{userData.currentMissionStep + 1}</span>
+                <span>{currentMyMission}</span>
                 <span>/</span>
-                <span>{MISSION_COUNT}</span>
+                <span>{MISSION_COUNT - 1}</span>
               </SubInfoValue>
             </SubInfo>
             <MissionList>

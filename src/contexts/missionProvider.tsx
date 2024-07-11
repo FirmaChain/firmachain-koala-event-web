@@ -1,5 +1,6 @@
-// import axios from 'axios';
+import axios from 'axios';
 import React, { useMemo } from 'react';
+import { CHAIN_CONFIG } from '../config';
 
 interface IMissionContext {
   getMissionStatus: () => Promise<IMissionStatus>;
@@ -7,9 +8,9 @@ interface IMissionContext {
   getTierList: () => Promise<ITier[]>;
   getAchievementList: () => Promise<IAchievement[]>;
   getUserMissionData: (userAddress: string) => Promise<IUserData>;
-  completeMission: () => Promise<void>;
-  clickFloatingCoin: () => Promise<void>;
-  openTreasureBox: () => Promise<void>;
+  completeMission: (userAddress: string) => Promise<{ isComplete: boolean }>;
+  clickFloatingCoin: (userAddress: string) => Promise<{ isComplete: boolean }>;
+  openTreasureBox: (userAddress: string) => Promise<{ isComplete: boolean }>;
   missionList: IMission[];
   tierList: ITier[];
   achievementList: IAchievement[];
@@ -52,7 +53,7 @@ export interface IMission {
 export interface ITier {
   order: number;
   name: string;
-  value: number;
+  achievementId: number;
 }
 
 export interface IAchievement {
@@ -79,8 +80,6 @@ export interface IParticipation {
 export const MissionContext = React.createContext<IMissionContext | null>(null);
 
 const MissionProvider = ({ children }: { children: React.ReactNode }) => {
-  // const apiHost = 'http://localhost:3001';
-
   const [missionList, setMissionList] = React.useState<IMission[]>([]);
   const [tierList, setTierList] = React.useState<ITier[]>([]);
   const [achievementList, setAchievementList] = React.useState<IAchievement[]>([]);
@@ -91,56 +90,34 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
   });
 
-  const [dummyStep, setDummyStep] = React.useState(0);
-
   const getMissionStatus = async (): Promise<IMissionStatus> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions/status`);
-      // console.log(response.data);
+      const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/status`);
+      const status = response.data.result;
       console.log('getMissionStatus');
 
-      return {
-        startDate: '',
-        endDate: '',
-        status: 1,
-      };
+      return status;
     } catch (e) {
       console.error(e);
 
       return {
+        status: -1,
         startDate: '',
         endDate: '',
-        status: -1,
       };
     }
   };
 
   const getMissionList = async (): Promise<IMission[]> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions`);
-      // const missionList = response.data.result.missionList;
-      // if (missionList === undefined) throw new Error('No Mission List');
+      const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions`);
+      const missionList = response.data.result.missionList;
+      if (missionList === undefined) throw new Error('No Mission List');
       console.log('getMissionList');
-      let dummyMissionList: IMission[] = [];
 
-      for (let i = 0; i < 26; i++) {
-        dummyMissionList.push({
-          step: i,
-          type: MissionType.GENERAL,
-          title: `Mission ${i + 1}`,
-          description: `Mission ${i + 1} description`,
-          btn1: `button1`,
-          btn2: `button2`,
-          hint: `hint`,
-          value: 1,
-          extra1: '',
-          extra2: '',
-        });
-      }
+      setMissionList(missionList);
 
-      setMissionList(dummyMissionList);
-
-      return dummyMissionList;
+      return missionList;
     } catch (e) {
       console.error(e);
       return [];
@@ -149,20 +126,13 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getTierList = async (): Promise<ITier[]> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions/tiers`);
-      // console.log(response.data);
+      const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/tiers`);
+      const tierList = response.data.result.tierList;
       console.log('getTierList');
 
-      const dummyTierList: ITier[] = [
-        { order: 1, name: 'Bronze', value: 3 },
-        { order: 2, name: 'Silver', value: 7 },
-        { order: 3, name: 'Gold', value: 11 },
-        { order: 4, name: 'Platinum', value: 18 },
-        { order: 5, name: 'Diamond', value: 25 },
-      ];
+      setTierList(tierList);
 
-      setTierList(dummyTierList);
-      return dummyTierList;
+      return tierList;
     } catch (e) {
       console.error(e);
       return [];
@@ -171,24 +141,13 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getAchievementList = async (): Promise<IAchievement[]> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions/achievements`);
-      // console.log(response.data);
+      const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/achievements`);
+      const achievementList = response.data.result.achievementList;
       console.log('getAchievementList');
 
-      const dummyAchievementList: IAchievement[] = [
-        { id: 0, type: MissionType.TIER, name: '', value: 1 },
-        { id: 1, type: MissionType.TIER, name: '', value: 1 },
-        { id: 2, type: MissionType.TIER, name: '', value: 1 },
-        { id: 3, type: MissionType.TIER, name: '', value: 1 },
-        { id: 4, type: MissionType.TIER, name: '', value: 1 },
-        { id: 5, type: 'medal', name: '', value: 1 },
-        { id: 6, type: 'medal', name: '', value: 1 },
-        { id: 7, type: 'medal', name: '', value: 1 },
-      ];
+      setAchievementList(achievementList);
 
-      setAchievementList(dummyAchievementList);
-
-      return dummyAchievementList;
+      return achievementList;
     } catch (e) {
       console.error(e);
       return [];
@@ -197,20 +156,13 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getUserMissionData = async (userAddress: string): Promise<IUserData> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions/${userAddress}`);
-      // console.log(response.data);
-      console.log('getUserMissionData');
+      const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/${userAddress}`);
+      const userData = response.data.result;
+      console.log('getUserMissionData', userData);
 
-      const dummyUserData = {
-        currentMissionStep: dummyStep,
-        achievementList: [0, 6, 7],
-        treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
-        floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
-      };
+      setUserData(userData);
 
-      setUserData(dummyUserData);
-      setDummyStep(dummyStep + 1);
-      return dummyUserData;
+      return userData;
     } catch (e) {
       console.error(e);
 
@@ -223,45 +175,84 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const completeMission = async () => {
+  const completeMission = async (userAddress: string): Promise<{ isComplete: boolean }> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions/complete`);
-      // console.log(response.data);
+      const response = await axios.post(`${CHAIN_CONFIG.API_HOST}/missions/complete`, { userAddress });
+      let isComplete = false;
+      if (response.data.code === 0) {
+        isComplete = response.data.result.isComplete;
+      }
+
+      console.log('completeMission');
+
+      return {
+        isComplete,
+      };
     } catch (e) {
       console.error(e);
+      return {
+        isComplete: false,
+      };
     }
   };
 
-  const clickFloatingCoin = async () => {
+  const clickFloatingCoin = async (userAddress: string): Promise<{ isComplete: boolean }> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions/coin`);
-      // console.log(response.data);
+      const response = await axios.post(`${CHAIN_CONFIG.API_HOST}/missions/coin`, { userAddress });
+      let isComplete = false;
+      if (response.data.code === 0) {
+        isComplete = response.data.result.isComplete;
+      }
+
+      console.log('clickFloatingCoin');
+
+      return {
+        isComplete,
+      };
     } catch (e) {
       console.error(e);
+      return {
+        isComplete: false,
+      };
     }
   };
 
-  const openTreasureBox = async () => {
+  const openTreasureBox = async (userAddress: string): Promise<{ isComplete: boolean }> => {
     try {
-      // const response = await axios.get(`${apiHost}/missions/treasure`);
-      // console.log(response.data);
+      const response = await axios.post(`${CHAIN_CONFIG.API_HOST}/missions/treasure`, { userAddress });
+      let isComplete = false;
+      if (response.data.code === 0) {
+        isComplete = response.data.result.isComplete;
+      }
+
+      console.log('openTreasureBox');
+
+      return {
+        isComplete,
+      };
     } catch (e) {
       console.error(e);
+      return {
+        isComplete: false,
+      };
     }
   };
 
   const currentTier = useMemo(() => {
     const tier = tierList.reduceRight<ITier | undefined>((found, tier) => {
-      if (!found && tier.value < userData.currentMissionStep) {
-        return tier;
+      if (!found) {
+        const targetValue = achievementList.find((achievement) => achievement.id === tier.achievementId)?.value!;
+        if (targetValue < userData.currentMissionStep) {
+          return tier;
+        }
       }
       return found;
     }, undefined);
 
-    if (!tier) return { order: 0, name: 'Beginner', value: 0 };
+    if (!tier) return { order: 0, name: 'Beginner', achievementId: -1 };
 
     return tier;
-  }, [tierList, userData]);
+  }, [tierList, userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <MissionContext.Provider

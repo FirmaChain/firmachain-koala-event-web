@@ -1,7 +1,7 @@
 export const EVENT_OPEN_STATUS = 1;
 export const EVENT_CLOSE_STATUS = -1;
 
-export const MISSION_COUNT = 26;
+export const MISSION_COUNT = 27;
 export const TIER_COUNT = 5;
 
 export const FIRMACHAIN_URL = 'https://firmachain.org';

@@ -35,8 +35,10 @@ const Hud = () => {
     modal.openModal({ type: 'achievementList', props: { achievementList, userData } });
   };
 
-  const isActiveTier = (tierValue: number) => {
-    return userData.currentMissionStep > tierValue;
+  const isActiveTier = (achievementId: number) => {
+    const value = achievementList.find((achievement) => achievement.id === achievementId)?.value!;
+
+    return userData.currentMissionStep > value;
   };
 
   return (
@@ -66,7 +68,7 @@ const Hud = () => {
         <TierBg />
         <TierCoin />
         {tierList.map((tier, index) => (
-          <TierIcon key={index} $index={index} $active={isActiveTier(tier.value)}>
+          <TierIcon key={index} $index={index} $active={isActiveTier(tier.achievementId)}>
             <SideMenuMessageBox2>
               <SideMenuMessageBoxLeft2 />
               <SideMenuMessageBoxCenter2>{tier.name}</SideMenuMessageBoxCenter2>

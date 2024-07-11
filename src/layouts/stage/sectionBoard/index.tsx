@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSnackbar } from 'notistack';
 
 import useClear from '../../../hooks/useClear';
+import useMission from '../../../hooks/useMission';
+import useWallet from '../../../hooks/useWallet';
 import { MissionType } from '../../../contexts/missionProvider';
+import { MISSION_COUNT } from '../../../constants/common';
 
 import theme from '../../../styles/themes';
 import {
@@ -48,40 +52,40 @@ import {
   MissionMessageBoxMiddle,
   MissionMessageBoxBottom,
 } from './styles';
-import useMission from '../../../hooks/useMission';
-import useWallet from '../../../hooks/useWallet';
 
 const stages = [
-  { xOffset: 0, yOffset: 0, flip: true }, // 1
-  { xOffset: 0, yOffset: 1, flip: true }, // 2
-  { xOffset: 0, yOffset: 2, flip: true }, // 3
-  { xOffset: 0, yOffset: 3, flip: true }, // 4
-  { xOffset: 1, yOffset: 3, flip: true }, // 5
-  { xOffset: 1, yOffset: 4, flip: false }, // 6
-  { xOffset: 1, yOffset: 5, flip: false }, // 7
-  { xOffset: 1, yOffset: 6, flip: false }, // 8
-  { xOffset: 0, yOffset: 6, flip: false }, // 9
-  { xOffset: -1, yOffset: 6, flip: false }, // 10
-  { xOffset: -1, yOffset: 7, flip: true }, // 11
-  { xOffset: -1, yOffset: 8, flip: true }, // 12
-  { xOffset: -1, yOffset: 9, flip: true }, // 13
-  { xOffset: 0, yOffset: 9, flip: true }, // 14
-  { xOffset: 1, yOffset: 9, flip: true }, // 15
-  { xOffset: 1, yOffset: 10, flip: false }, // 16
-  { xOffset: 1, yOffset: 11, flip: false }, // 17
-  { xOffset: 1, yOffset: 12, flip: false }, // 18
-  { xOffset: 0, yOffset: 12, flip: false }, // 19
-  { xOffset: -1, yOffset: 12, flip: false }, // 20
-  { xOffset: -1, yOffset: 13, flip: true }, // 21
-  { xOffset: -1, yOffset: 14, flip: true }, // 22
-  { xOffset: -1, yOffset: 15, flip: true }, // 23
-  { xOffset: -1, yOffset: 16, flip: true }, // 24
-  { xOffset: 0, yOffset: 16, flip: true }, // 25
-  { xOffset: 1, yOffset: 16, flip: true }, // 26
+  { xOffset: 0, yOffset: 0, flip: true, text: '1' }, // 1
+  { xOffset: 0, yOffset: 1, flip: true, text: '2' }, // 2
+  { xOffset: 0, yOffset: 2, flip: true, text: '3' }, // 3
+  { xOffset: 0, yOffset: 3, flip: true, text: '4' }, // 4
+  { xOffset: 1, yOffset: 3, flip: true, text: '5' }, // 5
+  { xOffset: 1, yOffset: 4, flip: false, text: '6' }, // 6
+  { xOffset: 1, yOffset: 5, flip: false, text: '7' }, // 7
+  { xOffset: 1, yOffset: 6, flip: false, text: '8' }, // 8
+  { xOffset: 0, yOffset: 6, flip: false, text: '9' }, // 9
+  { xOffset: -1, yOffset: 6, flip: false, text: '10' }, // 10
+  { xOffset: -1, yOffset: 7, flip: true, text: '11' }, // 11
+  { xOffset: -1, yOffset: 8, flip: true, text: '12' }, // 12
+  { xOffset: -1, yOffset: 9, flip: true, text: '13' }, // 13
+  { xOffset: 0, yOffset: 9, flip: true, text: '14' }, // 14
+  { xOffset: 1, yOffset: 9, flip: true, text: '15' }, // 15
+  { xOffset: 1, yOffset: 10, flip: false, text: '16' }, // 16
+  { xOffset: 1, yOffset: 11, flip: false, text: '17' }, // 17
+  { xOffset: 1, yOffset: 12, flip: false, text: '18' }, // 18
+  { xOffset: 0, yOffset: 12, flip: false, text: '19' }, // 19
+  { xOffset: -1, yOffset: 12, flip: false, text: '20' }, // 20
+  { xOffset: -1, yOffset: 13, flip: true, text: '21' }, // 21
+  { xOffset: -1, yOffset: 14, flip: true, text: '22' }, // 22
+  { xOffset: -1, yOffset: 15, flip: true, text: '23' }, // 23
+  { xOffset: -1, yOffset: 16, flip: true, text: '24' }, // 24
+  { xOffset: 0, yOffset: 16, flip: true, text: '25' }, // 25
+  { xOffset: 1, yOffset: 16, flip: true, text: '26' }, // 26
+  { xOffset: 1, yOffset: 17.3, flip: false, text: 'Goal' }, // Goal
 ];
 
 const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   const { address } = useWallet();
+  const { enqueueSnackbar } = useSnackbar();
   const { isClear, setClear, setType } = useClear();
   const { missionList, userData, completeMission, getUserMissionData } = useMission();
 
@@ -94,8 +98,6 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
 
   const characterRef = useRef(null);
   const stageRefs = useRef<HTMLDivElement[]>([]);
-
-  // const stepIndex = useMemo(() => userData.currentMissionStep, [userData.currentMissionStep]);
 
   useEffect(() => {
     if (isReady) {
@@ -134,12 +136,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
     } else if (isClear === false && waitingClear) {
       console.log('CLEAR OFF');
       setWaitingClear(false);
-
-      completeMission()
-        .then(() => {
-          getUserMissionData(address);
-        })
-        .catch(() => {});
+      getUserMissionData(address);
     }
   }, [isClear, waitingClear]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -189,8 +186,19 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
       setBtnStep(1);
       window.open(currentMission.extra1, '_blank');
     } else {
-      if (currentMission.type === MissionType.TIER) setType(1);
-      setClear(true);
+      completeMission(address)
+        .then((result) => {
+          if (result.isComplete) {
+            if (currentMission.type === MissionType.TIER) setType(1);
+            setClear(true);
+          } else {
+            throw new Error('Mission is not complete');
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+          enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
+        });
     }
   };
 
@@ -206,7 +214,9 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
         <MissionMessageBoxMiddle>
           <MissionLabel>
             <MissionLabelIcon src={theme.urls.sword} />
-            <MissionLabelTypo>Mission {stepIndex + 1}</MissionLabelTypo>
+            <MissionLabelTypo>
+              {stepIndex < MISSION_COUNT - 1 ? `Mission ${stepIndex + 1}` : 'Completed'}
+            </MissionLabelTypo>
           </MissionLabel>
           <MissionTitleTypo>{missionList[stepIndex].title}</MissionTitleTypo>
           <MissionDescriptionTypo>{missionList[stepIndex].description}</MissionDescriptionTypo>
@@ -264,7 +274,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
             $xOffset={stage.xOffset}
             $yOffset={stage.yOffset}
           >
-            {index + 1}
+            {stage.text}
           </StageStone>
         ))}
       </BackgroundWrapper>
