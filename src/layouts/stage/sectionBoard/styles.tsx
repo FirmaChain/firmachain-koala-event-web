@@ -317,45 +317,6 @@ export const StageStone = styled.div<{ $active: boolean; $xOffset: number; $yOff
   image-rendering: pixelated;
 `;
 
-export const MissionBoardImage = styled.div`
-  z-index: 3;
-  position: absolute;
-  top: -110px;
-  left: calc(50% - 700px);
-  width: 238px;
-  height: 218px;
-  background-image: url('${({ theme }) => theme.urls.missionBoard}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(238px * 0.8);
-    height: calc(218px * 0.8);
-    left: calc(50% - 540px);
-  }
-`;
-
-export const BirdImage = styled.div`
-  z-index: 3;
-  position: absolute;
-  top: -220px;
-  left: calc(50% - 740px);
-  width: 122px;
-  height: 143px;
-  background-image: url('${({ theme }) => theme.urls.character5}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(122px * 0.8);
-    height: calc(143px * 0.8);
-    left: calc(50% - 574px);
-    top: -202px;
-  }
-`;
-
 export const Character6Image = styled.div`
   z-index: 3;
   position: absolute;
@@ -400,7 +361,7 @@ export const Character4Image = styled.div`
 export const Character7Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 990px;
+  top: 1030px;
   left: calc(50% - 300px);
   width: 142px;
   height: 142px;
@@ -412,7 +373,7 @@ export const Character7Image = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(142px * 0.9);
     height: calc(142px * 0.9);
-    top: 1000px;
+    top: 1040px;
     left: calc(50% - 270px);
   }
 `;
@@ -420,7 +381,7 @@ export const Character7Image = styled.div`
 export const Character8Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2140px;
+  top: 2240px;
   left: calc(50% - 390px);
   width: 190px;
   height: 190px;
@@ -433,7 +394,7 @@ export const Character8Image = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(190px * 0.9);
     height: calc(190px * 0.9);
-    top: 2160px;
+    top: 2240px;
     left: calc(50% - 350px);
   }
 `;
@@ -461,7 +422,7 @@ export const Character9Image = styled.div`
 export const Character3Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2920px;
+  top: 3050px;
   left: calc(50% - 100px);
   width: 308px;
   height: 180px;
@@ -473,7 +434,7 @@ export const Character3Image = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(308px * 0.9);
     height: calc(180px * 0.9);
-    top: 2920px;
+    top: 3080px;
     left: calc(50% - 80px);
   }
 `;
@@ -524,7 +485,7 @@ export const SignWood2 = styled.div`
 export const Tree = styled.div`
   z-index: 3;
   position: absolute;
-  top: 1250px;
+  top: 1350px;
   left: calc(50% + 450px);
   width: 153px;
   height: 311px;
@@ -536,7 +497,7 @@ export const Tree = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(235px * 0.9);
     height: calc(266px * 0.9);
-    top: 1320px;
+    top: 1420px;
     left: calc(50% + 450px);
   }
 `;
@@ -544,7 +505,7 @@ export const Tree = styled.div`
 export const Tree2 = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2600px;
+  top: 2650px;
   left: calc(50% + 60px);
   width: 153px;
   height: 311px;
@@ -556,7 +517,7 @@ export const Tree2 = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(235px * 0.9);
     height: calc(266px * 0.9);
-    top: 2630px;
+    top: 2750px;
     left: calc(50% + 60px);
   }
 `;
@@ -564,7 +525,7 @@ export const Tree2 = styled.div`
 export const StarStone = styled.div`
   z-index: 3;
   position: absolute;
-  top: 850px;
+  top: 880px;
   left: calc(50% - 200px);
   width: 232px;
   height: 292px;
@@ -576,7 +537,7 @@ export const StarStone = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(232px * 0.9);
     height: calc(292px * 0.9);
-    top: 870px;
+    top: 910px;
     left: calc(50% - 180px);
   }
 `;
@@ -584,7 +545,7 @@ export const StarStone = styled.div`
 export const CharacterStone = styled.div`
   z-index: 3;
   position: absolute;
-  top: 1450px;
+  top: 1530px;
   left: calc(50%);
   width: 266px;
   height: 274px;
@@ -596,7 +557,7 @@ export const CharacterStone = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(266px * 0.9);
     height: calc(274px * 0.9);
-    top: 1450px;
+    top: 1550px;
     left: calc(50%);
   }
 `;
@@ -604,7 +565,7 @@ export const CharacterStone = styled.div`
 export const GemBox = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2100px;
+  top: 2200px;
   left: calc(50% - 200px);
   width: 234px;
   height: 234px;
@@ -616,7 +577,7 @@ export const GemBox = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(234px * 0.9);
     height: calc(234px * 0.9);
-    top: 2120px;
+    top: 2200px;
     left: calc(50% - 190px);
   }
 `;
@@ -624,7 +585,7 @@ export const GemBox = styled.div`
 export const Chest2 = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2800px;
+  top: 2950px;
   left: calc(50% + 350px);
   width: 188px;
   height: 225px;
@@ -636,7 +597,7 @@ export const Chest2 = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(188px * 0.9);
     height: calc(225px * 0.9);
-    top: 2800px;
+    top: 3000px;
     left: calc(50% + 330px);
   }
 `;
@@ -644,7 +605,7 @@ export const Chest2 = styled.div`
 export const Gem = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2910px;
+  top: 3080px;
   left: calc(50% + 260px);
   width: 88px;
   height: 88px;
@@ -658,7 +619,7 @@ export const Gem = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(88px * 0.9);
     height: calc(88px * 0.9);
-    top: 2910px;
+    top: 3120px;
     left: calc(50% + 240px);
   }
 `;
@@ -758,4 +719,36 @@ export const Character11Image = styled.div`
     top: -175px;
     left: calc(50% - 105px);
   }
+`;
+
+export const GoToCharacter = styled.div`
+  position: fixed;
+  bottom: 25px;
+  z-index: 100;
+  cursor: pointer;
+  padding: 12px 24px;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  color: #fff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 700;
+
+  border-radius: 100px;
+  background: linear-gradient(90deg, #ffc700 -34.18%, #f4763b 47.61%, #fa5c12 114.54%);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+`;
+
+export const BackArrow = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url('${({ theme }) => theme.urls.backArrow}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
 `;

@@ -92,11 +92,11 @@ export const TierIcon = styled.div<{ $type: number; $tier: number }>`
   ${({ $type }) => $type !== 1 && `display: none;`}
   z-index: 6;
   position: absolute;
-  top: calc(50% + 70px);
+  top: calc(50% + 40px);
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   background-image: url('${({ theme, $tier }) => theme.urls.tierList[$tier]}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -106,8 +106,8 @@ export const TierIcon = styled.div<{ $type: number; $tier: number }>`
   animation: ${scaleUp} 0.4s ease-out forwards;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(150px * 0.8);
-    height: calc(150px * 0.8);
-    top: calc(50% + 50px);
+    width: calc(120px * 0.8);
+    height: calc(120px * 0.8);
+    top: calc(50% + 40px);
   }
 `;

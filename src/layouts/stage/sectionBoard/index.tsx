@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import useClear from '../../../hooks/useClear';
 import useMission from '../../../hooks/useMission';
 import useWallet from '../../../hooks/useWallet';
+import useModal from '../../../hooks/useModal';
 import { MissionType } from '../../../contexts/missionProvider';
 import { MISSION_COUNT } from '../../../constants/common';
 
@@ -16,9 +17,6 @@ import {
   CharacterWrapper,
   CharacterImage,
   Fance,
-  MissionBoardImage,
-  BirdImage,
-  Character6Image,
   MissionMessageBox,
   MissionLabel,
   MissionTitleTypo,
@@ -51,6 +49,8 @@ import {
   MissionMessageBoxTop,
   MissionMessageBoxMiddle,
   MissionMessageBoxBottom,
+  GoToCharacter,
+  BackArrow,
 } from './styles';
 
 const stages = [
@@ -88,6 +88,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { isClear, setClear, setType } = useClear();
   const { missionList, userData, completeMission, getUserMissionData } = useMission();
+  const modal = useModal();
 
   const [stepIndex, setStepIndex] = useState(0);
   const [btnStep, setBtnStep] = useState(0);
@@ -95,6 +96,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   const [spawnAnimate, setSpawnAnimate] = useState(false);
   const [showMessageBox, setShowMessageBox] = useState(false);
   const [waitingClear, setWaitingClear] = useState(false);
+  const [isActiveBack, setIsActiveBack] = useState(false);
 
   const characterRef = useRef(null);
   const stageRefs = useRef<HTMLDivElement[]>([]);
@@ -154,6 +156,31 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
     }
   }, [userData.currentMissionStep]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentStage = stageRefs.current[stepIndex];
+      if (currentStage) {
+        const rect = currentStage.getBoundingClientRect();
+        const offsetTop = window.pageYOffset + rect.top - window.innerHeight * 0.7;
+        const scrollPosition = window.pageYOffset;
+        if (scrollPosition > offsetTop + 300 || scrollPosition < offsetTop - 300) {
+          setIsActiveBack(true);
+        } else {
+          setIsActiveBack(false);
+        }
+      } else {
+        setIsActiveBack(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [stepIndex, stageRefs]);
+
   const playSpawnAnimation = () => {
     setSpawnAnimate(true);
   };
@@ -163,7 +190,10 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   };
 
   const moveInitCurrentStep = () => {
-    if (stepIndex === 0) return;
+    if (stepIndex === 0) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
     const currentStage = stageRefs.current[stepIndex];
     if (currentStage) {
@@ -186,6 +216,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
       setBtnStep(1);
       window.open(currentMission.extra1, '_blank');
     } else {
+      // modal.openModal({ type: 'quiz', props: {} });
       completeMission(address)
         .then((result) => {
           if (result.isComplete) {
@@ -204,6 +235,13 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
 
   return (
     <Container>
+      {isActiveBack && (
+        <GoToCharacter onClick={() => moveInitCurrentStep()}>
+          <BackArrow />
+          Back to My Mission
+        </GoToCharacter>
+      )}
+
       <Fance />
       <MissionMessageBox
         $xOffset={stages[stepIndex].xOffset}
@@ -244,9 +282,6 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
           <TorchRight />
         </TorchWrapper>
 
-        <MissionBoardImage />
-        <BirdImage />
-
         <SignWood />
         <SignWood2 />
         <StarStone />
@@ -257,7 +292,6 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
         <Chest2 />
         <Gem />
 
-        <Character6Image />
         <Character4Image />
         <Character7Image />
         <Character8Image />

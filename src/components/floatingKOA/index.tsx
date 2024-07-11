@@ -76,11 +76,7 @@ const FloatingKOA = ({ handleClick }: { handleClick: () => void }) => {
         onMouseLeave={handleMouseLeave}
         onClick={() => handleClick()}
       />
-      {showMessageBox && (
-        <MessageBox $top={position.y - 40} $left={position.x + 42}>
-          !
-        </MessageBox>
-      )}
+      {showMessageBox && <MessageBox $top={position.y - 46} $left={position.x + 18} />}
     </React.Fragment>
   );
 };

@@ -44,7 +44,7 @@ export const TimerWrapper = styled.div`
   height: 46px;
   line-height: 20px;
   display: flex;
-  padding: 12px 12px;
+  padding: 12px 17px;
   justify-content: center;
   align-items: center;
   border-radius: 30px;
@@ -52,7 +52,6 @@ export const TimerWrapper = styled.div`
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(5px);
   pointer-events: auto;
-
   transition: all 0.3s ease-out;
 
   &:hover {
@@ -98,14 +97,14 @@ export const DailyLabelTypo = styled.div`
 `;
 
 export const DailyValueTypo = styled.div`
-  line-height: 20px;
-  color: rgba(54, 60, 96, 0.6);
+  color: #ff6d3a;
   text-align: right;
   font-family: Poppins;
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
+  margin-left: 5px;
 `;
 
 export const AddressWrapper = styled.div`
@@ -378,7 +377,7 @@ export const MenuIcon = styled(ReactSVG)`
 `;
 
 export const TimerText = styled.div`
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
@@ -396,12 +395,13 @@ export const TimerLabel = styled.div`
 `;
 
 export const TimerValue = styled.div`
+  width: 100px;
+  text-align: right;
   color: #383838;
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
+  font-family: 'Roboto Mono', Poppins, monospace;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
 `;
 
 export const EcosystemWrapper = styled.div`

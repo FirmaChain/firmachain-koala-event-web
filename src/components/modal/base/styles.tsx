@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ModalWrapper = styled.div<{ $visible: boolean }>`
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins;
   display: ${(props) => (props.$visible ? 'block' : 'none')};
   position: fixed;
   top: 0;

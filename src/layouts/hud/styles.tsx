@@ -27,8 +27,8 @@ export const SideMenuMessageBox2 = styled.div`
   filter: drop-shadow(3px 3px 2px #333333aa); /*그림자*/
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    top: 2px;
-    right: 60px;
+    top: 0px;
+    right: 54px;
   }
 `;
 
@@ -194,41 +194,76 @@ export const SideMenuItemAchieveImage = styled.div`
 
 export const TierHUDWrapper = styled.div`
   z-index: 12;
-  position: relative;
+  position: fixed;
+  bottom: 20px;
+  right: 76px;
+  width: auto;
+  height: auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 24px;
-  position: fixed;
-  bottom: 20px;
-  right: 55px;
 
   @media screen and (min-width: ${({ theme }) => theme.sizes.maxWidth}) {
-    right: calc(50% - (${({ theme }) => theme.sizes.maxWidth} / 2) + 55px);
+    right: calc(50% - (${({ theme }) => theme.sizes.maxWidth} / 2) + 76px);
+  }
+`;
+
+export const TierGauge = styled.div`
+  position: absolute;
+  bottom: 70px;
+  display: flex;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    bottom: 60px;
   }
 `;
 
 export const TierBg = styled.div`
-  width: 90px;
-  height: 696px;
+  z-index: 13;
+  width: calc(38px * 0.9);
+  height: calc(594px * 0.9);
+  margin-bottom: 50px;
   background-image: url('${({ theme }) => theme.urls.tierBg}');
   background-size: contain;
-  background-position: center;
+  background-position: center bottom;
   background-repeat: no-repeat;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(90px * 0.8);
-    height: calc(696px * 0.8);
+    width: calc(38px * 0.8);
+    height: calc(594px * 0.8);
+  }
+`;
+
+export const TierActiveBg = styled.div<{ $fillPercent: number }>`
+  z-index: 14;
+  position: absolute;
+  bottom: 0;
+  width: calc(38px * 0.9);
+  height: calc(594px * 0.9);
+  margin-bottom: 50px;
+  background-image: url('${({ theme }) => theme.urls.tierBgActive}');
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  clip-path: inset(${({ $fillPercent }) => 100 - $fillPercent}% 0 0 0);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(38px * 0.8);
+    height: calc(594px * 0.8);
   }
 `;
 
 export const TierCoin = styled.div`
-  width: 90px;
-  height: 90px;
+  z-index: 15;
+  width: calc(90px * 0.9);
+  height: calc(90px * 0.9);
   position: absolute;
-  bottom: 2px;
-  left: calc(50% - 45px);
+  bottom: 3px;
+  left: calc(50% - 40px);
   background-image: url('${({ theme }) => theme.urls.tierCoin}');
   background-size: contain;
   background-position: center;
@@ -237,34 +272,56 @@ export const TierCoin = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(90px * 0.8);
     height: calc(90px * 0.8);
-    left: calc(50% - 36px);
+    left: calc(50% - 35px);
+    bottom: 8px;
   }
 `;
 
 export const TierIcon = styled.div<{ $index: number; $active: boolean }>`
+  z-index: 16;
   display: flex;
-  z-index: 13;
   position: absolute;
-  bottom: calc(${({ $index }) => `124px * ${$index}`} + 140px);
-  left: calc(50% - 30px);
-  width: 60px;
-  height: 60px;
-  background-image: url('${({ theme, $active, $index }) => ($active ? theme.urls.tierList[$index] : '')}');
+  bottom: calc(${({ $index }) => `110px * ${$index}`} + 120px);
+  left: calc(50% - 28px);
+  width: 55px;
+  height: 55px;
+  background-image: url('${({ theme, $active, $index }) =>
+    $active ? theme.urls.tierList[$index] : `${theme.urls.tierList[$index].split('.')[0]}_disable.png`}');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(60px * 0.8);
-    height: calc(60px * 0.8);
-    left: calc(50% - (30px * 0.8));
-    bottom: calc(${({ $index }) => `124px * 0.8 * ${$index}`} + (140px * 0.8));
+    width: calc(55px * 0.8);
+    height: calc(55px * 0.8);
+    left: calc(50% - (28px * 0.8));
+    bottom: calc(${({ $index }) => `120px * 0.8 * ${$index}`} + (150px * 0.8));
   }
 
   &:hover {
     & > ${SideMenuMessageBox2} {
       display: flex;
     }
+  }
+`;
+
+export const UpButton = styled.div<{ $active: boolean }>`
+  z-index: 16;
+  position: absolute;
+  bottom: 0;
+  width: calc(60px * 0.9);
+  height: calc(65px * 0.9);
+  background-image: url('${({ theme }) => theme.urls.up}');
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+
+  ${({ $active }) => ($active ? 'cursor: pointer;' : 'opacity:0.5;')}
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(60px * 0.8);
+    height: calc(65px * 0.8);
   }
 `;

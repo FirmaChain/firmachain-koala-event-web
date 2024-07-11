@@ -41,7 +41,7 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
   const currentMyMission = useMemo(() => {
     const step = userData.currentMissionStep + 1;
     return step > MISSION_COUNT - 1 ? MISSION_COUNT - 1 : step;
-  }, [missionList, userData]);
+  }, [userData]);
 
   useEffect(() => {
     let targetMissions: IMission[] = [];

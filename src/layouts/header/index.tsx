@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import useWallet from '../../hooks/useWallet';
@@ -43,7 +43,6 @@ import {
   TierIcon,
   TierTypo,
   TimerText,
-  TimerLabel,
   TimerValue,
   EcosystemWrapper,
   EcosystemIcon,
@@ -55,8 +54,13 @@ import {
 
 const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
   const { address, logout } = useWallet();
-  const { currentTier } = useMission();
+  const { currentTier, userData } = useMission();
   const { enqueueSnackbar } = useSnackbar();
+  const [remainingTime, setRemainingTime] = useState('00h 00m 00s');
+
+  const dailyFloatingCount = useMemo(() => {
+    return userData.floating.count ? userData.floating.count : 0;
+  }, [userData]);
 
   const handleLogoutHeader = () => {
     logout();
@@ -72,6 +76,31 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
     });
   };
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const nextDate = new Date(userData.floating.nextDate);
+      const timeDiff = nextDate.getTime() - now.getTime();
+
+      if (timeDiff > 0) {
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60))
+          .toString()
+          .padStart(2, '0');
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
+          .toString()
+          .padStart(2, '0');
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000)
+          .toString()
+          .padStart(2, '0');
+        setRemainingTime(`${hours}h ${minutes}m ${seconds}s`);
+      } else {
+        setRemainingTime('00h 00m 00s');
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [userData.floating.nextDate]);
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
@@ -81,14 +110,14 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
             <TimerWrapper>
               <TimerIcon />
               <TimerText>
-                <TimerLabel>Daily ends in</TimerLabel>
-                <TimerValue>23h 59m 59s</TimerValue>
+                <TimerValue>{remainingTime}</TimerValue>
               </TimerText>
             </TimerWrapper>
             <DailyWrapper>
               <KOAIcon />
-              <DailyLabelTypo>Daily Check-In</DailyLabelTypo>
-              <DailyValueTypo>0</DailyValueTypo>
+              <DailyLabelTypo>Daily Lucky KOA</DailyLabelTypo>
+
+              <DailyValueTypo>{dailyFloatingCount}</DailyValueTypo>
             </DailyWrapper>
             <AddressWrapper>
               <FCTIcon src={theme.urls.headerFCT} />

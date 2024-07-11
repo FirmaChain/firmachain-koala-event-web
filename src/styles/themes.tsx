@@ -35,14 +35,17 @@ const sizes = {
 
 const urls = {
   tierList: [
-    process.env.PUBLIC_URL + '/images/ic_tier_1.png',
-    process.env.PUBLIC_URL + '/images/ic_tier_2.png',
-    process.env.PUBLIC_URL + '/images/ic_tier_3.png',
-    process.env.PUBLIC_URL + '/images/ic_tier_4.png',
-    process.env.PUBLIC_URL + '/images/ic_tier_5.png',
+    process.env.PUBLIC_URL + '/images/img_tier_1.png',
+    process.env.PUBLIC_URL + '/images/img_tier_2.png',
+    process.env.PUBLIC_URL + '/images/img_tier_3.png',
+    process.env.PUBLIC_URL + '/images/img_tier_4.png',
+    process.env.PUBLIC_URL + '/images/img_tier_5.png',
   ],
-  tierBg: process.env.PUBLIC_URL + '/images/img_tier_bg.png',
+  tierBg: process.env.PUBLIC_URL + '/images/img_tier_bg_blank.png',
+  tierBgActive: process.env.PUBLIC_URL + '/images/img_tier_bg_active.png',
   tierCoin: process.env.PUBLIC_URL + '/images/img_tier_coin.png',
+  up: process.env.PUBLIC_URL + '/images/img_up.png',
+  backArrow: process.env.PUBLIC_URL + '/images/ic_back_arrow.png',
   achievementList: [
     {
       enable: process.env.PUBLIC_URL + '/images/img_badge_bronze.png',
@@ -82,6 +85,7 @@ const urls = {
   hudHoverCenter: process.env.PUBLIC_URL + '/images/img_hud_message_center.png',
   hudHoverRight: process.env.PUBLIC_URL + '/images/img_hud_message_right.png',
   floatingKoa: process.env.PUBLIC_URL + '/images/img_floating_koa.gif',
+  floatingKoaMessage: process.env.PUBLIC_URL + '/images/img_floatingkoa_messagebox.png',
   clearBg1: process.env.PUBLIC_URL + '/images/img_clear_bg1.png',
   clearBg2: process.env.PUBLIC_URL + '/images/img_clear_bg2.png',
   clearBg3: process.env.PUBLIC_URL + '/images/img_clear_bg3.png',
