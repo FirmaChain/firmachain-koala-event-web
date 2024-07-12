@@ -1,4 +1,20 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const shake = keyframes`
+  0% { transform: translateX(0); }
+  8.33% { transform: translateX(-4px); }
+  16.66% { transform: translateX(4px); }
+  25% { transform: translateX(-4px); }
+  33.33% { transform: translateX(4px); }
+  41.66% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  58.33% { transform: translateX(-4px); }
+  66.66% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  83.33% { transform: translateX(4px); }
+  91.66% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+`;
 
 export const ModalDefaultContainer = styled.div`
   position: relative;
@@ -91,7 +107,7 @@ export const QuizIcon = styled.div`
   image-rendering: pixelated;
 `;
 
-export const QuizContent = styled.div`
+export const Question = styled.div`
   display: flex;
   padding: 30px 20px;
   justify-content: center;
@@ -110,37 +126,58 @@ export const QuizContent = styled.div`
   letter-spacing: -0.2px;
 `;
 
-export const AnswerList = styled.div`
+export const OptionList = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 18px;
 `;
 
-export const AnswerItem = styled.div<{ $active: boolean }>`
+const getTypeStyles = (type: number, theme: any) => {
+  switch (type) {
+    case 0:
+      return css`
+        border-radius: 100px;
+        border: 2px solid rgba(81, 41, 12, 0.4);
+        background: rgba(255, 255, 255, 0.5);
+      `;
+    case 1:
+      return css`
+        border-radius: 100px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        background: #51290c;
+        & > ${OptionTypo} {
+          color: #fff;
+        }
+        & > ${OptionIcon} {
+          display: flex;
+        }
+      `;
+    case 2:
+      return css`
+        border-radius: 100px;
+        border: 2px solid #C52D2D;
+        background: rgba(255, 255, 255, 0.50);
+        animation: ${shake} 0.4s;
+        & > ${OptionNumber} {background: #B03535;}
+        & > ${OptionTypo} { color: #C52D2D; }
+        & > ${OptionIcon} { display:flex;   background-image: url('${theme.urls.close2}');
+      `;
+    default:
+      return '';
+  }
+};
+
+export const OptionItem = styled.div<{ $type: number }>`
   width: 100%;
   padding: 16px 24px;
   display: flex;
   align-items: center;
   gap: 16px;
-
-  ${({ $active }) =>
-    $active
-      ? `
-          border-radius: 100px;
-          border: 2px solid rgba(255, 255, 255, 0.5);
-          background: #51290c;
-          & > ${AnswerTypo} { color: #fff; }
-          & > ${AnswerIcon} { display: flex; }
-        `
-      : `
-          border-radius: 100px;
-          border: 2px solid rgba(81, 41, 12, 0.4);
-          background: rgba(255, 255, 255, 0.5);
-        `}
+  ${({ $type, theme }) => getTypeStyles($type, theme)}
 `;
 
-export const AnswerNumber = styled.div`
+export const OptionNumber = styled.div`
   display: flex;
   width: 32px;
   height: 32px;
@@ -159,7 +196,7 @@ export const AnswerNumber = styled.div`
   letter-spacing: -0.16px;
 `;
 
-export const AnswerTypo = styled.div`
+export const OptionTypo = styled.div`
   flex: 1;
   color: #51290c;
   font-family: Poppins;
@@ -169,11 +206,11 @@ export const AnswerTypo = styled.div`
   letter-spacing: -0.18px;
 `;
 
-export const AnswerIcon = styled.div`
+export const OptionIcon = styled.div`
   display: none;
   width: 24px;
   height: 24px;
-  background-image: url('${({ theme }) => theme.urls.check}');
+  background-image: url('${({ theme }) => theme.urls.check2}');
   background-repeat: no-repeat;
   background-size: contain;
 `;

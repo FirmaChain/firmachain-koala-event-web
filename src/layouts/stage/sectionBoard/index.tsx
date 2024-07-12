@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import useClear from '../../../hooks/useClear';
@@ -216,20 +216,37 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
       setBtnStep(1);
       window.open(currentMission.extra1, '_blank');
     } else {
-      // modal.openModal({ type: 'quiz', props: {} });
-      completeMission(address)
-        .then((result) => {
-          if (result.isComplete) {
-            if (currentMission.type === MissionType.TIER) setType(1);
-            setClear(true);
-          } else {
-            throw new Error('Mission is not complete');
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-          enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
-        });
+      switch (currentMission.type) {
+        case MissionType.GENERAL:
+        case MissionType.FLOATING:
+        case MissionType.TREASURE:
+        case MissionType.WALLET_CONNECT:
+        case MissionType.WALLET_BALANCE:
+        case MissionType.WALLET_SEND:
+        case MissionType.WALLET_STAKING:
+        case MissionType.WALLET_TRANSACTION:
+        case MissionType.TIER:
+          completeMission(address)
+            .then((result) => {
+              if (result.isComplete) {
+                if (currentMission.type === MissionType.TIER) setType(1);
+                setClear(true);
+              } else {
+                throw new Error('Mission is not complete');
+              }
+            })
+            .catch((e) => {
+              console.error(e);
+              enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
+            });
+          break;
+        case MissionType.QUIZ:
+          modal.openModal({ type: 'quiz', props: { currentMission } });
+          break;
+        case MissionType.SURVEY:
+          modal.openModal({ type: 'survey', props: { currentMission } });
+          break;
+      }
     }
   };
 
@@ -238,7 +255,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
       {isActiveBack && (
         <GoToCharacter onClick={() => moveInitCurrentStep()}>
           <BackArrow />
-          Back to My Mission
+          My Mission
         </GoToCharacter>
       )}
 

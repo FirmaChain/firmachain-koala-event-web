@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
+import useMission from '../../../hooks/useMission';
+import useWallet from '../../../hooks/useWallet';
+import useClear from '../../../hooks/useClear';
 
 import Borders from '../../borders';
 import {
@@ -27,9 +31,27 @@ import {
 
 const QuizModal = () => {
   const { closeModal } = useModal();
+  const { completeMission } = useMission();
+  const { isClear, setClear } = useClear();
+  const { address } = useWallet();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [rating, setRating] = useState<number>(0);
   const [surveyText, setSurveyText] = useState<string>('');
+  const [waitingClear, setWaitingClear] = useState(false);
+
+  useEffect(() => {
+    if (isClear && waitingClear === false) {
+      console.log('CLEAR ON');
+      setWaitingClear(true);
+    } else if (isClear === false && waitingClear) {
+      console.log('CLEAR OFF');
+      setWaitingClear(false);
+      setRating(0);
+      setSurveyText('');
+      handleCloseModal();
+    }
+  }, [isClear, waitingClear]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleCloseModal = () => {
     closeModal();
@@ -43,6 +65,33 @@ const QuizModal = () => {
     const inputValue = e.target.value;
     const sanitizedValue = inputValue.replace(/<.*?>/g, '');
     setSurveyText(sanitizedValue);
+  };
+
+  const handleSubmit = () => {
+    if (rating === 0) {
+      enqueueSnackbar('Please choose a star rating.', { variant: 'error', autoHideDuration: 1500 });
+      return;
+    }
+
+    if (surveyText === '') {
+      enqueueSnackbar('Please enter the survey content.', { variant: 'error', autoHideDuration: 1500 });
+      return;
+    }
+
+    completeMission(address, { rating, surveyText })
+      .then((result) => {
+        if (result.isComplete) {
+          setTimeout(() => {
+            setClear(true);
+          }, 500);
+        } else {
+          throw new Error('Mission is not complete');
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
+      });
   };
 
   return (
@@ -74,7 +123,7 @@ const QuizModal = () => {
                 <span>{surveyText.length}</span>/1000
               </TextLength>
             </SurveyWrapper>
-            <PrimaryButton>
+            <PrimaryButton onClick={() => handleSubmit()}>
               <ButtonLeft />
               <ButtonCenter>Submit</ButtonCenter>
               <ButtonRight />

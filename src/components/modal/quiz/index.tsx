@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useSnackbar } from 'notistack';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
+import useClear from '../../../hooks/useClear';
+import useMission from '../../../hooks/useMission';
+import useWallet from '../../../hooks/useWallet';
+import { IMission } from '../../../contexts/missionProvider';
 
 import Borders from '../../borders';
 import {
@@ -14,19 +19,83 @@ import {
   BeadIcon,
   QuizWrapper,
   QuizIcon,
-  QuizContent,
-  AnswerList,
-  AnswerItem,
-  AnswerNumber,
-  AnswerTypo,
-  AnswerIcon,
+  Question,
+  OptionList,
+  OptionItem,
+  OptionNumber,
+  OptionTypo,
+  OptionIcon,
 } from './styles';
 
-const QuizModal = () => {
+const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
   const { closeModal } = useModal();
+  const { setClear, isClear } = useClear();
+  const { completeMission } = useMission();
+  const { address } = useWallet();
+  const { enqueueSnackbar } = useSnackbar();
+  const [optionStatus, setOptionStatus] = useState<{ [key: number]: number }>({});
+  const [isSelectTime, setIsSelectTime] = useState(false);
+  const [waitingClear, setWaitingClear] = useState(false);
+
+  useEffect(() => {
+    if (isClear && waitingClear === false) {
+      console.log('CLEAR ON');
+      setWaitingClear(true);
+    } else if (isClear === false && waitingClear) {
+      console.log('CLEAR OFF');
+      setWaitingClear(false);
+      setIsSelectTime(false);
+      setOptionStatus({});
+      handleCloseModal();
+    }
+  }, [isClear, waitingClear]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const quizData = useMemo(() => {
+    const splitQuiz = currentMission.extra1.split('\n');
+    const answer = currentMission.value;
+    const question = splitQuiz[0];
+    const optionList = [splitQuiz[2], splitQuiz[3], splitQuiz[4], splitQuiz[5]];
+    return { question, optionList, answer };
+  }, [currentMission]);
 
   const handleCloseModal = () => {
+    if (isSelectTime) return;
+
     closeModal();
+  };
+
+  const handleSelectOption = (index: number) => {
+    if (isSelectTime) return;
+
+    const isCorrect = quizData.answer === index;
+    if (isCorrect) {
+      setOptionStatus({ [index]: 1 });
+
+      completeMission(address, { answer: index })
+        .then((result) => {
+          if (result.isComplete) {
+            setTimeout(() => {
+              setClear(true);
+            }, 500);
+          } else {
+            throw new Error('Mission is not complete');
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+          setOptionStatus({});
+          setIsSelectTime(false);
+          enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
+        });
+    } else {
+      setOptionStatus({ [index]: 2 });
+      setIsSelectTime(true);
+
+      setTimeout(() => {
+        setIsSelectTime(false);
+        setOptionStatus({});
+      }, 800);
+    }
   };
 
   return (
@@ -44,32 +113,17 @@ const QuizModal = () => {
             </TitleWrapper>
             <QuizWrapper>
               <QuizIcon />
-              <QuizContent>
-                What is the name of the token used for the market, rewards, and airdrops in Koala Knights?
-              </QuizContent>
+              <Question>{quizData.question}</Question>
             </QuizWrapper>
-            <AnswerList>
-              <AnswerItem $active={false}>
-                <AnswerNumber>01</AnswerNumber>
-                <AnswerTypo>KOT (Koala Of Treasure)</AnswerTypo>
-                <AnswerIcon />
-              </AnswerItem>
-              <AnswerItem $active={true}>
-                <AnswerNumber>02</AnswerNumber>
-                <AnswerTypo>KOA (Koala Of Adventure)</AnswerTypo>
-                <AnswerIcon />
-              </AnswerItem>
-              <AnswerItem $active={false}>
-                <AnswerNumber>03</AnswerNumber>
-                <AnswerTypo>KKC (Koala Knight Coin)</AnswerTypo>
-                <AnswerIcon />
-              </AnswerItem>
-              <AnswerItem $active={false}>
-                <AnswerNumber>04</AnswerNumber>
-                <AnswerTypo>KAT (Koala Adventure Token)</AnswerTypo>
-                <AnswerIcon />
-              </AnswerItem>
-            </AnswerList>
+            <OptionList>
+              {quizData.optionList.map((option, index) => (
+                <OptionItem key={index} $type={optionStatus[index] || 0} onClick={() => handleSelectOption(index)}>
+                  <OptionNumber>{index + 1}</OptionNumber>
+                  <OptionTypo>{option}</OptionTypo>
+                  <OptionIcon />
+                </OptionItem>
+              ))}
+            </OptionList>
           </ContentsWrapper>
         </Borders>
       </ModalDefaultContainer>

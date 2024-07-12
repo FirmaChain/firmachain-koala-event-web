@@ -736,9 +736,10 @@ export const GoToCharacter = styled.div`
   color: #fff;
   font-family: Poppins;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
 
   border-radius: 100px;
+  border: 2px solid #fa5c12;
   background: linear-gradient(90deg, #ffc700 -34.18%, #f4763b 47.61%, #fa5c12 114.54%);
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);

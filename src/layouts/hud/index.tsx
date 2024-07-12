@@ -31,7 +31,6 @@ const gaugeList = [0, 15, 40, 55, 80, 100];
 const Hud = () => {
   const modal = useModal();
   const { missionList, tierList, achievementList, userData, currentTier } = useMission();
-  const [isAtTop, setIsAtTop] = useState(true);
 
   const isActiveTier = (achievementId: number) => {
     const value = achievementList.find((achievement) => achievement.id === achievementId)?.value!;
@@ -45,28 +44,6 @@ const Hud = () => {
   const handleOpenAchievementModal = () => {
     modal.openModal({ type: 'achievementList', props: { achievementList, userData } });
   };
-
-  const handleScrollTop = () => {
-    if (isAtTop) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const handleScroll = () => {
-    console.log(window.scrollY);
-    setIsAtTop(window.scrollY !== 0);
-  };
-
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
     <>
@@ -106,7 +83,7 @@ const Hud = () => {
             </TierIcon>
           ))}
         </TierGauge>
-        <UpButton $active={isAtTop} onClick={() => handleScrollTop()} />
+        {/* <UpButton $active={isAtTop} onClick={() => handleScrollTop()} /> */}
       </TierHUDWrapper>
     </>
   );

@@ -8,7 +8,7 @@ interface IMissionContext {
   getTierList: () => Promise<ITier[]>;
   getAchievementList: () => Promise<IAchievement[]>;
   getUserMissionData: (userAddress: string) => Promise<IUserData>;
-  completeMission: (userAddress: string) => Promise<{ isComplete: boolean }>;
+  completeMission: (userAddress: string, data?: any) => Promise<{ isComplete: boolean }>;
   clickFloatingCoin: (userAddress: string) => Promise<{ isComplete: boolean }>;
   openTreasureBox: (userAddress: string) => Promise<{ isComplete: boolean }>;
   missionList: IMission[];
@@ -175,9 +175,9 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const completeMission = async (userAddress: string): Promise<{ isComplete: boolean }> => {
+  const completeMission = async (userAddress: string, data = {}): Promise<{ isComplete: boolean }> => {
     try {
-      const response = await axios.post(`${CHAIN_CONFIG.API_HOST}/missions/complete`, { userAddress });
+      const response = await axios.post(`${CHAIN_CONFIG.API_HOST}/missions/complete`, { userAddress, data });
       let isComplete = false;
       if (response.data.code === 0) {
         isComplete = response.data.result.isComplete;

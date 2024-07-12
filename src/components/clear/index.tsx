@@ -13,7 +13,7 @@ const ClearScreen = () => {
     if (isClear) {
       timer = setTimeout(() => {
         setClear(false);
-      }, 5000);
+      }, 2000);
     }
 
     return () => {

@@ -8,7 +8,7 @@ export const SideMenuHUDWrapper = styled.div`
   justify-content: center;
   gap: 24px;
   position: fixed;
-  bottom: 34px;
+  bottom: 70px;
   left: 60px;
 
   @media screen and (min-width: ${({ theme }) => theme.sizes.maxWidth}) {
@@ -195,7 +195,7 @@ export const SideMenuItemAchieveImage = styled.div`
 export const TierHUDWrapper = styled.div`
   z-index: 12;
   position: fixed;
-  bottom: 20px;
+  bottom: 70px;
   right: 76px;
   width: auto;
   height: auto;
@@ -213,11 +213,11 @@ export const TierHUDWrapper = styled.div`
 
 export const TierGauge = styled.div`
   position: absolute;
-  bottom: 70px;
+  bottom: -5px;
   display: flex;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    bottom: 60px;
+    bottom: -5px;
   }
 `;
 
