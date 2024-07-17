@@ -42,7 +42,7 @@ export const Container = styled.div`
 
 export const BackgroundWrapper = styled.div`
   width: 100%;
-  height: 4100px;
+  height: 3400px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@ export const BackgroundWrapper = styled.div`
 
 export const BackgroundGrass = styled.div`
   width: 100%;
-  height: 4100px;
+  height: 3400px;
   position: absolute;
   top: 0;
   left: 0;
@@ -65,27 +65,26 @@ export const BackgroundGrass = styled.div`
 `;
 
 export const BackgroundRoad = styled.div`
-  width: 100%;
-  height: 4014px;
+  width: 80%;
+  height: calc(4014px * 0.8);
   position: absolute;
   top: 0;
-  left: 0px;
   background-image: url('${({ theme }) => theme.urls.road}');
   background-repeat: no-repeat;
   background-position: top center;
-  background-size: auto;
+  background-size: contain;
 `;
 
 export const CharacterWrapper = styled.div<{ $xOffset: number; $yOffset: number; $flip: boolean; $animate: boolean }>`
-  width: 200px;
-  height: 200px;
+  width: calc(200px * 0.8);
+  height: calc(200px * 0.8);
   pointer-events: auto;
   cursor: pointer;
   position: absolute;
   display: ${({ $animate }) => ($animate ? 'flex' : 'none')};
 
-  top: calc(${({ $yOffset }) => $yOffset * 208}px - 40px);
-  left: calc(50% - 200px / 2 + ${({ $xOffset }) => $xOffset * 285}px);
+  top: calc(${({ $yOffset }) => $yOffset * (208 * 0.8)}px - 35px);
+  left: calc(50% - 162px / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
 
   transform: ${({ $flip }) => ($flip ? 'scaleX(-1)' : 'scaleX(1)')};
   transition: top 0.4s ease, left 0.4s ease;
@@ -98,8 +97,8 @@ export const CharacterWrapper = styled.div<{ $xOffset: number; $yOffset: number;
 `;
 
 export const CharacterImage = styled.div<{ $animate: boolean; $isRun: boolean }>`
-  width: 200px;
-  height: 200px;
+  width: calc(200px * 0.8);
+  height: calc(200px * 0.8);
   background-image: url('${({ theme, $isRun }) => ($isRun ? theme.urls.character2 : theme.urls.character1)}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -113,7 +112,7 @@ export const CharacterImage = styled.div<{ $animate: boolean; $isRun: boolean }>
 
 export const Fance = styled.div`
   width: 100%;
-  height: 12px;
+  height: calc(12px * 0.8);
   z-index: 2;
   position: absolute;
   top: -6px;
@@ -130,7 +129,7 @@ export const Wrapper = styled.div`
   z-index: 3;
   width: 100%;
   max-width: ${({ theme }) => theme.sizes.maxWidth};
-  height: 3690px;
+  height: calc(3690px * 0.8);
 `;
 
 export const MissionMessageBox = styled.div<{ $xOffset: number; $yOffset: number; $show: boolean }>`
@@ -141,10 +140,10 @@ export const MissionMessageBox = styled.div<{ $xOffset: number; $yOffset: number
   align-items: center;
   position: absolute;
 
-  top: calc(${({ $yOffset }) => $yOffset * 208}px - 340px);
-  left: calc(50% + ${({ $xOffset }) => $xOffset * 285}px - 290px);
+  top: calc(${({ $yOffset }) => $yOffset * (208 * 0.8)}px - 300px);
+  left: calc(50% + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px - 230px);
 
-  width: 574px;
+  width: calc(574px * 0.8);
 
   ${({ $show }) =>
     $show &&
@@ -155,12 +154,13 @@ export const MissionMessageBox = styled.div<{ $xOffset: number; $yOffset: number
 
 export const MissionMessageBoxTop = styled.div`
   width: 100%;
-  height: 30px;
+  height: calc(30px * 0.8);
   background-image: url('${({ theme }) => theme.urls.messageBoxTop}');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 `;
+
 export const MissionMessageBoxMiddle = styled.div`
   width: 100%;
   display: flex;
@@ -174,9 +174,10 @@ export const MissionMessageBoxMiddle = styled.div`
   background-repeat: repeat;
   background-size: contain;
 `;
+
 export const MissionMessageBoxBottom = styled.div`
   width: 100%;
-  height: 55px;
+  height: calc(55px * 0.8);
   background-image: url('${({ theme }) => theme.urls.messageBoxBottom}');
   background-repeat: no-repeat;
   background-position: center;
@@ -185,7 +186,7 @@ export const MissionMessageBoxBottom = styled.div`
 
 export const MissionLabel = styled.div`
   display: flex;
-  padding: 4px 16px 4px 12px;
+  padding: 3px 14px 3px 11px;
   align-items: center;
   gap: 6px;
   border-radius: 100px;
@@ -194,10 +195,14 @@ export const MissionLabel = styled.div`
 `;
 
 export const MissionLabelIcon = styled(ReactSVG)`
-  width: 19px;
-  height: 18px;
+  width: calc(19px * 0.9);
+  height: calc(18px * 0.9);
   div {
     line-height: 0;
+    svg {
+      width: calc(19px * 0.9);
+      height: calc(18px * 0.9);
+    }
   }
 `;
 
@@ -205,7 +210,7 @@ export const MissionLabelTypo = styled.div`
   color: #fff;
   text-align: center;
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
@@ -216,7 +221,7 @@ export const MissionTitleTypo = styled.div`
   color: #171717;
   text-align: center;
   font-family: Poppins;
-  font-size: 28px;
+  font-size: 26px;
   font-style: normal;
   font-weight: 600;
   line-height: 130%;
@@ -228,7 +233,7 @@ export const MissionDescriptionTypo = styled.div`
   color: #707070;
   text-align: center;
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 130%;
@@ -238,14 +243,14 @@ export const MissionDescriptionTypo = styled.div`
 
 export const PrimaryButton = styled.div`
   width: auto;
-  min-width: 172px;
-  height: 48px;
+  min-width: calc(180px * 0.8);
+  height: calc(48px * 0.8);
   display: flex;
   cursor: pointer;
 `;
 
 export const ButtonLeft = styled.div`
-  width: 49px;
+  width: calc(50px * 0.8);
   height: 100%;
 
   background-image: url('${({ theme }) => theme.urls.buttonLeft}');
@@ -255,7 +260,7 @@ export const ButtonLeft = styled.div`
 `;
 
 export const ButtonRight = styled.div`
-  width: 49px;
+  width: calc(50px * 0.8);
   height: 100%;
 
   background-image: url('${({ theme }) => theme.urls.buttonRight}');
@@ -267,8 +272,8 @@ export const ButtonRight = styled.div`
 export const ButtonCenter = styled.div`
   width: 100%;
   flex: 1;
-  margin-left: -1px;
-  margin-right: -1px;
+  margin-left: -2px;
+  margin-right: -2px;
 
   display: flex;
   flex-direction: column;
@@ -278,7 +283,7 @@ export const ButtonCenter = styled.div`
   color: #fff;
   text-align: center;
   font-family: 'Press Start 2P';
-  font-size: 15px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
@@ -297,94 +302,75 @@ export const StageStone = styled.div<{ $active: boolean; $xOffset: number; $yOff
   justify-content: center;
   align-items: center;
   padding-bottom: 52px;
-  padding-left: 4px;
+  padding-top: 8px;
+  padding-left: 2px;
   text-shadow: #999 0px -3px;
 
   color: ${({ $active }) => ($active ? '#f2f2f2' : '#d8d8d8')};
   text-align: center;
   font-family: 'Press Start 2P';
-  font-size: 38px;
+  font-size: 32px;
   font-weight: 400;
 
   position: absolute;
-  top: calc(85px + ${({ $yOffset }) => $yOffset * 208}px);
-  left: calc(50% - 164px / 2 + ${({ $xOffset }) => $xOffset * 285}px);
-  width: 164px;
-  height: 143px;
+  top: calc((85px * 0.8) + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px);
+  left: calc(50% - (165px * 0.8) / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
+  width: calc(164px * 0.8);
+  height: calc(143px * 0.8);
   background-image: url('${({ theme, $active }) => ($active ? theme.urls.stageEnable : theme.urls.stageDisable)}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 `;
 
-export const Character6Image = styled.div`
-  z-index: 3;
-  position: absolute;
-  top: -120px;
-  left: calc(50% + 350px);
-  width: 200px;
-  height: 200px;
-  background-image: url('${({ theme }) => theme.urls.character6}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(200px * 0.8);
-    height: calc(200px * 0.8);
-    top: -90px;
-    left: calc(50% + 300px);
-  }
-`;
-
 export const Character4Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 620px;
-  left: calc(50% - 690px);
+  top: 550px;
+  left: calc(50% - 640px);
   transform: scaleX(-1);
-  width: 160px;
-  height: 160px;
+  width: calc(160px * 0.8);
+  height: calc(160px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character4}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(160px * 0.8);
-    height: calc(160px * 0.8);
-    top: 640px;
-    left: calc(50% - 570px);
+    width: calc(160px * 0.7);
+    height: calc(160px * 0.7);
+    top: 500px;
+    left: calc(50% - 520px);
   }
 `;
 
 export const Character7Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 1030px;
+  top: 830px;
   left: calc(50% - 300px);
-  width: 142px;
-  height: 142px;
+  width: calc(142px * 0.8);
+  height: calc(142px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character7}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(142px * 0.9);
-    height: calc(142px * 0.9);
-    top: 1040px;
-    left: calc(50% - 270px);
+    width: calc(142px * 0.7);
+    height: calc(142px * 0.7);
+    top: 850px;
+    left: calc(50% - 240px);
   }
 `;
 
 export const Character8Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2240px;
-  left: calc(50% - 390px);
-  width: 190px;
-  height: 190px;
+  top: 1800px;
+  left: calc(50% - 300px);
+  width: calc(190px * 0.8);
+  height: calc(190px * 0.8);
   transform: scaleX(-1);
   background-image: url('${({ theme }) => theme.urls.character8}');
   background-repeat: no-repeat;
@@ -392,29 +378,29 @@ export const Character8Image = styled.div`
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(190px * 0.9);
-    height: calc(190px * 0.9);
-    top: 2240px;
-    left: calc(50% - 350px);
+    width: calc(190px * 0.7);
+    height: calc(190px * 0.7);
+    top: 1800px;
+    left: calc(50% - 300px);
   }
 `;
 
 export const Character9Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 3600px;
+  top: 2950px;
   left: calc(50% - 220px);
-  width: 214px;
-  height: 214px;
+  width: calc(214px * 0.8);
+  height: calc(214px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character9}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(214px * 0.9);
-    height: calc(214px * 0.9);
-    top: 3600px;
+    width: calc(214px * 0.8);
+    height: calc(214px * 0.8);
+    top: 2950px;
     left: calc(50% - 190px);
   }
 `;
@@ -422,142 +408,132 @@ export const Character9Image = styled.div`
 export const Character3Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 3050px;
-  left: calc(50% - 100px);
-  width: 308px;
-  height: 180px;
+  top: 2450px;
+  left: calc(50% - 80px);
+  width: calc(308px * 0.8);
+  height: calc(180px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character3}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(308px * 0.9);
-    height: calc(180px * 0.9);
-    top: 3080px;
-    left: calc(50% - 80px);
+    width: calc(308px * 0.7);
+    height: calc(180px * 0.7);
+    top: 2470px;
+    left: calc(50% - 60px);
   }
 `;
 
 export const SignWood = styled.div`
   position: absolute;
-  top: -220px;
+  top: -190px;
   left: calc(50% + 600px);
-  width: 146px;
-  height: 258px;
-  background-image: url('${({ theme }) => theme.urls.signNormal}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  transition: background-image 0.1s ease-in-out;
-
-  &:hover {
-    background-image: url('${({ theme }) => theme.urls.signHover}');
-  }
+  width: calc(146px * 0.8);
+  height: calc(258px * 0.8);
+  cursor: pointer;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(146px * 0.8);
-    height: calc(258px * 0.8);
-    top: -180px;
-    left: calc(50% + 480px);
+    width: calc(146px * 0.7);
+    height: calc(258px * 0.7);
+    top: -170px;
+    left: calc(50% + 490px);
   }
 `;
 
 export const SignWood2 = styled.div`
   z-index: 3;
   position: absolute;
-  top: 450px;
-  left: calc(50% - 570px);
-  width: 235px;
-  height: 266px;
-  background-image: url('${({ theme }) => theme.urls.sign2}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
+  top: 400px;
+  left: calc(50% - 520px);
+  width: calc(235px * 0.8);
+  height: calc(342px * 0.8);
+  cursor: pointer;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(235px * 0.8);
-    height: calc(266px * 0.8);
-    top: 490px;
-    left: calc(50% - 470px);
+    width: calc(235px * 0.7);
+    height: calc(342px * 0.7);
+    top: 370px;
+    left: calc(50% - 420px);
   }
 `;
 
 export const Tree = styled.div`
   z-index: 3;
   position: absolute;
-  top: 1350px;
-  left: calc(50% + 450px);
-  width: 153px;
-  height: 311px;
+  top: 1100px;
+  left: calc(50% + 350px);
+  width: calc(153px * 0.8);
+  height: calc(311px * 0.8);
   background-image: url('${({ theme }) => theme.urls.tree}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(235px * 0.9);
-    height: calc(266px * 0.9);
-    top: 1420px;
-    left: calc(50% + 450px);
+    width: calc(153px * 0.7);
+    height: calc(311px * 0.7);
+    top: 1100px;
+    left: calc(50% + 300px);
   }
 `;
 
 export const Tree2 = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2650px;
-  left: calc(50% + 60px);
-  width: 153px;
-  height: 311px;
+  top: 2110px;
+  left: calc(50% + 10px);
+  width: calc(153px * 0.8);
+  height: calc(311px * 0.8);
   background-image: url('${({ theme }) => theme.urls.tree}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(235px * 0.9);
-    height: calc(266px * 0.9);
-    top: 2750px;
-    left: calc(50% + 60px);
+    width: calc(153px * 0.7);
+    height: calc(311px * 0.7);
+    top: 2150px;
+    left: calc(50% + 20px);
   }
 `;
 
 export const StarStone = styled.div`
   z-index: 3;
   position: absolute;
-  top: 880px;
-  left: calc(50% - 200px);
-  width: 232px;
-  height: 292px;
+  top: 710px;
+  left: calc(50% - 180px);
+  width: calc(232px * 0.8);
+  height: calc(292px * 0.8);
   background-image: url('${({ theme }) => theme.urls.star}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(232px * 0.9);
-    height: calc(292px * 0.9);
-    top: 910px;
-    left: calc(50% - 180px);
+    width: calc(232px * 0.7);
+    height: calc(292px * 0.7);
+    top: 740px;
+    left: calc(50% - 140px);
   }
 `;
 
 export const CharacterStone = styled.div`
   z-index: 3;
   position: absolute;
-  top: 1530px;
+  top: 1220px;
   left: calc(50%);
-  width: 266px;
-  height: 274px;
+  width: calc(266px * 0.8);
+  height: calc(274px * 0.8);
   background-image: url('${({ theme }) => theme.urls.characterStone}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(266px * 0.9);
-    height: calc(274px * 0.9);
-    top: 1550px;
+    width: calc(266px * 0.7);
+    height: calc(274px * 0.7);
+    top: 1250px;
     left: calc(50%);
   }
 `;
@@ -565,48 +541,48 @@ export const CharacterStone = styled.div`
 export const GemBox = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2200px;
-  left: calc(50% - 200px);
-  width: 234px;
-  height: 234px;
+  top: 1765px;
+  left: calc(50% - 160px);
+  width: calc(234px * 0.8);
+  height: calc(234px * 0.8);
   background-image: url('${({ theme }) => theme.urls.gemBox}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(234px * 0.9);
-    height: calc(234px * 0.9);
-    top: 2200px;
-    left: calc(50% - 190px);
+    width: calc(234px * 0.7);
+    height: calc(234px * 0.7);
+    top: 1780px;
+    left: calc(50% - 160px);
   }
 `;
 
 export const Chest2 = styled.div`
   z-index: 3;
   position: absolute;
-  top: 2950px;
-  left: calc(50% + 350px);
-  width: 188px;
-  height: 225px;
+  top: 2300px;
+  left: calc(50% + 250px);
+  width: calc(188px * 0.8);
+  height: calc(225px * 0.8);
   background-image: url('${({ theme }) => theme.urls.chest2}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(188px * 0.9);
-    height: calc(225px * 0.9);
-    top: 3000px;
-    left: calc(50% + 330px);
+    width: calc(188px * 0.8);
+    height: calc(225px * 0.8);
+    top: 2340px;
+    left: calc(50% + 300px);
   }
 `;
 
 export const Gem = styled.div`
   z-index: 3;
   position: absolute;
-  top: 3080px;
-  left: calc(50% + 260px);
+  top: 2380px;
+  left: calc(50% + 150px);
   width: 88px;
   height: 88px;
   transform: scaleX(-1);
@@ -619,25 +595,25 @@ export const Gem = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(88px * 0.9);
     height: calc(88px * 0.9);
-    top: 3120px;
-    left: calc(50% + 240px);
+    top: 2430px;
+    left: calc(50% + 220px);
   }
 `;
 
 export const TreasureBoxWrapper = styled.div`
   z-index: 3;
   position: absolute;
-  top: 180px;
-  left: calc(50% - 595px);
+  top: 280px;
+  left: calc(50% - 950px);
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    top: 125px;
-    left: calc(50% - 493px);
+    top: 230px;
+    left: calc(50% - 750px);
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
-    top: 330px;
-    left: calc(50% - 694px);
+    top: 500px;
+    left: calc(50% - 792px);
   }
 `;
 
@@ -752,4 +728,76 @@ export const BackArrow = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+`;
+
+export const Staking = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: -180px;
+  left: calc(50% - 600px);
+  width: calc(346px * 0.8);
+  height: calc(320px * 0.8);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(346px * 0.7);
+    height: calc(320px * 0.7);
+    top: -150px;
+    left: calc(50% - 520px);
+  }
+`;
+
+export const KOASpin = styled.div`
+  z-index: 4;
+  width: calc(58px * 0.8);
+  height: calc(59px * 0.8);
+  position: absolute;
+  top: -240px;
+  left: calc(50% - 485px);
+  background-image: url('${({ theme }) => theme.urls.koaSpin}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(58px * 0.7);
+    height: calc(59px * 0.7);
+    top: -210px;
+    left: calc(50% - 420px);
+  }
+`;
+
+export const Shop = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: -200px;
+  left: calc(50% + 320px);
+  width: calc(237px * 0.8);
+  height: calc(340px * 0.8);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(237px * 0.7);
+    height: calc(340px * 0.7);
+    top: -170px;
+    left: calc(50% + 290px);
+  }
+`;
+
+export const Diamond = styled.div`
+  z-index: 4;
+  width: calc(60px * 0.8);
+  height: calc(60px * 0.8);
+  position: absolute;
+  top: -255px;
+  left: calc(50% + 390px);
+  background-image: url('${({ theme }) => theme.urls.diamond}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(60px * 0.7);
+    height: calc(60px * 0.7);
+    top: -220px;
+    left: calc(50% + 350px);
+  }
 `;

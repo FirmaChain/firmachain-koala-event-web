@@ -3,28 +3,55 @@ import styled from 'styled-components';
 
 export const WalletConnectContainer = styled.div`
   width: 100%;
-  height: 600px;
-  min-height: 600px;
-  max-height: 600px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
   background-color: #fff;
 `;
 
-export const CloseButton = styled(ReactSVG)`
+export const CloseButton = styled.div`
+  z-index: 3;
   position: absolute;
-  top: 27px;
-  right: 27px;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 
-  width: 15px;
-  height: 15px;
-  svg {
-    fill: #000;
-    width: 15px;
-    height: 15px;
-  }
+  border-radius: 100px;
+  border: 2px solid #51290c;
+  background: #fff;
+  box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.3);
+`;
+
+export const CloseIcon = styled.div`
+  width: 12px;
+  height: 12px;
+  background-image: url('${({ theme }) => theme.urls.closePixel}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const BackButton = styled.div`
+  z-index: 3;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  border-radius: 100px;
+  border: 2px solid #51290c;
+  background: #fff;
+  box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.3);
 `;
 
 export const WalletConnectContents = styled.div`
@@ -42,24 +69,28 @@ export const WalletConnectBottom = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px 40px 30px 40px;
-  background: #f7f7f7;
-  border-top: 2px solid #f1f1f1;
-  border-radius: 0 0 20px 20px;
+  border-top: 1px solid rgba(151, 127, 109, 0.5);
+  background: rgba(255, 255, 255, 0.4);
 `;
 
 export const WalletConnectTitleTypo = styled.div`
-  color: #363c60;
+  color: #51290c;
   text-align: center;
-  font-size: ${({ theme }) => theme.sizes.font26};
-  font-weight: 600;
+  text-shadow: 3px 2px 0px #fff;
+  font-family: 'Press Start 2P';
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.2px;
 `;
 
 export const WalletConnectSubTitleTypo = styled.div`
-  color: #363c60;
-  text-align: center;
-  font-size: ${({ theme }) => theme.sizes.font13};
+  color: #815433;
+  font-family: Poppins;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 140%;
+  letter-spacing: -0.16px;
 `;
 
 export const WalletConnectTopWrapper = styled.div`
@@ -117,15 +148,16 @@ export const GuidIconWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid #d3d3d3;
-  background: #fff;
+  border: 1px solid rgba(81, 41, 12, 0.3);
+  background: #e8bb98;
 `;
 
 export const GuideIcon = styled(ReactSVG)`
   width: 32px;
   height: 32px;
+  line-height: 0;
   svg {
-    fill: #000;
+    fill: #51290c;
     width: 32px;
     height: 32px;
   }
@@ -164,10 +196,10 @@ export const DownloadGuide = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  color: #363c60;
+  color: #51290c;
   font-size: 16px;
   font-weight: 700;
-  border-top: 2px solid #363c60;
+  border-top: 2px solid rgba(81, 41, 12, 0.32);
   cursor: pointer;
   & > span {
     color: #f2702a;
@@ -196,24 +228,23 @@ export const DownloadQR = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #363c60;
+  color: #815433;
   text-align: center;
   font-size: 14px;
   font-weight: 600;
   border-radius: 50px;
-  border: 1px solid #363c60;
+  border: 1px solid #815433;
 `;
 
 export const BackIcon = styled(ReactSVG)`
-  position: absolute;
-  top: 27px;
-  left: 30px;
+  margin-top: 4px;
+  margin-left: -2px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   svg {
-    stroke: #000;
+    stroke: #51290c;
     width: 10px;
     height: 20px;
   }
@@ -234,7 +265,7 @@ export const StoreButton = styled.div`
   cursor: pointer;
   border-radius: 10px;
   border: 1px solid #000;
-  background: #fff;
+  background: #e8bb98;
 `;
 
 export const StoreIcon = styled.div<{ $src: string }>`
@@ -257,13 +288,15 @@ export const StoreTextWrapper = styled.div`
 `;
 
 export const StoreText1 = styled.div`
-  color: #363c60;
+  color: #815433;
+
   font-size: 12px;
   font-weight: 500;
 `;
 
 export const StoreText2 = styled.div`
-  color: #363c60;
+  color: #815433;
+
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.4px;
@@ -279,15 +312,22 @@ export const HelpWrapper = styled.div`
 `;
 
 export const NeedHelpTypo = styled.div`
-  color: #7c7c7c;
+  color: #815433;
   font-size: 14px;
   font-weight: 500;
 `;
 
 export const ContactTypo = styled.div`
-  color: #363c60;
+  color: #51290c;
   font-size: 14px;
   font-weight: 500;
   text-decoration-line: underline;
   cursor: pointer;
+`;
+
+export const QRBorder = styled.div`
+  padding: 20px 20px 12px 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 4px 4px 0px 0px rgba(81, 41, 12, 0.6) inset;
 `;

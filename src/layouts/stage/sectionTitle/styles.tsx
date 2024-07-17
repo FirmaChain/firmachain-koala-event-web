@@ -1,3 +1,4 @@
+import { ReactSVG } from 'react-svg';
 import styled, { keyframes } from 'styled-components';
 
 export const dungdung = keyframes`
@@ -36,29 +37,44 @@ export const TitleCoinImage = styled.img<{ $top: string; $left: string; $widthCu
   animation-iteration-count: infinite;
 `;
 
-export const TitleLogoImage = styled.div`
+export const TitleLogoImage = styled(ReactSVG)`
   z-index: 4;
   width: 673px;
   height: 230px;
   margin-top: -280px;
-  background-image: url('${({ theme }) => theme.urls.titleLogo2}');
-  background-repeat: no-repeat;
-  background-size: contain;
+
+  div {
+    line-height: 0;
+  }
+  svg {
+    width: 673px;
+    height: 230px;
+  }
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(673px * 0.6);
     height: calc(230px * 0.6);
-    margin-top: calc(-310px);
+    margin-top: calc(-240px);
+
+    svg {
+      width: calc(673px * 0.6);
+      height: calc(230px * 0.6);
+    }
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
     width: calc(673px * 1.4);
     height: calc(230px * 1.4);
     margin-top: calc(-280px * 1.2);
+
+    svg {
+      width: calc(673px * 1.4);
+      height: calc(230px * 1.4);
+    }
   }
 `;
 
-export const Plate1 = styled.div`
+export const Plate2 = styled.div`
   z-index: 3;
   position: absolute;
   top: 285px;
@@ -83,11 +99,11 @@ export const Plate1 = styled.div`
   }
 `;
 
-export const Plate2 = styled.div`
+export const Plate = styled.div`
   z-index: 3;
   position: absolute;
   top: 380px;
-  left: calc(50% - 1000px);
+  left: calc(50% - 960px);
   width: 157px;
   height: 45px;
   background-image: url('${({ theme }) => theme.urls.plate}');
@@ -99,11 +115,11 @@ export const Plate2 = styled.div`
     width: calc(157px * 0.9);
     height: calc(45px * 0.9);
     top: 320px;
-    left: calc(50% - 800px);
+    left: calc(50% - 755px);
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
-    left: calc(50% - 1100px);
-    top: 550px;
+    left: calc(50% - 800px);
+    top: 600px;
   }
 `;

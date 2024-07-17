@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Plate1, Plate2, SectionTitleContainer, TitleCoinImage, TitleLogoImage } from './styles';
+import { Plate, SectionTitleContainer, TitleCoinImage, TitleLogoImage } from './styles';
 
 import RepeatingImage from '../../../components/repeatingImage';
 import FlowingImage from '../../../components/flowingImage';
@@ -43,8 +43,8 @@ const SectionTitle = () => {
   ];
 
   const coinList: ICoin[] = [
-    { src: theme.urls.coin, width: '6.5vh', top: '40vh', left: '22vw' },
-    { src: theme.urls.coin, width: '4.5vh', top: '12vh', left: '36vw' },
+    { src: theme.urls.coin, width: '5vh', top: '18vh', left: '-40vw' },
+    { src: theme.urls.coin, width: '4.5vh', top: '13vh', left: '36vw' },
   ];
 
   const repeatingCloudList: IRepatingCloud[] = [
@@ -78,12 +78,11 @@ const SectionTitle = () => {
           bottom={cloud.bottom}
         />
       ))}
-      <Plate1 />
-      <Plate2 />
+      <Plate />
       <TreasureBoxWrapper>
         <TreasureBoxImage />
       </TreasureBoxWrapper>
-      <TitleLogoImage />
+      <TitleLogoImage src={theme.urls.titleLogo2} />
     </SectionTitleContainer>
   );
 };

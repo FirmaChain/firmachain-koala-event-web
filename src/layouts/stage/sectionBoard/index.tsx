@@ -6,7 +6,7 @@ import useMission from '../../../hooks/useMission';
 import useWallet from '../../../hooks/useWallet';
 import useModal from '../../../hooks/useModal';
 import { MissionType } from '../../../contexts/missionProvider';
-import { MISSION_COUNT } from '../../../constants/common';
+import { FIRMACHAIN_URL, MEDIUM_URL, MISSION_COUNT } from '../../../constants/common';
 
 import theme from '../../../styles/themes';
 import {
@@ -51,7 +51,12 @@ import {
   MissionMessageBoxBottom,
   GoToCharacter,
   BackArrow,
+  Staking,
+  Shop,
+  KOASpin,
+  Diamond,
 } from './styles';
+import HoverImage from '../../../components/HoverImage';
 
 const stages = [
   { xOffset: 0, yOffset: 0, flip: true, text: '1' }, // 1
@@ -299,8 +304,22 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
           <TorchRight />
         </TorchWrapper>
 
-        <SignWood />
-        <SignWood2 />
+        <Staking>
+          <HoverImage initSrc={theme.urls.staking} hoverSrc={theme.urls.stakingHover} />
+        </Staking>
+        <KOASpin />
+        <Shop>
+          <HoverImage initSrc={theme.urls.shop} hoverSrc={theme.urls.shopHover} />
+        </Shop>
+        <Diamond />
+
+        <SignWood onClick={() => window.open(FIRMACHAIN_URL)}>
+          <HoverImage initSrc={theme.urls.signNormal} hoverSrc={theme.urls.signHover} />
+        </SignWood>
+        <SignWood2 onClick={() => window.open(MEDIUM_URL)}>
+          <HoverImage initSrc={theme.urls.signNormal2} hoverSrc={theme.urls.signHover2} />
+        </SignWood2>
+
         <StarStone />
         <CharacterStone />
         <Tree />

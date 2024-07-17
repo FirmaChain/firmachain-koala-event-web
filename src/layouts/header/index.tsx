@@ -115,7 +115,7 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
             </TimerWrapper>
             <DailyWrapper>
               <KOAIcon />
-              <DailyLabelTypo>Daily Lucky KOA</DailyLabelTypo>
+              <DailyLabelTypo>Lucky Coin</DailyLabelTypo>
 
               <DailyValueTypo>{dailyFloatingCount}</DailyValueTypo>
             </DailyWrapper>

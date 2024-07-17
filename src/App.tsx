@@ -7,9 +7,11 @@ import Homepage from './pages';
 import MobileGuideLine from './layouts/mobile';
 import Loading from './components/loading';
 import Clear from './components/clear';
+import PreloadImages from './components/preload';
 
 import './styles/reset.css';
 import './styles/normalize.css';
+import theme from './styles/themes';
 
 function App() {
   const { isSmall } = useScreen();
@@ -23,6 +25,7 @@ function App() {
 
   return (
     <React.Fragment>
+      <PreloadImages images={[theme.urls.signHover, theme.urls.stakingHover, theme.urls.shopHover]} />
       {isSmall ? (
         <MobileGuideLine />
       ) : (

@@ -10,11 +10,15 @@ const scaleAnim = keyframes`
 `;
 
 export const QRWrapper = styled.div<{ $isLoading: boolean }>`
-  width: 140px;
-  height: 140px;
-  padding: 12px;
+  width: 180px;
+  height: 180px;
   ${(props) => (props.$isLoading ? '' : 'background-color: white;')}
-  border-radius: 8px;
+
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 4px 4px 0px 0px rgba(81, 41, 12, 0.6) inset;
+
   display: flex;
   flex-direction: column;
   align-items: center;

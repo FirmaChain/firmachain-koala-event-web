@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import useModal from '../../hooks/useModal';
 import useMission from '../../hooks/useMission';
@@ -22,7 +22,6 @@ import {
   SideMenuMessageBoxRight2,
   SideMenuMessageBox2,
   TierActiveBg,
-  UpButton,
   TierGauge,
 } from './styles';
 
@@ -83,7 +82,6 @@ const Hud = () => {
             </TierIcon>
           ))}
         </TierGauge>
-        {/* <UpButton $active={isAtTop} onClick={() => handleScrollTop()} /> */}
       </TierHUDWrapper>
     </>
   );

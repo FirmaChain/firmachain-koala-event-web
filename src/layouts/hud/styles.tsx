@@ -132,8 +132,8 @@ export const SideMenuMessageBoxCenter = styled.div`
 `;
 
 export const SideMenuItem = styled.div`
-  width: 90px;
-  height: 90px;
+  width: calc(90px * 0.9);
+  height: calc(90px * 0.9);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -150,8 +150,8 @@ export const SideMenuItem = styled.div`
 
 export const SideMenuItemBoxImage = styled.div`
   position: absolute;
-  width: 90px;
-  height: 90px;
+  width: calc(90px * 0.9);
+  height: calc(90px * 0.9);
   background-image: url('${({ theme }) => theme.urls.sideHudBox}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -164,8 +164,8 @@ export const SideMenuItemBoxImage = styled.div`
 
 export const SideMenuItemMissionImage = styled.div`
   z-index: 3;
-  width: 53px;
-  height: 42px;
+  width: calc(53px * 0.9);
+  height: calc(42px * 0.9);
   background-image: url('${({ theme }) => theme.urls.missionIcon}');
   background-size: contain;
   background-position: center;
@@ -179,8 +179,8 @@ export const SideMenuItemMissionImage = styled.div`
 
 export const SideMenuItemAchieveImage = styled.div`
   z-index: 3;
-  width: 48px;
-  height: 46px;
+  width: calc(48px * 0.9);
+  height: calc(46px * 0.9);
   background-image: url('${({ theme }) => theme.urls.achieveIcon}');
   background-size: contain;
   background-position: center;
