@@ -42,7 +42,7 @@ const SectionTitle = () => {
   ];
 
   const coinList: ICoin[] = [
-    { src: theme.urls.coin, width: '6.5vh', top: '40vh', left: '22vw' },
+    { src: theme.urls.coin, width: '6.5vh', top: '34vh', left: '22vw' },
     { src: theme.urls.coin, width: '4.5vh', top: '12vh', left: '36vw' },
     { src: theme.urls.coin, width: '5.5vh', top: '36vh', left: '-28vw' },
     { src: theme.urls.coin, width: '4.5vh', top: '22vh', left: '-38vw' },

@@ -39,16 +39,16 @@ export const TitleCoinImage = styled.img<{ $top: string; $left: string; $widthCu
 
 export const TitleLogoImage = styled(ReactSVG)`
   z-index: 4;
-  width: 673px;
-  height: 230px;
-  margin-top: -280px;
+  width: calc(673px * 0.9);
+  height: calc(230px * 0.9);
+  margin-top: -220px;
 
   div {
     line-height: 0;
   }
   svg {
-    width: 673px;
-    height: 230px;
+    width: calc(673px * 0.9);
+    height: calc(230px * 0.9);
   }
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {

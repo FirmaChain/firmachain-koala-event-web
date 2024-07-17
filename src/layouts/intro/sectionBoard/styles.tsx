@@ -51,7 +51,7 @@ export const Fance = styled.div`
   top: -6px;
   left: 0;
   background-image: url('${({ theme }) => theme.urls.fance}');
-  background-repeat: repeat;
+  background-repeat: repeat no-repeat;
   background-position: top center;
   background-size: contain;
 `;
@@ -69,9 +69,9 @@ export const MissionBoardImage = styled.div`
   z-index: 3;
   position: absolute;
   top: -110px;
-  left: 100px;
-  width: 238px;
-  height: 218px;
+  left: 190px;
+  width: calc(238px * 0.8);
+  height: calc(218px * 0.8);
   background-image: url('${({ theme }) => theme.urls.missionBoard}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -81,10 +81,10 @@ export const MissionBoardImage = styled.div`
 export const BirdImage = styled.div`
   z-index: 3;
   position: absolute;
-  top: -228px;
-  left: 59px;
-  width: 122px;
-  height: 143px;
+  top: -200px;
+  left: 155px;
+  width: calc(122px * 0.8);
+  height: calc(143px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character5}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -94,10 +94,10 @@ export const BirdImage = styled.div`
 export const NinjaCharacterImage = styled.div`
   z-index: 3;
   position: absolute;
-  top: -3vh;
-  left: 400px;
-  width: 190px;
-  height: 190px;
+  top: -30px;
+  left: 480px;
+  width: calc(190px * 0.8);
+  height: calc(190px * 0.8);
   transform: scaleX(-1);
   background-image: url('${({ theme }) => theme.urls.character4}');
   background-repeat: no-repeat;
@@ -105,87 +105,55 @@ export const NinjaCharacterImage = styled.div`
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: 140px;
-    height: 140px;
-    left: 360px;
-  }
-`;
-
-export const NinjaCharacter2Image = styled.div`
-  z-index: 3;
-  position: absolute;
-  top: 5.5vh;
-  left: 300px;
-  width: 100px;
-  height: 100px;
-  transform: scaleX(-1);
-  background-image: url('${({ theme }) => theme.urls.character4}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: 70px;
-    height: 70px;
-    left: 220px;
-  }
-`;
-
-export const TreeImage = styled.div`
-  z-index: 3;
-  position: absolute;
-  top: -25vh;
-  left: 100px;
-  width: 153px;
-  height: 311px;
-  transform: scaleX(-1);
-  background-image: url('${({ theme }) => theme.urls.tree}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: 100px;
-    height: 203px;
-    left: 80px;
-    top: -20vh;
+    width: calc(190px * 0.7);
+    height: calc(190px * 0.7);
+    left: 440px;
   }
 `;
 
 export const PoweredFirma = styled.div`
   z-index: 3;
   position: absolute;
-  top: -22vh;
-  right: 220px;
-  width: 262px;
-  height: 151px;
+  top: -200px;
+  right: 320px;
+  width: calc(262px * 0.8);
+  height: calc(151px * 0.8);
   background-image: url('${({ theme }) => theme.urls.introPoweredFirma}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: 190px;
-    height: 109px;
-    right: 210px;
-    top: -21vh;
+    width: calc(262px * 0.7);
+    height: calc(151px * 0.7);
+    right: 250px;
+    top: -160px;
+  }
+
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
+    top: -240px;
   }
 `;
 
 export const SubCharacterImage = styled.div`
   z-index: 3;
   position: absolute;
-  top: -8vh;
-  right: 150px;
-  width: 350px;
-  height: 231px;
+  top: -80px;
+  right: 250px;
+  width: calc(350px * 0.8);
+  height: calc(231px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character3}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: 250px;
-    height: 165px;
+    width: calc(350px * 0.7);
+    height: calc(231px * 0.7);
+    right: 180px;
+  }
+
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
+    top: -120px;
   }
 `;
