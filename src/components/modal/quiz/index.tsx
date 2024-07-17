@@ -36,6 +36,7 @@ const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
   const [optionStatus, setOptionStatus] = useState<{ [key: number]: number }>({});
   const [isSelectTime, setIsSelectTime] = useState(false);
   const [waitingClear, setWaitingClear] = useState(false);
+  const [isProcess, setProcess] = useState(false);
 
   useEffect(() => {
     if (isClear && waitingClear === false) {
@@ -69,12 +70,16 @@ const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
 
     const isCorrect = quizData.answer === index;
     if (isCorrect) {
+      if (isProcess) return;
+
       setOptionStatus({ [index]: 1 });
+      setProcess(true);
 
       completeMission(address, { answer: index })
         .then((result) => {
           if (result.isComplete) {
             setTimeout(() => {
+              setProcess(false);
               setClear(true);
             }, 500);
           } else {
@@ -83,6 +88,7 @@ const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
         })
         .catch((e) => {
           console.error(e);
+          setProcess(false);
           setOptionStatus({});
           setIsSelectTime(false);
           enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });

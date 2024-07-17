@@ -8,7 +8,7 @@ export const DimmedLayer = styled.div<{ $isLoading: boolean }>`
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.98);
 `;
 
 export const LoadingSpinner = styled.div`

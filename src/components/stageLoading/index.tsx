@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DimmedLayer, LoadingSpinner, SpinnerImage, CurtainLeft, CurtainRight, LoadingTypo } from './styles';
 
@@ -11,9 +11,9 @@ const LoadingScreen = ({
   handleLoaded: () => void;
   handleEnded: () => void;
 }) => {
-  const [isPlayOpen, setIsPlayOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [isPlayOpen, setIsPlayOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (isPlayStageLoading) {

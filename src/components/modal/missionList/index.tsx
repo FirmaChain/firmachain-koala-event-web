@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
@@ -34,9 +34,9 @@ import {
 
 const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; userData: IUserData }) => {
   const { closeModal } = useModal();
-  const [targetMissionList, setTargetMissionList] = React.useState<IMission[]>([]);
-  const [completedMissionList, setCompletedMissionList] = React.useState<IMission[]>([]);
-  const [nextMissionList, setNextMissionList] = React.useState<IMission[]>([]);
+  const [targetMissionList, setTargetMissionList] = useState<IMission[]>([]);
+  const [completedMissionList, setCompletedMissionList] = useState<IMission[]>([]);
+  const [nextMissionList, setNextMissionList] = useState<IMission[]>([]);
 
   const currentMyMission = useMemo(() => {
     const step = userData.currentMissionStep + 1;

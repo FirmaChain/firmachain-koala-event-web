@@ -296,7 +296,12 @@ export const ButtonCenter = styled.div`
   image-rendering: pixelated;
 `;
 
-export const StageStone = styled.div<{ $active: boolean; $xOffset: number; $yOffset: number }>`
+export const StageStone = styled.div<{
+  $active: boolean;
+  $xOffset: number;
+  $yOffset: number;
+  $tier: { enable: string; disable: string } | null;
+}>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -309,7 +314,7 @@ export const StageStone = styled.div<{ $active: boolean; $xOffset: number; $yOff
   color: ${({ $active }) => ($active ? '#f2f2f2' : '#d8d8d8')};
   text-align: center;
   font-family: 'Press Start 2P';
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 400;
 
   position: absolute;
@@ -317,10 +322,55 @@ export const StageStone = styled.div<{ $active: boolean; $xOffset: number; $yOff
   left: calc(50% - (165px * 0.8) / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
   width: calc(164px * 0.8);
   height: calc(143px * 0.8);
-  background-image: url('${({ theme, $active }) => ($active ? theme.urls.stageEnable : theme.urls.stageDisable)}');
+  background-image: url('${({ theme, $active, $tier }) =>
+    $active ? ($tier ? $tier.enable : theme.urls.stageEnable) : $tier ? $tier.disable : theme.urls.stageDisable}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+`;
+
+export const StageStoneGoal = styled.div<{
+  $xOffset: number;
+  $yOffset: number;
+}>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 52px;
+  padding-top: 8px;
+  padding-left: 2px;
+  text-shadow: #999 0px -3px;
+  z-index: 3;
+
+  position: absolute;
+  top: calc((85px * 0.8) + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px);
+  left: calc(50% - (165px * 0.8) / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
+  width: calc(164px * 0.8);
+  height: calc(143px * 0.8);
+  background-image: url('${({ theme }) => theme.urls.stageGoal}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const GoalEffect = styled.div<{
+  $active: boolean;
+  $xOffset: number;
+  $yOffset: number;
+}>`
+  ${({ $active }) => $active === false && 'display:none;'}
+  width: calc(360px * 0.8);
+  height: calc(360px * 0.8);
+  position: absolute;
+  opacity: 0.5;
+  top: calc(-85px + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px);
+  left: calc(50% - 290px / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
+  background-image: url('${({ theme }) => theme.urls.stageGoalEffect}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  mix-blend-mode: plus-lighter;
+  filter: blur(7px);
 `;
 
 export const Character4Image = styled.div`
@@ -429,12 +479,12 @@ export const SignWood = styled.div`
   position: absolute;
   top: -190px;
   left: calc(50% + 600px);
-  width: calc(146px * 0.8);
+  width: calc(163px * 0.8);
   height: calc(258px * 0.8);
   cursor: pointer;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(146px * 0.7);
+    width: calc(163px * 0.7);
     height: calc(258px * 0.7);
     top: -170px;
     left: calc(50% + 490px);

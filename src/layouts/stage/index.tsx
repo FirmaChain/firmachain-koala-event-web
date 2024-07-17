@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import useMission from '../../hooks/useMission';
 import useWallet from '../../hooks/useWallet';
+import useClear from '../../hooks/useClear';
 
 import SectionBoard from './sectionBoard';
 import SectionTitle from './sectionTitle';
@@ -10,6 +11,7 @@ import FloatingKOA from '../../components/floatingKOA';
 const Stage = ({ isReady }: { isReady: boolean }) => {
   const { address } = useWallet();
   const { userData, clickFloatingCoin, getUserMissionData } = useMission();
+  const { setClear, setType } = useClear();
 
   const isAvailableFloatingKOA = useMemo(() => {
     const nextDate = new Date(userData.floating.nextDate);
@@ -19,7 +21,11 @@ const Stage = ({ isReady }: { isReady: boolean }) => {
 
   const handleClick = () => {
     clickFloatingCoin(address)
-      .then(() => getUserMissionData(address))
+      .then(() => {
+        setType(2);
+        setClear(true);
+        getUserMissionData(address);
+      })
       .catch((error) => console.error(error));
   };
 

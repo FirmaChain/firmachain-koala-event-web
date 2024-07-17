@@ -149,14 +149,14 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
                           <CoinIcon $src={theme.urls.koa} />
                           <CoinTypo>KOA</CoinTypo>
                         </CoinLabel>
-                        <CoinValue>1,000.00</CoinValue>
+                        <CoinValue>0</CoinValue>
                       </CoinItem>
                       <CoinItem>
                         <CoinLabel>
                           <CoinIcon $src={theme.urls.fct} />
                           <CoinTypo>FCT</CoinTypo>
                         </CoinLabel>
-                        <CoinValue>1,000.00</CoinValue>
+                        <CoinValue>0</CoinValue>
                       </CoinItem>
                     </CoinList>
                   </MenuItem>

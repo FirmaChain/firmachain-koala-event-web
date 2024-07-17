@@ -39,6 +39,7 @@ const QuizModal = () => {
   const [rating, setRating] = useState<number>(0);
   const [surveyText, setSurveyText] = useState<string>('');
   const [waitingClear, setWaitingClear] = useState(false);
+  const [isProcess, setProcess] = useState(false);
 
   useEffect(() => {
     if (isClear && waitingClear === false) {
@@ -78,10 +79,14 @@ const QuizModal = () => {
       return;
     }
 
+    if (isProcess) return;
+
+    setProcess(true);
     completeMission(address, { rating, surveyText })
       .then((result) => {
         if (result.isComplete) {
           setTimeout(() => {
+            setProcess(false);
             setClear(true);
           }, 500);
         } else {
@@ -90,6 +95,7 @@ const QuizModal = () => {
       })
       .catch((e) => {
         console.error(e);
+        setProcess(false);
         enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
       });
   };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import useClear from '../../../hooks/useClear';
@@ -55,6 +55,8 @@ import {
   Shop,
   KOASpin,
   Diamond,
+  StageStoneGoal,
+  GoalEffect,
 } from './styles';
 import HoverImage from '../../../components/HoverImage';
 
@@ -92,7 +94,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   const { address } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
   const { isClear, setClear, setType } = useClear();
-  const { missionList, userData, completeMission, getUserMissionData } = useMission();
+  const { missionList, tierList, achievementList, userData, completeMission, getUserMissionData } = useMission();
   const modal = useModal();
 
   const [stepIndex, setStepIndex] = useState(0);
@@ -102,9 +104,19 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   const [showMessageBox, setShowMessageBox] = useState(false);
   const [waitingClear, setWaitingClear] = useState(false);
   const [isActiveBack, setIsActiveBack] = useState(false);
+  const [isProcess, setProcess] = useState(false);
 
   const characterRef = useRef(null);
   const stageRefs = useRef<HTMLDivElement[]>([]);
+
+  const stageTier = useMemo(() => {
+    return tierList.map((tier) => {
+      return {
+        image: theme.urls.stageTierList[tier.order - 1],
+        value: achievementList.find((achievement) => achievement.id === tier.achievementId)!.value,
+      };
+    });
+  }, [achievementList, tierList]);
 
   useEffect(() => {
     if (isReady) {
@@ -231,17 +243,21 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
         case MissionType.WALLET_STAKING:
         case MissionType.WALLET_TRANSACTION:
         case MissionType.TIER:
+          if (isProcess) return;
+          setProcess(true);
           completeMission(address)
             .then((result) => {
               if (result.isComplete) {
                 if (currentMission.type === MissionType.TIER) setType(1);
                 setClear(true);
+                setProcess(false);
               } else {
                 throw new Error('Mission is not complete');
               }
             })
             .catch((e) => {
               console.error(e);
+              setProcess(false);
               enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
             });
           break;
@@ -336,17 +352,38 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
 
         <BackgroundGrass />
         <BackgroundRoad />
-        {stages.map((stage, index) => (
-          <StageStone
-            ref={(el) => (stageRefs.current[index] = el!)}
-            key={index}
-            $active={stepIndex === index}
-            $xOffset={stage.xOffset}
-            $yOffset={stage.yOffset}
-          >
-            {stage.text}
-          </StageStone>
-        ))}
+        {stages.map((stage, index) => {
+          const tierImage = stageTier.find((tier) => tier.value === index);
+          const tier = tierImage ? tierImage.image : null;
+          const isGoal = index === stages.length - 1;
+
+          if (isGoal) {
+            return (
+              <React.Fragment>
+                <StageStoneGoal
+                  ref={(el) => (stageRefs.current[index] = el!)}
+                  key={index}
+                  $xOffset={stage.xOffset}
+                  $yOffset={stage.yOffset}
+                />
+                <GoalEffect $active={stepIndex === index} $xOffset={stage.xOffset} $yOffset={stage.yOffset} />
+              </React.Fragment>
+            );
+          } else {
+            return (
+              <StageStone
+                ref={(el) => (stageRefs.current[index] = el!)}
+                key={index}
+                $active={stepIndex === index || (tier !== null && index <= stepIndex)}
+                $xOffset={stage.xOffset}
+                $yOffset={stage.yOffset}
+                $tier={tier}
+              >
+                {tier === null && stage.text}
+              </StageStone>
+            );
+          }
+        })}
       </BackgroundWrapper>
     </Container>
   );

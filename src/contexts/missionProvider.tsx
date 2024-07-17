@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { CHAIN_CONFIG } from '../config';
 
 interface IMissionContext {
@@ -80,10 +80,10 @@ export interface IParticipation {
 export const MissionContext = React.createContext<IMissionContext | null>(null);
 
 const MissionProvider = ({ children }: { children: React.ReactNode }) => {
-  const [missionList, setMissionList] = React.useState<IMission[]>([]);
-  const [tierList, setTierList] = React.useState<ITier[]>([]);
-  const [achievementList, setAchievementList] = React.useState<IAchievement[]>([]);
-  const [userData, setUserData] = React.useState<IUserData>({
+  const [missionList, setMissionList] = useState<IMission[]>([]);
+  const [tierList, setTierList] = useState<ITier[]>([]);
+  const [achievementList, setAchievementList] = useState<IAchievement[]>([]);
+  const [userData, setUserData] = useState<IUserData>({
     currentMissionStep: 0,
     achievementList: [],
     treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
