@@ -49,7 +49,6 @@ const WalletConnectModal = () => {
   const [step, setStep] = useState(1);
 
   const handleCloseModal = () => {
-    props.handleClose('firma12341234abcdabcdabcdabcdabcdabcdabcdabc', true);
     closeModal();
   };
 

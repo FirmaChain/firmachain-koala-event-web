@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useMemo, useState } from 'react';
+
+import useWallet from '../hooks/useWallet';
 import { CHAIN_CONFIG } from '../config';
 
 interface IMissionContext {
@@ -64,10 +66,13 @@ export interface IAchievement {
 }
 
 export interface IUserData {
-  currentMissionStep: number;
-  achievementList: number[];
-  treasure: IParticipation;
+  userAddress: string;
+  step: number;
+  achievementIdList: number[];
   floating: IParticipation;
+  treasure: IParticipation;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IParticipation {
@@ -80,12 +85,15 @@ export interface IParticipation {
 export const MissionContext = React.createContext<IMissionContext | null>(null);
 
 const MissionProvider = ({ children }: { children: React.ReactNode }) => {
+  const { address } = useWallet();
+
   const [missionList, setMissionList] = useState<IMission[]>([]);
   const [tierList, setTierList] = useState<ITier[]>([]);
   const [achievementList, setAchievementList] = useState<IAchievement[]>([]);
   const [userData, setUserData] = useState<IUserData>({
-    currentMissionStep: 0,
-    achievementList: [],
+    userAddress: address,
+    step: 0,
+    achievementIdList: [],
     treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
     floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
   });
@@ -167,8 +175,9 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
       console.error(e);
 
       return {
-        currentMissionStep: 0,
-        achievementList: [],
+        userAddress: address,
+        step: 0,
+        achievementIdList: [],
         treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
         floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
       };
@@ -242,7 +251,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     const tier = tierList.reduceRight<ITier | undefined>((found, tier) => {
       if (!found) {
         const targetValue = achievementList.find((achievement) => achievement.id === tier.achievementId)?.value!;
-        if (targetValue < userData.currentMissionStep) {
+        if (targetValue < userData.step) {
           return tier;
         }
       }

@@ -96,7 +96,7 @@ const QuizModal = () => {
       .catch((e) => {
         console.error(e);
         setProcess(false);
-        enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
+        enqueueSnackbar('Failed mission', { variant: 'error', autoHideDuration: 1500 });
       });
   };
 

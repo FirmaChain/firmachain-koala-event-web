@@ -39,7 +39,7 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
   const [nextMissionList, setNextMissionList] = useState<IMission[]>([]);
 
   const currentMyMission = useMemo(() => {
-    const step = userData.currentMissionStep + 1;
+    const step = userData.step + 1;
     return step > MISSION_COUNT - 1 ? MISSION_COUNT - 1 : step;
   }, [userData]);
 
@@ -48,13 +48,12 @@ const MissionListModal = ({ missionList, userData }: { missionList: IMission[]; 
     let completedMissions: IMission[] = [];
     let nextMissions: IMission[] = [];
 
-    // Remove the goal mission
-    if (missionList.length === MISSION_COUNT) missionList.pop();
+    missionList.forEach((mission: IMission, index: number) => {
+      if (index === MISSION_COUNT - 1) return;
 
-    missionList.forEach((mission: IMission) => {
-      if (mission.step < userData.currentMissionStep) {
+      if (mission.step < userData.step) {
         completedMissions.push(mission);
-      } else if (mission.step === userData.currentMissionStep) {
+      } else if (mission.step === userData.step) {
         targetMissions.push(mission);
       } else {
         nextMissions.push(mission);

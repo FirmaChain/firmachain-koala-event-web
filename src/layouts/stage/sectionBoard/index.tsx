@@ -120,7 +120,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
 
   useEffect(() => {
     if (isReady) {
-      setStepIndex(userData.currentMissionStep);
+      setStepIndex(userData.step);
       moveInitCurrentStep();
       const timeout = setTimeout(
         () => {
@@ -160,10 +160,10 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   }, [isClear, waitingClear]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (stepIndex !== userData.currentMissionStep) {
-      console.log('CHANGED STEP', userData.currentMissionStep);
+    if (stepIndex !== userData.step) {
+      console.log('CHANGED STEP', userData.step);
       setTimeout(() => {
-        setStepIndex(userData.currentMissionStep);
+        setStepIndex(userData.step);
         setType(0);
         setBtnStep(0);
         setClear(false);
@@ -171,7 +171,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
         toggleAnimation();
       }, 0);
     }
-  }, [userData.currentMissionStep]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userData.step]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const handleScroll = () => {
@@ -258,7 +258,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
             .catch((e) => {
               console.error(e);
               setProcess(false);
-              enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
+              enqueueSnackbar('Failed mission', { variant: 'error', autoHideDuration: 1500 });
             });
           break;
         case MissionType.QUIZ:
@@ -359,10 +359,9 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
 
           if (isGoal) {
             return (
-              <React.Fragment>
+              <React.Fragment key={index}>
                 <StageStoneGoal
                   ref={(el) => (stageRefs.current[index] = el!)}
-                  key={index}
                   $xOffset={stage.xOffset}
                   $yOffset={stage.yOffset}
                 />

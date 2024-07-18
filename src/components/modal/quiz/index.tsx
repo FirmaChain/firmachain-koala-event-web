@@ -91,7 +91,7 @@ const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
           setProcess(false);
           setOptionStatus({});
           setIsSelectTime(false);
-          enqueueSnackbar('Failed check mission', { variant: 'error', autoHideDuration: 1500 });
+          enqueueSnackbar('Failed mission', { variant: 'error', autoHideDuration: 1500 });
         });
     } else {
       setOptionStatus({ [index]: 2 });

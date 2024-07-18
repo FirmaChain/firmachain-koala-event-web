@@ -31,7 +31,7 @@ const AchievementListModal = ({
   const completeList = useMemo(() => {
     let result: boolean[] = [];
     achievementList.forEach((achievement: IAchievement, index: number) => {
-      if (userData.achievementList.includes(achievement.id)) {
+      if (userData.achievementIdList.includes(achievement.id)) {
         result[index] = true;
       } else {
         result[index] = false;

@@ -33,7 +33,7 @@ const Hud = () => {
 
   const isActiveTier = (achievementId: number) => {
     const value = achievementList.find((achievement) => achievement.id === achievementId)?.value!;
-    return userData.currentMissionStep > value;
+    return userData.step > value;
   };
 
   const handleOpenMissionModal = () => {

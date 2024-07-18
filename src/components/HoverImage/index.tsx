@@ -7,8 +7,8 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const Image = styled.div<{ imageUrl: string }>`
-  background-image: url(${(props) => props.imageUrl});
+const Image = styled.div<{ $img: string }>`
+  background-image: url(${(props) => props.$img});
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -37,8 +37,8 @@ const HoverImg = styled(Image)`
 const HoverImage = ({ initSrc, hoverSrc }: { initSrc: string; hoverSrc: string }) => {
   return (
     <Container>
-      <InitialImg imageUrl={initSrc} />
-      <HoverImg imageUrl={hoverSrc} />
+      <InitialImg $img={initSrc} />
+      <HoverImg $img={hoverSrc} />
     </Container>
   );
 };
