@@ -13,7 +13,7 @@ export const IntroContainer = styled.div`
 `;
 
 export const TitleWrapper = styled.div`
-  z-index: 3;
+  z-index: 1;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -21,6 +21,7 @@ export const TitleWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
 `;
 
 export const TitleLogoWrapper = styled.div`
@@ -41,9 +42,10 @@ export const TitleLogoImage = styled.div`
   background-size: contain;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(920px * 0.7);
-    height: calc(420px * 0.7);
+    width: calc(335px);
+    height: calc(179px);
     margin-top: calc(-40px * 0.9);
+    background-image: url('${({ theme }) => theme.urls.titleLogoMobile}');
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
@@ -79,7 +81,7 @@ export const TitleLabelImage = styled.div`
     width: calc(400px * 0.7);
     height: calc(85px * 0.7);
     margin-top: calc(40px * 0.7);
-    margin-bottom: calc(150px * 0.7);
+    margin-bottom: calc(60px);
     font-size: 16px;
   }
 
@@ -110,14 +112,17 @@ export const TitleButton = styled.div`
   font-weight: 400;
   letter-spacing: 0.24px;
   text-transform: uppercase;
+
+  pointer-events: auto;
+
   background-image: url('${({ theme }) => theme.urls.introButtonBg}');
   background-repeat: no-repeat;
   background-size: contain;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(356px * 0.7);
-    height: calc(88px * 0.7);
-    font-size: 20px;
+    width: calc(356px * 0.6);
+    height: calc(88px * 0.6);
+    font-size: 18px;
   }
 
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {

@@ -54,6 +54,10 @@ export const Fance = styled.div`
   background-repeat: repeat no-repeat;
   background-position: top center;
   background-size: contain;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    background-size: cover;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -147,13 +151,33 @@ export const SubCharacterImage = styled.div`
   background-size: contain;
   image-rendering: pixelated;
 
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(350px * 0.7);
-    height: calc(231px * 0.7);
-    right: 180px;
-  }
-
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
     top: -120px;
   }
+`;
+
+export const SubCharacterMobileImage = styled.div`
+  z-index: 5;
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  width: calc(350px * 0.4);
+  height: calc(231px * 0.4);
+  background-image: url('${({ theme }) => theme.urls.character3}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const SignWoodMobileImage = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  width: calc(68px);
+  height: calc(84px);
+  background-image: url('${({ theme }) => theme.urls.signMobile}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
 `;

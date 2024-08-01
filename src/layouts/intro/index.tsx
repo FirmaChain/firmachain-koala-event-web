@@ -42,7 +42,7 @@ const Intro = ({ handleLoading }: { handleLoading: () => void }) => {
         <TitleLogoWrapper>
           <TitleLogoImage />
         </TitleLogoWrapper>
-        <TitleLabelImage>Pre-Opening Festival</TitleLabelImage>
+        <TitleLabelImage>Firma Craft Open Event</TitleLabelImage>
         <TitleButton onClick={() => handleWalletConnectModal()}>START</TitleButton>
       </TitleWrapper>
     </IntroContainer>

@@ -18,6 +18,10 @@ export const ImageContainer = styled.div<{ $height: string; $bottom: string }>`
   min-height: ${({ $height }) => $height};
   max-height: ${({ $height }) => $height};
   bottom: ${({ $bottom }) => $bottom};
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    bottom: calc(${({ $bottom }) => $bottom} * 0.4);
+  }
 `;
 
 export const ImageAnimation = styled.div<{
@@ -38,4 +42,9 @@ export const ImageAnimation = styled.div<{
   background-repeat: repeat no-repeat;
   background-position: right top;
   background-size: contain;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    background-position: right bottom;
+    background-size: auto 50%;
+  }
 `;

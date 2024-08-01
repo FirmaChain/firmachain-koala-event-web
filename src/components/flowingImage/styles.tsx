@@ -15,6 +15,10 @@ export const ImageContainer = styled.div<{ $height: string; $top: string }>`
   overflow: hidden;
   height: ${({ $height }) => $height};
   top: ${({ $top }) => $top};
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    height: calc(${({ $height }) => $height} * 0.7);
+  }
 `;
 
 export const ImageAnimation = styled.img<{
@@ -32,10 +36,3 @@ export const ImageAnimation = styled.img<{
     `};
   animation-iteration-count: infinite;
 `;
-
-// 50% {
-//   transform: translateX(${direction === 'left' ? `${initialLeft}px` : 'calc(100vw + 200px)'});
-// }
-// 50.01% {
-//   transform: translateX(${direction === 'left' ? 'calc(100vw + 200px)' : '-200px'});
-// }
