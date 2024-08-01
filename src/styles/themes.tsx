@@ -126,6 +126,7 @@ const urls = {
   diamond: process.env.PUBLIC_URL + '/images/img_diamond.png',
   fct: process.env.PUBLIC_URL + '/images/ic_fct.png',
   headerLogo: process.env.PUBLIC_URL + '/images/img_header_logo.svg',
+  headerLogoMobile: process.env.PUBLIC_URL + '/images/img_header_logo2.svg',
   headerEcosystem: process.env.PUBLIC_URL + '/images/ic_ecosystem.svg',
   sideHudBox: process.env.PUBLIC_URL + '/images/img_side_hud_box.png',
   rewardIcon: process.env.PUBLIC_URL + '/images/ic_reward.svg',

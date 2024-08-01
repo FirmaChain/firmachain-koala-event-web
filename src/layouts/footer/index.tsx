@@ -1,15 +1,19 @@
 import React from 'react';
 
+import useScreen from '../../hooks/useScreen';
+
 import { MEDIUM_URL, TELEGRAM_URL, TIWTTER_URL } from '../../constants/common';
 
 import theme from '../../styles/themes';
 import { FooterContainer, FooterTypo, FooterWrapper, SocialIcon, SocialItem, SocialWrapper } from './styles';
 
 const Footer = ({ isLogin }: { isLogin: boolean }) => {
+  const { isSmall } = useScreen();
+
   return (
     <FooterContainer $isLogin={isLogin}>
       <FooterWrapper>
-        <FooterTypo>ⓒ FIRMACHAIN Pte. Ltd. All rights reserved.</FooterTypo>
+        <FooterTypo>ⓒ FIRMACHAIN Pte. Ltd.{isSmall === false && ' All rights reserved.'}</FooterTypo>
         <SocialWrapper>
           <SocialItem onClick={() => window.open(MEDIUM_URL)}>
             <SocialIcon src={theme.urls.socialMedium} />

@@ -11,6 +11,10 @@ export const FooterContainer = styled.footer<{ $isLogin: boolean }>`
   justify-content: center;
   align-items: center;
   pointer-events: none;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    height: 44px;
+  }
 `;
 
 export const FooterWrapper = styled.div`
@@ -21,10 +25,15 @@ export const FooterWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    padding: 0 20px;
+    justify-content: center;
+  }
 `;
 
 export const FooterTypo = styled.div`
-  color: rgba(255, 255, 255, 0.5);
+  color: #626c27;
   font-family: Poppins;
   font-size: 13px;
   font-style: normal;
@@ -37,6 +46,10 @@ export const SocialWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    display: none;
+  }
 `;
 
 export const SocialItem = styled.div`

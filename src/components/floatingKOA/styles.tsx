@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const KOA = styled.div<{ $left: number; $top: number; $duration: number }>`
   width: calc(178px * 0.7);
   height: calc(98px * 0.7);
-  z-index: 50;
+  z-index: 30;
   position: fixed;
   cursor: pointer;
   filter: drop-shadow(0 4px 0px #00000066);

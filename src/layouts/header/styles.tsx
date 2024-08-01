@@ -11,6 +11,10 @@ export const HeaderContainer = styled.header`
   justify-content: center;
   align-items: center;
   pointer-events: none;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    height: 56px;
+  }
 `;
 
 export const HeaderWrapper = styled.div`
@@ -21,6 +25,10 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    padding: 0 20px;
+  }
 `;
 
 export const HeaderLogoImage = styled(ReactSVG)`
@@ -32,6 +40,15 @@ export const HeaderLogoImage = styled(ReactSVG)`
   svg {
     width: 158px;
     height: 35px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 68px;
+    height: 30px;
+    svg {
+      width: 68px;
+      height: 30px;
+    }
   }
 `;
 
@@ -167,6 +184,7 @@ export const FCTIcon = styled(ReactSVG)`
 `;
 
 export const UserInfoWrapper = styled.div`
+  z-index: 40;
   position: absolute;
   top: 50px;
   width: 100%;
@@ -404,7 +422,7 @@ export const TimerValue = styled.div`
   letter-spacing: -0.3px;
 `;
 
-export const EcosystemWrapper = styled.div`
+export const EcosystemWrapper = styled.div<{ $isShowEcosystem: boolean }>`
   display: flex;
   height: 44px;
   width: 44px;
@@ -414,21 +432,30 @@ export const EcosystemWrapper = styled.div`
   gap: 18px;
   padding: 0 18px 0 18px;
   cursor: pointer;
+  position: relative;
   pointer-events: auto;
 
   border-radius: 30px;
-  border: 2px solid rgba(54, 60, 96, 0.4);
+  border: 1px solid rgba(54, 60, 96, 0.4);
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(5px);
 
   transition: all 0.3s ease-out;
 
-  &:hover {
-    width: auto;
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    &:hover {
+      width: auto;
 
-    & > div:last-child {
-      display: flex;
+      & > div:last-child {
+        display: flex;
+      }
     }
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    height: 40px;
+    width: 40px;
+    ${({ $isShowEcosystem }) => $isShowEcosystem && ` & > div:last-child { display:flex } `}
   }
 `;
 
@@ -445,10 +472,25 @@ export const EcosystemIcon = styled(ReactSVG)`
 `;
 
 export const EcosystemList = styled.div`
-  display: flex;
   align-items: center;
   gap: 26px;
   display: none;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: 150px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    padding: 16px 16px 16px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(54, 60, 96, 0.32);
+    background: #fff;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+  }
 `;
 
 export const EcosystemItem = styled.div`
@@ -461,12 +503,21 @@ export const EcosystemItem = styled.div`
   font-size: 14px;
   font-weight: 600;
   line-height: 130%;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: 100%;
+    justify-content: space-between;
+  }
 `;
 
 export const EcosystemDivider = styled.div`
   width: 2px;
   height: 12px;
   background: rgba(54, 60, 96, 0.12);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    display: none;
+  }
 `;
 
 export const EcosystemExternal = styled(ReactSVG)`

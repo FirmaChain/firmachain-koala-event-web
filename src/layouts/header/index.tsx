@@ -3,6 +3,9 @@ import { useSnackbar } from 'notistack';
 
 import useWallet from '../../hooks/useWallet';
 import useMission from '../../hooks/useMission';
+import useScreen from '../../hooks/useScreen';
+import useOutsideClick from '../../hooks/useOutsideClick';
+
 import { copyToClipboard, createTextEllipsis } from '../../utils/common';
 import { FIRMACHAIN_URL, FIRMASTATION_URL, KOALA_KNIGHTS_URL } from '../../constants/common';
 
@@ -56,7 +59,10 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
   const { address, logout } = useWallet();
   const { currentTier, userData } = useMission();
   const { enqueueSnackbar } = useSnackbar();
+  const { isSmall } = useScreen();
+
   const [remainingTime, setRemainingTime] = useState('00h 00m 00s');
+  const [isShowEcosystem, setShowEcosystem] = useState(false);
 
   const dailyFloatingCount = useMemo(() => {
     return userData.floating.count ? userData.floating.count : 0;
@@ -74,6 +80,12 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
       variant: 'success',
       autoHideDuration: 1000,
     });
+  };
+
+  const handleClickEcosystem = () => {
+    if (isSmall === false) return;
+
+    setShowEcosystem(!isShowEcosystem);
   };
 
   useEffect(() => {
@@ -101,10 +113,14 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
     return () => clearInterval(timer);
   }, [userData.floating.nextDate]);
 
+  useOutsideClick([], () => {
+    isShowEcosystem && setShowEcosystem(!isShowEcosystem);
+  });
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <HeaderLogoImage src={theme.urls.headerLogo} />
+        <HeaderLogoImage src={isSmall ? theme.urls.headerLogoMobile : theme.urls.headerLogo} />
         {isLogin && (
           <RightWrapper>
             <TimerWrapper>
@@ -172,15 +188,15 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
           </RightWrapper>
         )}
         {isLogin === false && (
-          <EcosystemWrapper>
-            <EcosystemIcon src={theme.urls.headerEcosystem} />
+          <EcosystemWrapper $isShowEcosystem={isShowEcosystem}>
+            <EcosystemIcon src={theme.urls.headerEcosystem} onClick={() => handleClickEcosystem()} />
             <EcosystemList>
               <EcosystemItem onClick={() => window.open(FIRMACHAIN_URL)}>
                 FIRMACHAIN <EcosystemExternal src={theme.urls.external} />
               </EcosystemItem>
               <EcosystemDivider />
               <EcosystemItem onClick={() => window.open(FIRMASTATION_URL)}>
-                Firmastation <EcosystemExternal src={theme.urls.external} />
+                Firma station <EcosystemExternal src={theme.urls.external} />
               </EcosystemItem>
               <EcosystemDivider />
               <EcosystemItem onClick={() => window.open(KOALA_KNIGHTS_URL)}>
