@@ -53,16 +53,21 @@ import {
   EcosystemItem,
   EcosystemExternal,
   EcosystemDivider,
+  DailyMobileWrapper,
+  XTypo,
+  ProfileWrapper,
+  ProfileIcon,
 } from './styles';
 
 const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
   const { address, logout } = useWallet();
   const { currentTier, userData } = useMission();
   const { enqueueSnackbar } = useSnackbar();
-  const { isSmall } = useScreen();
+  const { isMobile } = useScreen();
 
   const [remainingTime, setRemainingTime] = useState('00h 00m 00s');
   const [isShowEcosystem, setShowEcosystem] = useState(false);
+  const [isShowProfile, setShowProfile] = useState(false);
 
   const dailyFloatingCount = useMemo(() => {
     return userData.floating.count ? userData.floating.count : 0;
@@ -83,9 +88,15 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
   };
 
   const handleClickEcosystem = () => {
-    if (isSmall === false) return;
+    if (isMobile === false) return;
 
     setShowEcosystem(!isShowEcosystem);
+  };
+
+  const handleClickProfile = () => {
+    if (isMobile === false) return;
+
+    setShowProfile(!isShowProfile);
   };
 
   useEffect(() => {
@@ -117,74 +128,97 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
     isShowEcosystem && setShowEcosystem(!isShowEcosystem);
   });
 
+  const renderUserInfo = () => {
+    return (
+      <UserInfoWrapper>
+        <AddressInfo onClick={() => handleClipboard()}>
+          <UserCharacter />
+          <AddressTypo2>{createTextEllipsis(address, 6, 6)}</AddressTypo2>
+          <CopyIcon src={theme.urls.copy} />
+        </AddressInfo>
+
+        <TierLabel $tier={currentTier.order}>
+          <TierIcon />
+          <TierTypo>{currentTier.name}</TierTypo>
+        </TierLabel>
+
+        <MenuWrapper>
+          <MenuItem>
+            <MenueLabel>
+              <MenuTypo>My Point</MenuTypo>
+            </MenueLabel>
+            <MenuValue>0</MenuValue>
+          </MenuItem>
+          <MenuItem>
+            <CoinList>
+              <CoinItem>
+                <CoinLabel>
+                  <CoinIcon $src={theme.urls.koa} />
+                  <CoinTypo>KOA</CoinTypo>
+                </CoinLabel>
+                <CoinValue>0</CoinValue>
+              </CoinItem>
+              <CoinItem>
+                <CoinLabel>
+                  <CoinIcon $src={theme.urls.fct} />
+                  <CoinTypo>FCT</CoinTypo>
+                </CoinLabel>
+                <CoinValue>0</CoinValue>
+              </CoinItem>
+            </CoinList>
+          </MenuItem>
+          <MenuItem onClick={() => handleLogoutHeader()}>
+            <MenuLabel>
+              <MenuIcon src={theme.urls.logout} />
+              <MenuTypo>Logout</MenuTypo>
+            </MenuLabel>
+          </MenuItem>
+        </MenuWrapper>
+      </UserInfoWrapper>
+    );
+  };
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <HeaderLogoImage src={isSmall ? theme.urls.headerLogoMobile : theme.urls.headerLogo} />
+        <HeaderLogoImage src={isMobile ? theme.urls.headerLogoMobile : theme.urls.headerLogo} />
         {isLogin && (
           <RightWrapper>
-            <TimerWrapper>
-              <TimerIcon />
-              <TimerText>
-                <TimerValue>{remainingTime}</TimerValue>
-              </TimerText>
-            </TimerWrapper>
-            <DailyWrapper>
-              <KOAIcon />
-              <DailyLabelTypo>Lucky Coin</DailyLabelTypo>
+            {isMobile ? (
+              <React.Fragment>
+                <DailyMobileWrapper>
+                  <KOAIcon />
+                  <XTypo>x</XTypo>
+                  <DailyValueTypo>{dailyFloatingCount}</DailyValueTypo>
+                </DailyMobileWrapper>
 
-              <DailyValueTypo>{dailyFloatingCount}</DailyValueTypo>
-            </DailyWrapper>
-            <AddressWrapper>
-              <FCTIcon src={theme.urls.headerFCT} />
-              <AddressTypo>{createTextEllipsis(address, 8, 8)}</AddressTypo>
+                <ProfileWrapper $isShowProfile={isShowProfile}>
+                  <ProfileIcon onClick={() => handleClickProfile()} />
+                  {renderUserInfo()}
+                </ProfileWrapper>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <TimerWrapper>
+                  <TimerIcon />
+                  <TimerText>
+                    <TimerValue>{remainingTime}</TimerValue>
+                  </TimerText>
+                </TimerWrapper>
 
-              <UserInfoWrapper>
-                <AddressInfo onClick={() => handleClipboard()}>
-                  <UserCharacter />
-                  <AddressTypo2>{createTextEllipsis(address, 6, 6)}</AddressTypo2>
-                  <CopyIcon src={theme.urls.copy} />
-                </AddressInfo>
+                <DailyWrapper>
+                  <KOAIcon />
+                  <DailyLabelTypo>Lucky Coin</DailyLabelTypo>
+                  <DailyValueTypo>{dailyFloatingCount}</DailyValueTypo>
+                </DailyWrapper>
+                <AddressWrapper>
+                  <FCTIcon src={theme.urls.headerFCT} />
+                  <AddressTypo>{createTextEllipsis(address, 8, 8)}</AddressTypo>
 
-                <TierLabel $tier={currentTier.order}>
-                  <TierIcon />
-                  <TierTypo>{currentTier.name}</TierTypo>
-                </TierLabel>
-
-                <MenuWrapper>
-                  <MenuItem>
-                    <MenueLabel>
-                      <MenuTypo>My Point</MenuTypo>
-                    </MenueLabel>
-                    <MenuValue>0</MenuValue>
-                  </MenuItem>
-                  <MenuItem>
-                    <CoinList>
-                      <CoinItem>
-                        <CoinLabel>
-                          <CoinIcon $src={theme.urls.koa} />
-                          <CoinTypo>KOA</CoinTypo>
-                        </CoinLabel>
-                        <CoinValue>0</CoinValue>
-                      </CoinItem>
-                      <CoinItem>
-                        <CoinLabel>
-                          <CoinIcon $src={theme.urls.fct} />
-                          <CoinTypo>FCT</CoinTypo>
-                        </CoinLabel>
-                        <CoinValue>0</CoinValue>
-                      </CoinItem>
-                    </CoinList>
-                  </MenuItem>
-                  <MenuItem onClick={() => handleLogoutHeader()}>
-                    <MenuLabel>
-                      <MenuIcon src={theme.urls.logout} />
-                      <MenuTypo>Logout</MenuTypo>
-                    </MenuLabel>
-                  </MenuItem>
-                </MenuWrapper>
-              </UserInfoWrapper>
-            </AddressWrapper>
+                  {renderUserInfo()}
+                </AddressWrapper>
+              </React.Fragment>
+            )}
           </RightWrapper>
         )}
         {isLogin === false && (

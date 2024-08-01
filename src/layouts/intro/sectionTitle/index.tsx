@@ -33,7 +33,7 @@ interface IRepatingCloud {
 }
 
 const SectionTitle = () => {
-  const { isSmall } = useScreen();
+  const { isMobile } = useScreen();
 
   const cloudList: ICloud[] = [
     { src: theme.urls.cloud, direction: 'right', height: '11vh', top: '8vh', speed: 300, left: 100 },
@@ -60,7 +60,7 @@ const SectionTitle = () => {
 
   return (
     <SectionTitleContainer>
-      {isSmall === false &&
+      {isMobile === false &&
         coinList.map((coin, index) => (
           <TitleCoinImage src={coin.src} key={index} $widthCustom={coin.width} $top={coin.top} $left={coin.left} />
         ))}

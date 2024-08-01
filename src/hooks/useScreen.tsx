@@ -6,10 +6,11 @@ const useScreen = () => {
 
   if (!screenConteext) throw new Error('context must be use inside provider');
 
-  const { isSmall } = screenConteext;
+  const { isSmall, isMobile } = screenConteext;
 
   return {
     isSmall,
+    isMobile,
   };
 };
 

@@ -31,7 +31,7 @@ const showAnim = () => keyframes`
 `;
 
 export const Container = styled.div`
-  z-index: 10;
+  z-index: 2;
   width: 100%;
   position: relative;
   display: flex;
@@ -769,6 +769,11 @@ export const GoToCharacter = styled.div`
   background: linear-gradient(90deg, #ffc700 -34.18%, #f4763b 47.61%, #fa5c12 114.54%);
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
 `;
 
 export const BackArrow = styled.div`
@@ -778,6 +783,11 @@ export const BackArrow = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 16px;
+    height: 16px;
+  }
 `;
 
 export const Staking = styled.div`

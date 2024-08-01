@@ -20,6 +20,11 @@ export const KOA = styled.div<{ $left: number; $top: number; $duration: number }
     width: calc(178px * 0.6);
     height: calc(98px * 0.6);
   }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(178px * 0.5);
+    height: calc(98px * 0.5);
+  }
 `;
 
 export const MessageBox = styled.div<{ $left: number; $top: number }>`

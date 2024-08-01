@@ -17,6 +17,8 @@ export const SectionTitleContainer = styled.div`
   position: relative;
   width: 100%;
   height: 70vh;
+  pointer-events: none;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,6 +72,17 @@ export const TitleLogoImage = styled(ReactSVG)`
     svg {
       width: calc(673px * 1.4);
       height: calc(230px * 1.4);
+    }
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(335px);
+    height: calc(131px);
+    margin-top: calc(-160px);
+
+    svg {
+      width: calc(335px);
+      height: calc(131px);
     }
   }
 `;

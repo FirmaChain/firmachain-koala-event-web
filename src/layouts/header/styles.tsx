@@ -102,6 +102,25 @@ export const DailyWrapper = styled.div`
   pointer-events: auto;
 `;
 
+export const DailyMobileWrapper = styled.div`
+  display: flex;
+  padding: 10px 12px 10px 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  border: 1px solid rgba(54, 60, 96, 0.32);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  pointer-events: auto;
+  & > div:last-child {
+    color: rgba(54, 60, 96, 0.6);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: -0.14px;
+  }
+`;
+
 export const DailyLabelTypo = styled.div`
   line-height: 20px;
   margin-top: 2px;
@@ -187,7 +206,8 @@ export const UserInfoWrapper = styled.div`
   z-index: 40;
   position: absolute;
   top: 50px;
-  width: 100%;
+  right: 0;
+  width: 250px;
   max-height: 0;
   padding: 0 15px 0 15px;
   overflow: hidden;
@@ -199,6 +219,10 @@ export const UserInfoWrapper = styled.div`
   border-radius: 10px;
   background: #fff;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 210px;
+  }
 `;
 
 export const AddressInfo = styled.div`
@@ -531,4 +555,46 @@ export const EcosystemExternal = styled(ReactSVG)`
     width: 14px;
     height: 14px;
   }
+`;
+
+export const XTypo = styled.div`
+  width: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+`;
+
+export const ProfileWrapper = styled.div<{ $isShowProfile: boolean }>`
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 100px;
+  pointer-events: auto;
+  border: 1px solid rgba(54, 60, 96, 0.32);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    ${({ $isShowProfile }) =>
+      $isShowProfile &&
+      ` 
+        & > div:last-child {
+          max-height: 500px;
+          padding: 16px 15px 20px 15px;
+        }
+      `}
+  }
+`;
+
+export const ProfileIcon = styled.div`
+  width: calc(38px * 0.74);
+  height: calc(25px * 0.74);
+  background-image: url('${({ theme }) => theme.urls.profile}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
 `;

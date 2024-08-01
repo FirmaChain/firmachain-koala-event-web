@@ -8,12 +8,12 @@ import theme from '../../styles/themes';
 import { FooterContainer, FooterTypo, FooterWrapper, SocialIcon, SocialItem, SocialWrapper } from './styles';
 
 const Footer = ({ isLogin }: { isLogin: boolean }) => {
-  const { isSmall } = useScreen();
+  const { isMobile } = useScreen();
 
   return (
     <FooterContainer $isLogin={isLogin}>
       <FooterWrapper>
-        <FooterTypo>ⓒ FIRMACHAIN Pte. Ltd.{isSmall === false && ' All rights reserved.'}</FooterTypo>
+        <FooterTypo>ⓒ FIRMACHAIN Pte. Ltd.{isMobile === false && ' All rights reserved.'}</FooterTypo>
         <SocialWrapper>
           <SocialItem onClick={() => window.open(MEDIUM_URL)}>
             <SocialIcon src={theme.urls.socialMedium} />

@@ -19,13 +19,13 @@ import {
 } from './styles';
 
 const SectionBoard = () => {
-  const { isSmall } = useScreen();
+  const { isMobile } = useScreen();
 
   return (
     <Container>
       <Fance />
       <Wrapper>
-        {isSmall ? (
+        {isMobile ? (
           <React.Fragment>
             <SubCharacterMobileImage />
             <SignWoodMobileImage onClick={() => window.open(FIRMACHAIN_URL)} />

@@ -325,3 +325,90 @@ export const UpButton = styled.div<{ $active: boolean }>`
     height: calc(65px * 0.8);
   }
 `;
+
+export const SideMenuMobile = styled.div<{ $isShow: boolean }>`
+  position: fixed;
+  right: 20px;
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  z-index: 10;
+
+  ${({ $isShow }) =>
+    $isShow &&
+    `
+    & > div:last-child {
+      max-height: 500px;
+      padding: 16px 15px 45px 15px;
+    }
+  `}
+`;
+
+export const SideMenuIconMobile = styled.div`
+  width: 60px;
+  height: 66px;
+  z-index: 3;
+  cursor: pointer;
+  background-image: url('${({ theme }) => theme.urls.hudIconMobile}');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0px 4px 1px rgba(0, 0, 0, 0.3));
+`;
+
+export const SideMenuMobileList = styled.div`
+  z-index: 2;
+  position: absolute;
+  bottom: 35px;
+  right: 0;
+  width: 100%;
+
+  max-height: 0;
+  padding: 0;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  transition: max-height 0.3s ease-out, padding 0.2s ease-out;
+
+  border-radius: 100px 100px 0px 0px;
+  background: #fff;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+`;
+
+export const SideMenuMobileItem = styled.div<{ $disabled?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  ${({ $disabled }) => $disabled && `filter: grayscale(100%); opacity: 0.5;`}
+`;
+
+export const SideMenuIcon = styled.div<{ $src: string }>`
+  width: 40px;
+  height: 40px;
+  background-image: url('${({ $src }) => $src}');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+`;
+
+export const SideMenuTypo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #171717;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: -0.4px;
+`;

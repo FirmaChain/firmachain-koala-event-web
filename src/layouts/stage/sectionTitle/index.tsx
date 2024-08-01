@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Plate, SectionTitleContainer, TitleCoinImage, TitleLogoImage } from './styles';
+import useScreen from '../../../hooks/useScreen';
 
 import RepeatingImage from '../../../components/repeatingImage';
 import FlowingImage from '../../../components/flowingImage';
+
 import theme from '../../../styles/themes';
 import { TreasureBoxImage, TreasureBoxWrapper } from '../sectionBoard/styles';
+import { Plate, SectionTitleContainer, TitleCoinImage, TitleLogoImage } from './styles';
 
 interface ICloud {
   src: string;
@@ -32,6 +34,8 @@ interface IRepatingCloud {
 }
 
 const SectionTitle = () => {
+  const { isMobile } = useScreen();
+
   const cloudList: ICloud[] = [
     { src: theme.urls.cloud, direction: 'right', height: '11vh', top: '8vh', speed: 300, left: 100 },
     { src: theme.urls.cloud, direction: 'right', height: '16vh', top: '18vh', speed: 200, left: 40 },
@@ -82,7 +86,7 @@ const SectionTitle = () => {
       <TreasureBoxWrapper>
         <TreasureBoxImage />
       </TreasureBoxWrapper>
-      <TitleLogoImage src={theme.urls.titleLogo2} />
+      <TitleLogoImage src={isMobile ? theme.urls.titleLogoMobile2 : theme.urls.titleLogo2} />
     </SectionTitleContainer>
   );
 };
