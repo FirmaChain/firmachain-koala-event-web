@@ -54,7 +54,7 @@ const AchievementListModal = ({
           <ContentsWrapper>
             <TitleWrapper>
               <TorchIcon />
-              <TitleTypo>Achievement List</TitleTypo>
+              <TitleTypo>Prize List</TitleTypo>
               <TorchIcon />
             </TitleWrapper>
             <Borders color='#C08960'>

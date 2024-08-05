@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { KOA, MessageBox } from './styles';
 
 const getRandomPosition = (width: number, height: number) => {
@@ -18,7 +18,6 @@ const FloatingKOA = ({ handleClick }: { handleClick: () => void }) => {
   const [showMessageBox, setShowMessageBox] = useState(false);
 
   const koaRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<number | null>(null);
 
   const moveKOA = useCallback(() => {
     const newPosition = getRandomPosition(178, 98);
@@ -31,23 +30,23 @@ const FloatingKOA = ({ handleClick }: { handleClick: () => void }) => {
   }, [position]);
 
   useEffect(() => {
-    const initialPosition = getRandomPosition(178, 98);
-    setPosition(initialPosition);
+    if (koaRef.current) {
+      const { width, height } = koaRef.current.getBoundingClientRect();
+      const initialPosition = getRandomPosition(width, height);
+      setPosition(initialPosition);
+    }
   }, []);
 
   useEffect(() => {
-    if (paused && intervalRef.current) {
-      clearInterval(intervalRef.current);
+    if (paused) {
       setDuration(0);
       return;
     }
 
-    intervalRef.current = window.setInterval(() => moveKOA(), duration * 1000 + 1000);
+    const timeout = window.setTimeout(() => moveKOA(), duration * 1000 + 1000);
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      window.clearTimeout(timeout);
     };
   }, [moveKOA, duration, paused]);
 
