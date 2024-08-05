@@ -110,7 +110,7 @@ const QuizModal = () => {
           <ContentsWrapper>
             <TitleWrapper>
               <BeadIcon />
-              <TitleTypo>Koala Knight Survey</TitleTypo>
+              <TitleTypo>Koala Knights Survey</TitleTypo>
               <BeadIcon />
             </TitleWrapper>
             <SubInfo>

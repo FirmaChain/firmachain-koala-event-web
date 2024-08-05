@@ -6,6 +6,7 @@ export const ModalDefaultContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background: #f1c09c;
 `;
 
 export const ContentsWrapper = styled.div`
@@ -15,9 +16,18 @@ export const ContentsWrapper = styled.div`
   align-items: center;
   gap: 24px;
   padding: 40px 40px 36px 40px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    padding: 60px 15px 0 15px;
+    gap: 16px;
+  }
 `;
 
 export const TitleWrapper = styled.div`
+  height: 48px;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,6 +41,11 @@ export const TorchIcon = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(40px * 0.8);
+    height: calc(48px * 0.8);
+  }
 `;
 
 export const TitleTypo = styled.div`
@@ -41,6 +56,10 @@ export const TitleTypo = styled.div`
   font-weight: 400;
   line-height: 140%;
   letter-spacing: -0.22px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 16px;
+  }
 `;
 
 export const CloseButton = styled.div`
@@ -82,6 +101,20 @@ export const MissionList = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    padding: 5px;
+    margin: 0;
+    width: 100%;
+    flex: 1;
+    max-height: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & > div:last-child {
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 export const DimLayer = styled.div`
@@ -105,7 +138,7 @@ export const MissionItem = styled.div<{ $status: number }>`
   gap: 16px;
   border-radius: 16px;
 
-  ${({ $status }) => {
+  ${({ $status, theme }) => {
     switch ($status) {
       case 0:
         return `
@@ -121,6 +154,9 @@ export const MissionItem = styled.div<{ $status: number }>`
           outline: 5px solid #F90;
           background: #c8946d;
           box-shadow: 4px 4px 0px 0px rgba(81, 41, 12, 0.6) inset;
+          @media only screen and (max-width: ${theme.sizes.mediaMobileWidth}) {
+            outline: 4px solid #F90;
+          }
         `;
       case 2:
         return `
@@ -130,6 +166,10 @@ export const MissionItem = styled.div<{ $status: number }>`
         `;
     }
   }}
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    padding: 12px 16px;
+  }
 `;
 
 export const MissionIcon = styled.div`
@@ -144,6 +184,11 @@ export const MissionIcon = styled.div`
   background-size: contain;
   background-position: center;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 56px;
+    height: 56px;
+  }
 `;
 
 export const MissionIconImage = styled.div`
@@ -153,6 +198,11 @@ export const MissionIconImage = styled.div`
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(53px * 0.7);
+    height: calc(42px * 0.7);
+  }
 `;
 
 export const MissionInfo = styled.div`
@@ -179,16 +229,23 @@ export const MissionTag = styled.div`
 
   border-radius: 100px;
   background: #966c4d;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 11px;
+  }
 `;
 
 export const MissionTitleTypo = styled.div`
   color: rgba(255, 255, 255, 0.6);
-  text-align: center;
   font-family: Poppins;
   font-size: 20px;
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -0.2px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 18px;
+  }
 `;
 
 export const MissionDescriptionTypo = styled.div`
@@ -198,6 +255,10 @@ export const MissionDescriptionTypo = styled.div`
   font-weight: 400;
   line-height: 140%;
   letter-spacing: -0.16px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 14px;
+  }
 `;
 
 export const MissionStatus = styled.div`
@@ -205,6 +266,10 @@ export const MissionStatus = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 28px;
+  }
 `;
 
 export const CheckIcon = styled.div`
@@ -213,7 +278,11 @@ export const CheckIcon = styled.div`
   background-image: url('${({ theme }) => theme.urls.check}');
   background-repeat: no-repeat;
   background-size: contain;
-  image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const LockIcon = styled.div`
@@ -223,12 +292,17 @@ export const LockIcon = styled.div`
   background-image: url('${({ theme }) => theme.urls.lock}');
   background-repeat: no-repeat;
   background-size: contain;
-  image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(30px * 0.7);
+    height: calc(36px * 0.7);
+  }
 `;
 
 export const SubInfo = styled.div`
   width: 188px;
   height: 48px;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -237,6 +311,11 @@ export const SubInfo = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(188px * 0.9);
+    height: calc(48px * 0.9);
+  }
 `;
 
 export const SubInfoLabel = styled.div`
@@ -248,6 +327,10 @@ export const SubInfoLabel = styled.div`
   font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.16px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 14px;
+  }
 `;
 
 export const SubInfoValue = styled.div`
@@ -270,5 +353,9 @@ export const SubInfoValue = styled.div`
 
   & > span:nth-child(2) {
     font-size: 12px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 16px;
   }
 `;

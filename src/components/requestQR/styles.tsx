@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const QRContainer = styled.div`
+export const QRContainer = styled.div<{ $hidden: boolean }>`
   width: 100%;
   height: 208px;
   margin-top: 50px;
@@ -9,6 +9,7 @@ export const QRContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 20px;
+  ${({ $hidden }) => $hidden && 'display: none;'}
 `;
 
 export const QRTimerText = styled.div`

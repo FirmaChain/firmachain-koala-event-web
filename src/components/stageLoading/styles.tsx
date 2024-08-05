@@ -108,6 +108,6 @@ export const SpinnerImage = styled.div`
 
 export const LoadingTypo = styled.div`
   color: white;
-  font-size: ${({ theme }) => theme.sizes.font24};
+  font-size: 24px;
   font-weight: 600;
 `;

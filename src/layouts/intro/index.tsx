@@ -13,11 +13,10 @@ const Intro = ({ handleLoading }: { handleLoading: () => void }) => {
   const { openModal } = useModal();
 
   const handleClose = (address: string, success: boolean) => {
-    walletActions.handleWalletAddress(address);
-
-    handleLoading();
-
     if (success) {
+      handleLoading();
+      walletActions.handleWalletAddress(address);
+
       enqueueSnackbar('Successfully connected to wallet.', {
         variant: 'success',
         autoHideDuration: 2000,

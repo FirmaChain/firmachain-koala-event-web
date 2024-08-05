@@ -39,11 +39,12 @@ const SectionTitle = () => {
   const cloudList: ICloud[] = [
     { src: theme.urls.cloud, direction: 'right', height: '11vh', top: '8vh', speed: 300, left: 100 },
     { src: theme.urls.cloud, direction: 'right', height: '16vh', top: '18vh', speed: 200, left: 40 },
-    { src: theme.urls.cloud, direction: 'right', height: '14vh', top: '12vh', speed: 200, left: 10 },
     { src: theme.urls.cloud, direction: 'right', height: '14vh', top: '12vh', speed: 500, left: 0 },
     { src: theme.urls.cloud, direction: 'left', height: '20vh', top: '12vh', speed: 500, left: 120 },
-    { src: theme.urls.cloud, direction: 'left', height: '15vh', top: '12vh', speed: 400, left: 0 },
     { src: theme.urls.cloud, direction: 'left', height: '9vh', top: '28vh', speed: 200, left: 70 },
+
+    // { src: theme.urls.cloud, direction: 'left', height: '15vh', top: '12vh', speed: 400, left: 0 },
+    // { src: theme.urls.cloud, direction: 'right', height: '14vh', top: '12vh', speed: 200, left: 10 },
   ];
 
   const coinList: ICoin[] = [
@@ -58,9 +59,10 @@ const SectionTitle = () => {
 
   return (
     <SectionTitleContainer>
-      {coinList.map((coin, index) => (
-        <TitleCoinImage src={coin.src} key={index} $widthCustom={coin.width} $top={coin.top} $left={coin.left} />
-      ))}
+      {isMobile === false &&
+        coinList.map((coin, index) => (
+          <TitleCoinImage src={coin.src} key={index} $widthCustom={coin.width} $top={coin.top} $left={coin.left} />
+        ))}
       {cloudList.map((cloud, index) => (
         <FlowingImage
           src={cloud.src}
@@ -82,10 +84,15 @@ const SectionTitle = () => {
           bottom={cloud.bottom}
         />
       ))}
-      <Plate />
-      <TreasureBoxWrapper>
-        <TreasureBoxImage />
-      </TreasureBoxWrapper>
+      {isMobile === false && (
+        <React.Fragment>
+          <Plate />
+          <TreasureBoxWrapper>
+            <TreasureBoxImage />
+          </TreasureBoxWrapper>
+        </React.Fragment>
+      )}
+
       <TitleLogoImage src={isMobile ? theme.urls.titleLogoMobile2 : theme.urls.titleLogo2} />
     </SectionTitleContainer>
   );

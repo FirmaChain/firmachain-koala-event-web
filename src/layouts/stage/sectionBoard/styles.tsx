@@ -75,6 +75,42 @@ export const BackgroundRoad = styled.div`
   background-size: contain;
 `;
 
+export const BackgroundMobileWrapper = styled.div`
+  width: 100%;
+  height: 3100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BackgroundMobileGrass = styled.div`
+  width: 100%;
+  height: 3100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-image: url('${({ theme }) => theme.urls.grassMobile}');
+  background-repeat: repeat;
+  background-position: top center;
+  background-size: contain;
+  background-color: #a9bb42;
+`;
+
+export const BackgroundMobileRoad = styled.div`
+  width: 45%;
+  min-width: 200px;
+  height: calc(3010px);
+  position: absolute;
+  top: 0;
+  background-image: url('${({ theme }) => theme.urls.roadMobile}');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+`;
+
 export const CharacterWrapper = styled.div<{ $xOffset: number; $yOffset: number; $flip: boolean; $animate: boolean }>`
   width: calc(200px * 0.8);
   height: calc(200px * 0.8);
@@ -110,6 +146,46 @@ export const CharacterImage = styled.div<{ $animate: boolean; $isRun: boolean }>
     `}
 `;
 
+export const CharacterMobileWrapper = styled.div<{
+  $xOffset: number;
+  $yOffset: number;
+  $flip: boolean;
+  $animate: boolean;
+}>`
+  width: calc(106px);
+  height: calc(106px);
+  pointer-events: auto;
+  cursor: pointer;
+  position: absolute;
+  display: ${({ $animate }) => ($animate ? 'flex' : 'none')};
+
+  top: calc(${({ $yOffset }) => $yOffset * 110}px - 45px);
+  left: calc(50% - 106px / 2 + ${({ $xOffset }) => $xOffset * 0}px);
+
+  transform: ${({ $flip }) => ($flip ? 'scaleX(-1)' : 'scaleX(1)')};
+  transition: top 0.4s ease, left 0.4s ease;
+  z-index: 10;
+  ${({ $animate, $flip }) =>
+    $animate &&
+    css`
+      animation: ${spawnAnim($flip)} 0.5s forwards;
+    `}
+`;
+
+export const CharacterMobileImage = styled.div<{ $animate: boolean; $isRun: boolean }>`
+  width: calc(106px);
+  height: calc(106px);
+  background-image: url('${({ theme, $isRun }) => ($isRun ? theme.urls.character2 : theme.urls.character1)}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  ${({ $animate }) =>
+    $animate &&
+    css`
+      animation: ${jumpAnim} 0.5s forwards;
+    `}
+`;
+
 export const Fance = styled.div`
   width: 100%;
   height: calc(12px * 0.8);
@@ -121,6 +197,10 @@ export const Fance = styled.div`
   background-repeat: repeat;
   background-position: top center;
   background-size: contain;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    background-size: cover;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -144,6 +224,32 @@ export const MissionMessageBox = styled.div<{ $xOffset: number; $yOffset: number
   left: calc(50% + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px - 230px);
 
   width: calc(574px * 0.8);
+
+  ${({ $show }) =>
+    $show &&
+    css`
+      animation: ${showAnim} 0.5s forwards;
+    `}
+`;
+
+export const MissionMessageBoxMobile = styled.div<{ $xOffset: number; $yOffset: number; $show: boolean }>`
+  z-index: 50;
+  display: ${({ $show }) => ($show ? 'flex' : 'none')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  top: calc(${({ $yOffset }) => $yOffset * 110}px - 105px);
+  left: calc(50% - 31px);
+
+  width: 62px;
+  height: 62px;
+
+  background-image: url('${({ theme }) => theme.urls.messageBoxMobile}');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
 
   ${({ $show }) =>
     $show &&
@@ -329,6 +435,39 @@ export const StageStone = styled.div<{
   image-rendering: pixelated;
 `;
 
+export const StageStoneMobile = styled.div<{
+  $active: boolean;
+  $xOffset: number;
+  $yOffset: number;
+  $tier: { enable: string; disable: string } | null;
+}>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  padding-top: 8px;
+  padding-left: 2px;
+  text-shadow: #999 0px -2px;
+
+  color: ${({ $active }) => ($active ? '#f2f2f2' : '#d8d8d8')};
+  text-align: center;
+  font-family: 'Press Start 2P';
+  font-size: 20px;
+  font-weight: 400;
+
+  position: absolute;
+  top: calc((25px) + ${({ $yOffset }) => $yOffset * 110}px);
+  left: calc(50% - (82px) / 2 + ${({ $xOffset }) => $xOffset * 0}px);
+  width: calc(82px);
+  height: calc(72px);
+  background-image: url('${({ theme, $active, $tier }) =>
+    $active ? ($tier ? $tier.enable : theme.urls.stageEnable) : $tier ? $tier.disable : theme.urls.stageDisable}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
 export const StageStoneGoal = styled.div<{
   $xOffset: number;
   $yOffset: number;
@@ -354,6 +493,36 @@ export const StageStoneGoal = styled.div<{
   image-rendering: pixelated;
 `;
 
+export const StageStoneGoalMobile = styled.div<{
+  $xOffset: number;
+  $yOffset: number;
+}>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  padding-top: 8px;
+  padding-left: 2px;
+  text-shadow: #999 0px -2px;
+  z-index: 3;
+
+  text-align: center;
+  font-family: 'Press Start 2P';
+  font-size: 20px;
+  font-weight: 400;
+
+  position: absolute;
+  top: calc((25px) + ${({ $yOffset }) => $yOffset * 110}px);
+  left: calc(50% - (82px) / 2 + ${({ $xOffset }) => $xOffset * 0}px);
+  width: calc(82px);
+  height: calc(72px);
+  background-image: url('${({ theme }) => theme.urls.stageGoal}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
 export const GoalEffect = styled.div<{
   $active: boolean;
   $xOffset: number;
@@ -366,6 +535,26 @@ export const GoalEffect = styled.div<{
   opacity: 0.5;
   top: calc(-85px + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px);
   left: calc(50% - 290px / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
+  background-image: url('${({ theme }) => theme.urls.stageGoalEffect}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  mix-blend-mode: plus-lighter;
+  filter: blur(7px);
+`;
+
+export const GoalEffectMobile = styled.div<{
+  $active: boolean;
+  $xOffset: number;
+  $yOffset: number;
+}>`
+  ${({ $active }) => $active === false && 'display:none;'}
+  width: calc(170px);
+  height: calc(170px);
+  position: absolute;
+  opacity: 0.5;
+
+  top: calc(${({ $yOffset }) => $yOffset * 110}px - 60px);
+  left: calc(50% - 85px);
   background-image: url('${({ theme }) => theme.urls.stageGoalEffect}');
   background-repeat: no-repeat;
   background-size: contain;

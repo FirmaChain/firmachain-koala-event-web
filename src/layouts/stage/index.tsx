@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import useMission from '../../hooks/useMission';
 import useWallet from '../../hooks/useWallet';
@@ -19,7 +19,7 @@ const Stage = ({ isReady }: { isReady: boolean }) => {
     return nowDate > nextDate;
   }, [userData]);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     clickFloatingCoin(address)
       .then(() => {
         setType(2);
@@ -27,7 +27,7 @@ const Stage = ({ isReady }: { isReady: boolean }) => {
         getUserMissionData(address);
       })
       .catch((error) => console.error(error));
-  };
+  }, [address]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

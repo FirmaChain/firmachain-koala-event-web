@@ -7,10 +7,11 @@ interface IProps {
   maskClosable?: boolean;
   visible: boolean;
   width: string;
+  type?: 'default' | 'bottom-sheet';
   children?: React.ReactNode;
 }
 
-const Modal = ({ handleClose, visible, width, maskClosable = false, children }: IProps) => {
+const Modal = ({ handleClose, visible, width, maskClosable = false, type = 'default', children }: IProps) => {
   const handleClickMask = (e: React.MouseEvent<HTMLInputElement>) => {
     if (maskClosable) {
       if (e.target === e.currentTarget) {
@@ -30,9 +31,9 @@ const Modal = ({ handleClose, visible, width, maskClosable = false, children }: 
 
   return (
     <>
-      <ModalOverlay $visible={visible} />
-      <ModalWrapper tabIndex={-1} $visible={visible} onClick={handleClickMask}>
-        <ModalInner tabIndex={0} $width={width}>
+      <ModalOverlay $visible={visible} onClick={handleClickMask} />
+      <ModalWrapper tabIndex={-1} $visible={visible} $type={type} onClick={handleClickMask}>
+        <ModalInner tabIndex={0} $width={width} $type={type}>
           {children}
         </ModalInner>
       </ModalWrapper>

@@ -6,6 +6,7 @@ export const ModalDefaultContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background: #f1c09c;
 `;
 
 export const ContentsWrapper = styled.div`
@@ -16,6 +17,13 @@ export const ContentsWrapper = styled.div`
   align-items: center;
   gap: 20px;
   padding: 40px 56px 30px 56px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    padding: 60px 15px 15px 15px;
+    justify-content: flex-start;
+  }
 `;
 
 export const TitleWrapper = styled.div`
@@ -23,6 +31,9 @@ export const TitleWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: auto;
+  }
 `;
 
 export const BeadIcon = styled.div`
@@ -42,6 +53,15 @@ export const TitleTypo = styled.div`
   font-weight: 400;
   line-height: 140%;
   letter-spacing: -0.22px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+    display: flex;
+    flex: 0;
+    min-width: 210px;
+  }
 `;
 
 export const CloseButton = styled.div`
@@ -86,6 +106,10 @@ export const SubTypo = styled.div`
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.18px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 14px;
+  }
 `;
 
 export const RatingWrapper = styled.div`
@@ -93,6 +117,10 @@ export const RatingWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    gap: 10px;
+  }
 `;
 
 export const RatingIcon = styled.div<{ $active: boolean }>`
@@ -103,6 +131,11 @@ export const RatingIcon = styled.div<{ $active: boolean }>`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 export const SurveyWrapper = styled.div`
@@ -116,6 +149,11 @@ export const SurveyWrapper = styled.div`
   border-radius: 24px;
   background: #c8946d;
   box-shadow: 4px 4px 0px 0px rgba(81, 41, 12, 0.6) inset;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    height: auto;
+    flex: 1;
+  }
 `;
 
 export const SurveyTextarea = styled.textarea`
@@ -134,27 +172,36 @@ export const SurveyTextarea = styled.textarea`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 14px;
+  }
 `;
 
 export const PrimaryButton = styled.div`
   width: auto;
   min-width: 270px;
-  height: 56px;
+  height: 50px;
   display: flex;
   cursor: pointer;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 100%;
+  }
 `;
 
 export const ButtonLeft = styled.div`
-  width: 58px;
+  width: 51px;
 
   background-image: url('${({ theme }) => theme.urls.buttonLeft}');
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: right center;
   image-rendering: pixelated;
 `;
 
 export const ButtonRight = styled.div`
-  width: 58px;
+  width: 51px;
 
   background-image: url('${({ theme }) => theme.urls.buttonRight}');
   background-repeat: no-repeat;
@@ -187,6 +234,10 @@ export const ButtonCenter = styled.div`
   background-repeat: repeat no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 13px;
+  }
 `;
 
 export const TextLength = styled.div<{ $red: boolean }>`

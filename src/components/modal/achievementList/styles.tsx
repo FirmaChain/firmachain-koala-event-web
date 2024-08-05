@@ -6,6 +6,7 @@ export const ModalDefaultContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background: #f1c09c;
 `;
 
 export const ContentsWrapper = styled.div`
@@ -16,6 +17,13 @@ export const ContentsWrapper = styled.div`
   align-items: center;
   gap: 40px;
   padding: 40px 56px 56px 56px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    padding: 60px 15px 0 15px;
+    justify-content: flex-start;
+  }
 `;
 
 export const TitleWrapper = styled.div`
@@ -32,6 +40,11 @@ export const TorchIcon = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(40px * 0.8);
+    height: calc(48px * 0.8);
+  }
 `;
 
 export const TitleTypo = styled.div`
@@ -42,6 +55,10 @@ export const TitleTypo = styled.div`
   font-weight: 400;
   line-height: 140%;
   letter-spacing: -0.22px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 16px;
+  }
 `;
 
 export const CloseButton = styled.div`
@@ -79,6 +96,13 @@ export const AchievementList = styled.div`
   gap: 10px;
   flex-wrap: wrap;
   background: #c08960;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 6px;
+    background: none;
+  }
 `;
 
 export const AchievementIcon = styled.div<{ $index: number }>`
@@ -89,6 +113,11 @@ export const AchievementIcon = styled.div<{ $index: number }>`
   background-size: 90%;
   background-position: center;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 80%;
+    height: 80%;
+  }
 `;
 
 export const LockIcon = styled.div`
@@ -118,4 +147,10 @@ export const AchievementItem = styled.div<{ $complete: boolean }>`
     $complete
       ? `& > ${LockIcon}{display: none;}`
       : `& > ${AchievementIcon}{opacity:0.3;filter: grayscale(100%);background-color: rgba(0, 0, 0, 0.7);}`}
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    flex: 0 0 calc(33% - 3px);
+    height: auto;
+    aspect-ratio: 1;
+  }
 `;

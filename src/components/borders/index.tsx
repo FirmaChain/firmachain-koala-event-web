@@ -1,5 +1,7 @@
 import React from 'react';
 
+import useScreen from '../../hooks/useScreen';
+
 import {
   BordersContainer,
   BorderBorderBottom,
@@ -15,7 +17,11 @@ import {
 } from './styles';
 
 const Borders = ({ color, children }: { color: string; children: React.ReactNode }) => {
-  return (
+  const { isMobile } = useScreen();
+
+  return isMobile ? (
+    <React.Fragment>{children}</React.Fragment>
+  ) : (
     <BordersContainer $color={color}>
       <BorderBorderLeft />
       <BorderBorderRight />

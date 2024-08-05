@@ -171,7 +171,7 @@ export const AddressTypo = styled.div`
   margin-top: 2px;
   text-align: center;
   font-family: Poppins;
-  font-size: ${({ theme }) => theme.sizes.font16};
+  font-size: 16px;
   font-style: normal;
   font-weight: 600;
   background: linear-gradient(90deg, #ffc700 -21.18%, #f4763b 45.39%, #fa5c12 99.87%);
@@ -270,7 +270,7 @@ export const CopyIcon = styled(ReactSVG)`
   }
 `;
 
-const tierColors = ['#ACACAC', '#DB6B40', '#909090', '#FEBB03', '#5E8FB1', '#048AFA'];
+const tierColors = ['#ACACAC', '#AB6839', '#707070', '#F3B200', '#1487F0', '#5944D7'];
 
 export const TierLabel = styled.div<{ $tier: number }>`
   display: flex;

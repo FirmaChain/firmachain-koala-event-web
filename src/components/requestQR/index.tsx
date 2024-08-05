@@ -7,13 +7,14 @@ import { QRContainer, QRTimerText, RefreshIconButton } from './styles';
 
 interface IProps {
   module: string;
+  isHidden?: boolean;
   handleSuccess: (requestData: Object) => void;
   handleFailed: (requestData: Object) => void;
   params?: Object;
   signer?: string;
 }
 
-const RequestQR = ({ module, handleSuccess, handleFailed, params = {}, signer = '' }: IProps) => {
+const RequestQR = ({ module, isHidden = false, handleSuccess, handleFailed, params = {}, signer = '' }: IProps) => {
   const { checkRequest, generateRequestQR } = useAPI();
 
   const [requestKey, setRequestKey] = useState('');
@@ -24,6 +25,12 @@ const RequestQR = ({ module, handleSuccess, handleFailed, params = {}, signer = 
 
   useEffect(() => requestQR(), []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const openDeepLink = (qrCode: string) => {
+    const link = qrCode.replace('sign://', 'firmastation://');
+
+    window.location.href = link;
+  };
+
   const requestQR = () => {
     generateRequestQR(module, { ...params, signer })
       .then((result) => {
@@ -32,6 +39,10 @@ const RequestQR = ({ module, handleSuccess, handleFailed, params = {}, signer = 
           setQrcode(result.qrcode);
           setExpireDate(result.expire);
           setActiveQR(true);
+
+          if (isHidden) {
+            openDeepLink(result.qrcode);
+          }
         } else {
           throw new Error('INVALID REQUEST');
         }
@@ -52,6 +63,7 @@ const RequestQR = ({ module, handleSuccess, handleFailed, params = {}, signer = 
 
   const handleTick = async () => {
     checkRequest(requestKey).then((requestData) => {
+      console.log(requestData);
       if (Number(requestData.status) === 1) {
         setActiveQR(false);
         handleSuccess(requestData);
@@ -63,7 +75,7 @@ const RequestQR = ({ module, handleSuccess, handleFailed, params = {}, signer = 
   };
 
   return (
-    <QRContainer>
+    <QRContainer $hidden={isHidden}>
       <ConnectQR
         qrSize={140}
         qrcode={qrcode}

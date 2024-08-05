@@ -74,6 +74,7 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
   }, [userData]);
 
   const handleLogoutHeader = () => {
+    setShowEcosystem(false);
     logout();
     handleLogout();
   };
@@ -126,6 +127,7 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
 
   useOutsideClick([], () => {
     isShowEcosystem && setShowEcosystem(!isShowEcosystem);
+    isShowProfile && setShowProfile(!isShowProfile);
   });
 
   const renderUserInfo = () => {

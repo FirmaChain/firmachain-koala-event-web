@@ -22,6 +22,7 @@ export const ModalDefaultContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background: #f1c09c;
 `;
 
 export const ContentsWrapper = styled.div`
@@ -32,6 +33,13 @@ export const ContentsWrapper = styled.div`
   align-items: center;
   gap: 40px;
   padding: 40px 56px 56px 56px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    padding: 60px 15px 0 15px;
+    justify-content: flex-start;
+  }
 `;
 
 export const TitleWrapper = styled.div`
@@ -39,6 +47,10 @@ export const TitleWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: auto;
+  }
 `;
 
 export const BeadIcon = styled.div`
@@ -56,8 +68,17 @@ export const TitleTypo = styled.div`
   font-family: 'Press Start 2P';
   font-size: 22px;
   font-weight: 400;
-  line-height: 140%;
+  line-height: 150%;
   letter-spacing: -0.22px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+    display: flex;
+    flex: 0;
+    min-width: 170px;
+  }
 `;
 
 export const CloseButton = styled.div`
@@ -105,6 +126,12 @@ export const QuizIcon = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 30px;
+    height: 30px;
+    top: -14px;
+  }
 `;
 
 export const Question = styled.div`
@@ -124,6 +151,10 @@ export const Question = styled.div`
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -0.2px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 16px;
+  }
 `;
 
 export const OptionList = styled.div`
@@ -174,7 +205,11 @@ export const OptionItem = styled.div<{ $type: number }>`
   display: flex;
   align-items: center;
   gap: 16px;
-  ${({ $type, theme }) => getTypeStyles($type, theme)}
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    padding: 10px;
+  }
+  ${({ $type, theme }) => getTypeStyles($type, theme)};
 `;
 
 export const OptionNumber = styled.div`
@@ -194,6 +229,10 @@ export const OptionNumber = styled.div`
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.16px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 14px;
+  }
 `;
 
 export const OptionTypo = styled.div`
@@ -204,6 +243,10 @@ export const OptionTypo = styled.div`
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.18px;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    font-size: 16px;
+  }
 `;
 
 export const OptionIcon = styled.div`

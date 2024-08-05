@@ -43,7 +43,7 @@ export const LandingButton = styled.div`
   align-items: center;
   cursor: pointer;
   color: #fff;
-  font-size: ${({ theme }) => theme.sizes.font16};
+  font-size: 16px;
   font-weight: 600;
   border-radius: 10px;
   border: 2px solid #983906;
@@ -52,7 +52,7 @@ export const LandingButton = styled.div`
 
 export const GuideTypo = styled.div`
   color: #fff;
-  font-size: ${({ theme }) => theme.sizes.font20};
+  font-size: 20px;
   font-weight: 600;
 `;
 
@@ -61,7 +61,7 @@ export const GuideSubTypo = styled.div`
   text-align: center;
   color: #ccc;
   opacity: 0.7;
-  font-size: ${({ theme }) => theme.sizes.font14};
+  font-size: 14px;
   line-height: 1.6;
 `;
 
@@ -137,7 +137,7 @@ export const PoweredByValueTypo = styled(ReactSVG)`
 
 export const ContactTypo = styled.div`
   color: #888;
-  font-size: ${({ theme }) => theme.sizes.font14};
+  font-size: 14px;
   font-weight: 500;
   text-decoration-line: underline;
   cursor: pointer;
