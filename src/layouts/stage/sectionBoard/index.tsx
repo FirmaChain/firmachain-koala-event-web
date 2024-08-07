@@ -13,15 +13,42 @@ import SectionBoardDesktop from './desktop';
 import SectionBoardMobile from './mobile';
 
 import theme from '../../../styles/themes';
-import { Container, Fance, GoToCharacter, BackArrow } from './styles';
+import {
+  Container,
+  Fance,
+  GoToCharacter,
+  BackArrow,
+  Plate,
+  TreasureBoxWrapper,
+  RewardIcon,
+  TreasureBoxImage,
+  RewardEffect,
+} from './styles';
 
-const SectionBoard = ({ isReady }: { isReady: boolean }) => {
+const SectionBoard = ({
+  isReady,
+  setLoading,
+  setLoadingOpacity,
+}: {
+  isReady: boolean;
+  setLoading: (isLoading: boolean) => void;
+  setLoadingOpacity: (opacity: string) => void;
+}) => {
   const { address } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
-  const { isClear, setClear, setType } = useClear();
+  const { rewardValue, isClear, setClear, setType, setRewardValue } = useClear();
   const { isMobile } = useScreen();
-  const { missionList, tierList, achievementList, userData, completeMission, getUserMissionData } = useMission();
   const modal = useModal();
+  const {
+    missionList,
+    tierList,
+    achievementList,
+    userData,
+    userRewardDataList,
+    completeMission,
+    rewardAchievement,
+    getUserMissionData,
+  } = useMission();
 
   const [stepIndex, setStepIndex] = useState(0);
   const [btnStep, setBtnStep] = useState(0);
@@ -31,6 +58,8 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
   const [waitingClear, setWaitingClear] = useState(false);
   const [isActiveBack, setIsActiveBack] = useState(false);
   const [isProcess, setProcess] = useState(false);
+  const [isProcessReward, setProcessReward] = useState(false);
+  const [rewardFCT, setRewardFCT] = useState('0');
 
   const characterRef = useRef(null);
   const stageRefs = useRef<HTMLDivElement[]>([]);
@@ -43,6 +72,16 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
       };
     });
   }, [achievementList, tierList]);
+
+  const currentReward = useMemo(() => {
+    const rewards = userRewardDataList.filter((reward) => reward.isReward === false);
+
+    if (rewards.length === 0) return null;
+
+    return rewards.reduce((oldest, reward) => {
+      return new Date(reward.addedAt) < new Date(oldest.addedAt) ? reward : oldest;
+    });
+  }, [userRewardDataList]);
 
   useEffect(() => {
     if (isReady) {
@@ -80,6 +119,13 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
     } else if (isClear === false && waitingClear) {
       setWaitingClear(false);
       getUserMissionData(address);
+
+      if (rewardFCT !== '0') {
+        setClear(true);
+        setType(201);
+        setRewardValue(rewardFCT);
+        setRewardFCT('0');
+      }
     }
   }, [isClear, waitingClear]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -88,7 +134,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
       console.log('CHANGED STEP', userData.step);
       setTimeout(() => {
         setStepIndex(userData.step);
-        setType(0);
+        setType(100);
         setBtnStep(0);
         setClear(false);
 
@@ -155,7 +201,7 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
 
   const handleMissionButton = async (step?: number) => {
     const currentMission = missionList[stepIndex];
-    const checkStep = step ? step : btnStep;
+    const checkStep = step === undefined ? step : btnStep;
 
     if (currentMission.type === MissionType.GENERAL && checkStep === 0) {
       setBtnStep(1);
@@ -178,9 +224,9 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
             const result = await completeMission(address);
             if (result.isComplete) {
               if (currentMission.type === MissionType.TIER) {
-                setType(1);
+                setType(101);
               } else {
-                setType(0);
+                setType(100);
               }
               setClear(true);
               setProcess(false);
@@ -204,6 +250,36 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
     }
   };
 
+  const handleRewardButton = async () => {
+    if (currentReward === null) return;
+    if (isProcessReward) return;
+
+    setProcessReward(true);
+    setLoadingOpacity('0.8');
+    setLoading(true);
+
+    setTimeout(async () => {
+      try {
+        const { isComplete, message } = await rewardAchievement(address);
+        setLoading(false);
+        setLoadingOpacity('0.98');
+
+        if (isComplete) {
+          setType(currentReward.achievementId);
+          setClear(true);
+
+          setRewardFCT(currentReward.fct);
+        } else {
+          throw new Error(message);
+        }
+      } catch (e: any) {
+        enqueueSnackbar(e.message, { variant: 'error', autoHideDuration: 1500 });
+      } finally {
+        setProcessReward(false);
+      }
+    }, 1000);
+  };
+
   return (
     <Container>
       {isActiveBack && (
@@ -214,6 +290,13 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
       )}
 
       <Fance />
+
+      <Plate />
+      <TreasureBoxWrapper $active={currentReward !== null} onClick={() => handleRewardButton()}>
+        <RewardIcon $src={theme.urls.achievementList[currentReward?.achievementId!].enable} />
+        <TreasureBoxImage />
+        <RewardEffect />
+      </TreasureBoxWrapper>
 
       {isMobile ? (
         <SectionBoardMobile

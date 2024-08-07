@@ -96,6 +96,7 @@ const SectionBoardMobile = ({
         $xOffset={stages[stepIndex].xOffset}
         $yOffset={stages[stepIndex].yOffset}
         $show={showMessageBox}
+        $isGoal={stepIndex === stages.length - 1}
         onClick={() => handleOpenMissionModal()}
       />
 

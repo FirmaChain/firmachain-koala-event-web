@@ -12,7 +12,7 @@ interface IMissionContext {
   getUserMissionData: (userAddress: string) => Promise<IUserData>;
   getUserRewardData: (userAddress: string) => Promise<IRewardData[]>;
   completeMission: (userAddress: string, data?: any) => Promise<{ isComplete: boolean }>;
-  rewardAchievement: (userAddress: string) => Promise<{ isComplete: boolean }>;
+  rewardAchievement: (userAddress: string) => Promise<{ isComplete: boolean; message: string }>;
   clickFloatingCoin: (userAddress: string) => Promise<{ isComplete: boolean }>;
   openTreasureBox: (userAddress: string) => Promise<{ isComplete: boolean }>;
   missionList: IMission[];
@@ -83,6 +83,7 @@ export interface IRewardData {
   userAddress: string;
   achievementId: number;
   isReward: boolean;
+  fct: string;
   nftId: string;
   txHash: string;
   rewardAt: string;
@@ -242,24 +243,28 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const rewardAchievement = async (userAddress: string): Promise<{ isComplete: boolean }> => {
+  const rewardAchievement = async (userAddress: string): Promise<{ isComplete: boolean; message: string }> => {
     try {
       const response = await axios.post(`${CHAIN_CONFIG.API_HOST}/missions/reward`, { userAddress });
       let isComplete = false;
+      let message = '';
       if (response.data.code === 0) {
         isComplete = response.data.result.isComplete;
+        message = response.data.result.message;
       }
 
       console.log('rewardAchievement');
 
       return {
         isComplete,
+        message,
       };
     } catch (e) {
       logout();
       console.error(e);
       return {
         isComplete: false,
+        message: 'Failed to apply for a reward.',
       };
     }
   };

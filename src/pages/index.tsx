@@ -22,6 +22,7 @@ const HomePage = () => {
   const [isLoaded, setLoaded] = useState(false);
   const [isEnded, setEnded] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const [loadingOpacity, setLoadingOpacity] = useState('0.98');
 
   const initialize = async () => {
     try {
@@ -85,12 +86,12 @@ const HomePage = () => {
 
   return (
     <React.Fragment>
-      <Loading isLoading={isLoading} />
+      <Loading isLoading={isLoading} opacity={loadingOpacity} />
       <MainContainer>
         <Header isLogin={shouldShowStage} handleLogout={handleLogout} />
         <StageLoading isPlayStageLoading={isPlayStageLoading} handleLoaded={handleLoaded} handleEnded={handleEnded} />
         {shouldShowIntro && <Intro handleLoading={handleLoading} />}
-        {shouldShowStage && <Stage isReady={isEnded} />}
+        {shouldShowStage && <Stage isReady={isEnded} setLoading={setLoading} setLoadingOpacity={setLoadingOpacity} />}
         {shouldShowStage && <Hud />}
         <Footer isLogin={shouldShowStage} />
       </MainContainer>

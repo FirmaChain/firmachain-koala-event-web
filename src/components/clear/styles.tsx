@@ -19,6 +19,18 @@ const scaleUp = keyframes`
   }
 `;
 
+const showUp = keyframes`
+  0%{
+    opacity:0;
+  }
+  99%{
+    opacity:0;
+  }
+  100% {
+    opacity:1
+  }
+`;
+
 export const DimmedLayer = styled.div<{ $isLoading: boolean }>`
   display: ${({ $isLoading }) => ($isLoading ? 'block' : 'none')};
   position: fixed;
@@ -157,7 +169,7 @@ export const TierIcon = styled.div<{ $src: string }>`
   background-size: contain;
   background-position: center;
 
-  animation: ${scaleUp} 0.3s ease-out forwards;
+  animation: ${showUp} 0.3s ease-out forwards;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(155px * 0.8);
@@ -186,7 +198,7 @@ export const MedalIcon = styled.div<{ $src: string }>`
   background-size: contain;
   background-position: center;
 
-  animation: ${scaleUp} 0.3s ease-out forwards;
+  animation: ${showUp} 0.3s ease-out forwards;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(155px * 0.8);
@@ -239,7 +251,7 @@ export const ClearDescription = styled.div`
   align-items: center;
   gap: 10px;
 
-  animation: ${scaleUp} 0.3s ease-out forwards;
+  animation: ${showUp} 0.3s ease-out forwards;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     top: calc(50% - 10px);
@@ -262,7 +274,7 @@ export const ClearDescription2 = styled.div`
   align-items: center;
   gap: 10px;
 
-  animation: ${scaleUp} 0.3s ease-out forwards;
+  animation: ${showUp} 0.3s ease-out forwards;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     top: calc(50% - 34px);
@@ -300,6 +312,7 @@ export const DescriptionTypo2 = styled.div`
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.18px;
+  animation: ${showUp} 0.3s ease-out forwards;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     font-size: 16px;
@@ -370,7 +383,7 @@ export const NftLabel = styled.div`
   border-radius: 100px;
   background: #f89705;
 
-  animation: ${scaleUp} 0.3s ease-out forwards;
+  animation: ${showUp} 0.3s ease-out forwards;
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     font-size: 11px;
     top: calc(50% + 140px);
@@ -395,7 +408,7 @@ export const LuckyCoinWrapper = styled.div`
   align-items: center;
   gap: 5px;
 
-  animation: ${scaleUp} 0.3s ease-out forwards;
+  animation: ${showUp} 0.3s ease-out forwards;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     top: calc(50% + 80px);

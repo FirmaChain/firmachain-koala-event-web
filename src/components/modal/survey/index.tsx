@@ -85,7 +85,7 @@ const SurveyModal = () => {
         if (result.isComplete) {
           setTimeout(() => {
             setProcess(false);
-            setType(0);
+            setType(100);
             setClear(true);
           }, 500);
         } else {

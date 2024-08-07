@@ -9,8 +9,10 @@ const useClear = () => {
   return {
     isClear: context.isClear,
     type: context.type,
+    rewardValue: context.rewardValue,
     setClear: context.setClear,
     setType: context.setType,
+    setRewardValue: context.setRewardValue,
   };
 };
 

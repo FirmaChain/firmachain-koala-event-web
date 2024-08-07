@@ -4,10 +4,11 @@ import { DimmedLayer, LoadingSpinner, SpinnerImage, LoadingTypo } from './styles
 
 interface ILoadingScreen {
   isLoading: boolean;
+  opacity: string;
 }
 
-const LoadingScreen = ({ isLoading }: ILoadingScreen) => (
-  <DimmedLayer $isLoading={isLoading}>
+const LoadingScreen = ({ isLoading, opacity }: ILoadingScreen) => (
+  <DimmedLayer $isLoading={isLoading} $opacity={opacity}>
     <LoadingSpinner>
       <SpinnerImage />
       <LoadingTypo>KOALA KNIGHT</LoadingTypo>

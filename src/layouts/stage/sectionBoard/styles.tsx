@@ -232,7 +232,12 @@ export const MissionMessageBox = styled.div<{ $xOffset: number; $yOffset: number
     `}
 `;
 
-export const MissionMessageBoxMobile = styled.div<{ $xOffset: number; $yOffset: number; $show: boolean }>`
+export const MissionMessageBoxMobile = styled.div<{
+  $xOffset: number;
+  $yOffset: number;
+  $show: boolean;
+  $isGoal: boolean;
+}>`
   z-index: 50;
   display: ${({ $show }) => ($show ? 'flex' : 'none')};
   flex-direction: column;
@@ -246,7 +251,8 @@ export const MissionMessageBoxMobile = styled.div<{ $xOffset: number; $yOffset: 
   width: 62px;
   height: 62px;
 
-  background-image: url('${({ theme }) => theme.urls.messageBoxMobile}');
+  background-image: url('${({ theme, $isGoal }) =>
+    $isGoal ? theme.urls.messageBoxGoalMobile : theme.urls.messageBoxMobile}');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -483,10 +489,10 @@ export const StageStoneGoal = styled.div<{
   z-index: 3;
 
   position: absolute;
-  top: calc((85px * 0.8) + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px);
+  top: calc((85px * 0.8) + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px - 35px);
   left: calc(50% - (165px * 0.8) / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
-  width: calc(164px * 0.8);
-  height: calc(143px * 0.8);
+  width: calc(170px * 0.8);
+  height: calc(198px * 0.8);
   background-image: url('${({ theme }) => theme.urls.stageGoal}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -513,10 +519,10 @@ export const StageStoneGoalMobile = styled.div<{
   font-weight: 400;
 
   position: absolute;
-  top: calc((25px) + ${({ $yOffset }) => $yOffset * 110}px);
-  left: calc(50% - (82px) / 2 + ${({ $xOffset }) => $xOffset * 0}px);
-  width: calc(82px);
-  height: calc(72px);
+  top: calc((-4px) + ${({ $yOffset }) => $yOffset * 110}px);
+  left: calc(50% - (88px) / 2 + ${({ $xOffset }) => $xOffset * 0}px);
+  width: calc(88px);
+  height: calc(102px);
   background-image: url('${({ theme }) => theme.urls.stageGoal}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -529,12 +535,12 @@ export const GoalEffect = styled.div<{
   $yOffset: number;
 }>`
   ${({ $active }) => $active === false && 'display:none;'}
-  width: calc(360px * 0.8);
-  height: calc(360px * 0.8);
+  width: calc(360px * 0.85);
+  height: calc(360px * 0.85);
   position: absolute;
-  opacity: 0.5;
-  top: calc(-85px + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px);
-  left: calc(50% - 290px / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
+  opacity: 0.9;
+  top: calc(-80px + ${({ $yOffset }) => $yOffset * (208 * 0.8)}px);
+  left: calc(50% - 5px - 290px / 2 + ${({ $xOffset }) => $xOffset * (285 * 0.8)}px);
   background-image: url('${({ theme }) => theme.urls.stageGoalEffect}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -551,9 +557,8 @@ export const GoalEffectMobile = styled.div<{
   width: calc(170px);
   height: calc(170px);
   position: absolute;
-  opacity: 0.5;
 
-  top: calc(${({ $yOffset }) => $yOffset * 110}px - 60px);
+  top: calc(${({ $yOffset }) => $yOffset * 110}px - 55px);
   left: calc(50% - 85px);
   background-image: url('${({ theme }) => theme.urls.stageGoalEffect}');
   background-repeat: no-repeat;
@@ -839,39 +844,6 @@ export const Gem = styled.div`
   }
 `;
 
-export const TreasureBoxWrapper = styled.div`
-  z-index: 3;
-  position: absolute;
-  top: 280px;
-  left: calc(50% - 950px);
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    top: 230px;
-    left: calc(50% - 750px);
-  }
-
-  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
-    top: 500px;
-    left: calc(50% - 792px);
-  }
-`;
-
-export const TreasureBoxImage = styled.div`
-  width: 142px;
-  height: 142px;
-  transform: scaleX(-1);
-  background-image: url('${({ theme }) => theme.urls.chest}');
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 5px 0px #00000040);
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(142px * 0.9);
-    height: calc(142px * 0.9);
-  }
-`;
-
 export const TorchWrapper = styled.div<{ $active: boolean }>`
   display: ${({ $active }) => ($active ? '' : 'none')};
 `;
@@ -1049,4 +1021,158 @@ export const Diamond = styled.div`
     top: -220px;
     left: calc(50% + 350px);
   }
+`;
+
+export const Plate = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: -250px;
+  left: calc(50% - 50vw);
+  width: 157px;
+  height: 45px;
+  background-image: url('${({ theme }) => theme.urls.plate}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(157px * 0.9);
+    height: calc(45px * 0.9);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(157px * 0.5);
+    height: calc(45px * 0.5);
+    top: -50px;
+    left: 0;
+  }
+
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
+    left: calc(50% - 40vw);
+  }
+`;
+
+export const TreasureBoxImage = styled.div`
+  width: 142px;
+  height: 142px;
+  transform: scaleX(-1);
+  background-image: url('${({ theme }) => theme.urls.chest}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 5px 0px #00000040);
+  z-index: 5;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(142px * 0.9);
+    height: calc(142px * 0.9);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(142px * 0.5);
+    height: calc(142px * 0.5);
+  }
+`;
+
+export const RewardIcon = styled.div<{ $src: string }>`
+  z-index: 6;
+  display: flex;
+  width: calc(155px * 0.44);
+  height: calc(155px * 0.44);
+  margin-bottom: -15px;
+  background-image: url('${({ $src }) => $src}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position: relative;
+  animation: scaleAnimation 1.5s infinite;
+  animation-timing-function: ease-in-out;
+
+  @keyframes scaleAnimation {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes laserGlow {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(0.7);
+      opacity: 1;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 1) 80%);
+    transform: translate(-50%, -50%) scale(0.6);
+    animation: laserGlow 0.6s infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(155px * 0.45);
+    height: calc(155px * 0.45);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(155px * 0.3);
+    height: calc(155px * 0.3);
+    margin-bottom: -8px;
+  }
+`;
+
+export const TreasureBoxWrapper = styled.div<{ $active: boolean }>`
+  z-index: 3;
+  position: absolute;
+  top: -415px;
+  left: calc(50% - 49.5vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  ${({ $active }) => $active && 'cursor:pointer;'}
+
+  & > ${RewardIcon} {
+    visibility: ${({ $active }) => ($active ? 'visible' : 'hidden')};
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    top: -400px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    top: -138px;
+    left: 3px;
+  }
+
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
+    left: calc(50% - 39.7vw);
+  }
+`;
+
+export const RewardEffect = styled.div`
+  width: calc(360px * 0.6);
+  height: calc(360px * 0.6);
+  position: absolute;
+  background-image: url('${({ theme }) => theme.urls.stageRewardEffect}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  mix-blend-mode: plus-lighter;
+  filter: blur(5px);
+  bottom: 5px;
 `;

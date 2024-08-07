@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DimmedLayer = styled.div<{ $isLoading: boolean }>`
+export const DimmedLayer = styled.div<{ $isLoading: boolean; $opacity: string }>`
   display: ${({ $isLoading }) => ($isLoading ? 'block' : 'none')};
   position: fixed;
   z-index: 9999;
@@ -8,7 +8,7 @@ export const DimmedLayer = styled.div<{ $isLoading: boolean }>`
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.98);
+  background: rgba(0, 0, 0, ${({ $opacity }) => $opacity});
 `;
 
 export const LoadingSpinner = styled.div`

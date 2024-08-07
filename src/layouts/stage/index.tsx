@@ -8,7 +8,15 @@ import SectionBoard from './sectionBoard';
 import SectionTitle from './sectionTitle';
 import FloatingKOA from '../../components/floatingKOA';
 
-const Stage = ({ isReady }: { isReady: boolean }) => {
+const Stage = ({
+  isReady,
+  setLoading,
+  setLoadingOpacity,
+}: {
+  isReady: boolean;
+  setLoading: (isLoading: boolean) => void;
+  setLoadingOpacity: (opacity: string) => void;
+}) => {
   const { address } = useWallet();
   const { userData, clickFloatingCoin, getUserMissionData } = useMission();
   const { setClear, setType } = useClear();
@@ -22,7 +30,7 @@ const Stage = ({ isReady }: { isReady: boolean }) => {
   const handleClick = useCallback(() => {
     clickFloatingCoin(address)
       .then(() => {
-        setType(6);
+        setType(200);
         setClear(true);
         getUserMissionData(address);
       })
@@ -32,7 +40,7 @@ const Stage = ({ isReady }: { isReady: boolean }) => {
   return (
     <>
       <SectionTitle />
-      <SectionBoard isReady={isReady} />
+      <SectionBoard isReady={isReady} setLoading={setLoading} setLoadingOpacity={setLoadingOpacity} />
       {isAvailableFloatingKOA && <FloatingKOA handleClick={handleClick} />}
     </>
   );

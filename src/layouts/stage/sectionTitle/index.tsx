@@ -6,8 +6,7 @@ import RepeatingImage from '../../../components/repeatingImage';
 import FlowingImage from '../../../components/flowingImage';
 
 import theme from '../../../styles/themes';
-import { TreasureBoxImage, TreasureBoxWrapper } from '../sectionBoard/styles';
-import { Plate, SectionTitleContainer, TitleCoinImage, TitleLogoImage } from './styles';
+import { SectionTitleContainer, TitleCoinImage, TitleLogoImage } from './styles';
 
 interface ICloud {
   src: string;
@@ -84,14 +83,6 @@ const SectionTitle = () => {
           bottom={cloud.bottom}
         />
       ))}
-      {isMobile === false && (
-        <React.Fragment>
-          <Plate />
-          <TreasureBoxWrapper>
-            <TreasureBoxImage />
-          </TreasureBoxWrapper>
-        </React.Fragment>
-      )}
 
       <TitleLogoImage src={isMobile ? theme.urls.titleLogoMobile2 : theme.urls.titleLogo2} />
     </SectionTitleContainer>

@@ -31,8 +31,8 @@ import {
 } from './styles';
 
 const ClearScreen = () => {
-  const { currentTier } = useMission();
-  const { isClear, setClear, type } = useClear();
+  const { currentTier, achievementList } = useMission();
+  const { isClear, setClear, type, rewardValue, setRewardValue } = useClear();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -51,18 +51,19 @@ const ClearScreen = () => {
 
   const handleDimmedLayerClick = () => {
     setClear(false);
+    setRewardValue('0');
   };
 
   return (
     <DimmedLayer $isLoading={isClear} onClick={() => handleDimmedLayerClick()}>
       <ClearEffect1 $type={type} />
       <ClearEffect2 />
-      {type === 0 && (
+      {type === 100 && (
         <React.Fragment>
           <ClearType0 />
         </React.Fragment>
       )}
-      {type === 1 && (
+      {type === 101 && (
         <React.Fragment>
           <ClearType1 />
           <ClearDescription>
@@ -73,33 +74,8 @@ const ClearScreen = () => {
           <TierIcon $src={theme.urls.achievementList[currentTier.order].enable} />
         </React.Fragment>
       )}
-      {(type === 2 || type === 3 || type === 4) && (
+      {type === 200 && (
         <React.Fragment>
-          <ClearType2 />
-          <ClearDescription2>
-            <SquareIcon2 />
-            <DescriptionTypo2>Check in your Firma Station!</DescriptionTypo2>
-            <SquareIcon2 />
-          </ClearDescription2>
-          <NftLabel>NFT</NftLabel>
-          <MedalIcon $src={theme.urls.achievementList[type + 3].enable} />
-        </React.Fragment>
-      )}
-      {type === 5 && (
-        <React.Fragment>
-          <ClearType2 />
-          <ClearDescription2>
-            <SquareIcon2 />
-            <DescriptionTypo2>Check in your Firma Station!</DescriptionTypo2>
-            <SquareIcon2 />
-          </ClearDescription2>
-          <NftLabel>NFT</NftLabel>
-          <MedalIcon $src={theme.urls.achievementList[currentTier.order].enable} />
-        </React.Fragment>
-      )}
-      {type === 6 && (
-        <React.Fragment>
-          {/* <KOA /> */}
           <ClearType3 />
           <ClearDescription>
             <SquareIcon2 />
@@ -113,7 +89,7 @@ const ClearScreen = () => {
           </LuckyCoinWrapper>
         </React.Fragment>
       )}
-      {type === 7 && (
+      {type === 201 && (
         <React.Fragment>
           <ClearType4 />
           <ClearDescription>
@@ -124,8 +100,21 @@ const ClearScreen = () => {
           <LuckyCoinWrapper>
             <FCTIcon />
             <LuckyCoinTypo>FCT Coin</LuckyCoinTypo>
-            <LuckyCoinValueLabel>x 15</LuckyCoinValueLabel>
+            <LuckyCoinValueLabel>x {rewardValue}</LuckyCoinValueLabel>
           </LuckyCoinWrapper>
+        </React.Fragment>
+      )}
+
+      {achievementList.find((v) => v.id === type) && (
+        <React.Fragment>
+          <ClearType2 />
+          <ClearDescription2>
+            <SquareIcon2 />
+            <DescriptionTypo2>Check in your Firma Station!</DescriptionTypo2>
+            <SquareIcon2 />
+          </ClearDescription2>
+          <NftLabel>NFT</NftLabel>
+          <MedalIcon $src={theme.urls.achievementList[type].enable} />
         </React.Fragment>
       )}
     </DimmedLayer>
