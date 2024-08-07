@@ -39,7 +39,7 @@ const gaugeList = [0, 15, 40, 55, 80, 100];
 const Hud = () => {
   const modal = useModal();
   const { isMobile } = useScreen();
-  const { missionList, tierList, achievementList, userData, currentTier } = useMission();
+  const { missionList, tierList, achievementList, userData, userRewardDataList, currentTier } = useMission();
 
   const [isShowMobileHud, setShowMobileHud] = useState(false);
 
@@ -53,7 +53,7 @@ const Hud = () => {
   };
 
   const handleOpenAchievementModal = () => {
-    modal.openModal({ type: 'achievementList', props: { achievementList, userData } });
+    modal.openModal({ type: 'achievementList', props: { achievementList, userData, userRewardDataList } });
   };
 
   const handleClickHud = () => {

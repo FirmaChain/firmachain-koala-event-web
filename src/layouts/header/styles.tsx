@@ -222,6 +222,7 @@ export const UserInfoWrapper = styled.div`
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
     width: 210px;
+    top: 48px;
   }
 `;
 
@@ -277,7 +278,7 @@ export const TierLabel = styled.div<{ $tier: number }>`
   padding: 4px 8px;
   align-items: center;
   gap: 4px;
-  margin-bottom: -12px;
+  margin-bottom: -10px;
   border-radius: 100px;
   border: 1px solid ${({ $tier }) => tierColors[$tier]};
   background: #fff;
@@ -569,6 +570,7 @@ export const ProfileWrapper = styled.div<{ $isShowProfile: boolean }>`
   display: flex;
   width: 40px;
   height: 40px;
+  position: relative;
   justify-content: center;
   align-items: center;
   gap: 10px;

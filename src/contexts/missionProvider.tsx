@@ -10,15 +10,19 @@ interface IMissionContext {
   getTierList: () => Promise<ITier[]>;
   getAchievementList: () => Promise<IAchievement[]>;
   getUserMissionData: (userAddress: string) => Promise<IUserData>;
+  getUserRewardData: (userAddress: string) => Promise<IRewardData[]>;
   completeMission: (userAddress: string, data?: any) => Promise<{ isComplete: boolean }>;
+  rewardAchievement: (userAddress: string) => Promise<{ isComplete: boolean }>;
   clickFloatingCoin: (userAddress: string) => Promise<{ isComplete: boolean }>;
   openTreasureBox: (userAddress: string) => Promise<{ isComplete: boolean }>;
   missionList: IMission[];
   tierList: ITier[];
   achievementList: IAchievement[];
   userData: IUserData;
+  userRewardDataList: IRewardData[];
   currentTier: ITier;
 }
+
 export enum MissionType {
   GENERAL = 'general',
   FLOATING = 'floating',
@@ -75,6 +79,16 @@ export interface IUserData {
   updatedAt?: string;
 }
 
+export interface IRewardData {
+  userAddress: string;
+  achievementId: number;
+  isReward: boolean;
+  nftId: string;
+  txHash: string;
+  rewardAt: string;
+  addedAt: string;
+}
+
 export interface IParticipation {
   count: number;
   isAvailable: boolean;
@@ -85,11 +99,12 @@ export interface IParticipation {
 export const MissionContext = React.createContext<IMissionContext | null>(null);
 
 const MissionProvider = ({ children }: { children: React.ReactNode }) => {
-  const { address } = useWallet();
+  const { address, logout } = useWallet();
 
   const [missionList, setMissionList] = useState<IMission[]>([]);
   const [tierList, setTierList] = useState<ITier[]>([]);
   const [achievementList, setAchievementList] = useState<IAchievement[]>([]);
+  const [userRewardDataList, setUserRewardDataList] = useState<IRewardData[]>([]);
   const [userData, setUserData] = useState<IUserData>({
     userAddress: address,
     step: 0,
@@ -127,6 +142,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       return missionList;
     } catch (e) {
+      logout();
       console.error(e);
       return [];
     }
@@ -142,6 +158,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       return tierList;
     } catch (e) {
+      logout();
       console.error(e);
       return [];
     }
@@ -157,6 +174,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       return achievementList;
     } catch (e) {
+      logout();
       console.error(e);
       return [];
     }
@@ -172,6 +190,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
 
       return userData;
     } catch (e) {
+      logout();
       console.error(e);
 
       return {
@@ -181,6 +200,23 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         treasure: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
         floating: { count: 0, isAvailable: false, prevDate: '', nextDate: '' },
       };
+    }
+  };
+
+  const getUserRewardData = async (userAddress: string): Promise<IRewardData[]> => {
+    try {
+      const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/${userAddress}/rewards`);
+      const { rewardDataList } = response.data.result;
+      console.log('getUserRewardData', rewardDataList);
+
+      setUserRewardDataList(rewardDataList);
+
+      return rewardDataList;
+    } catch (e) {
+      logout();
+      console.error(e);
+
+      return [];
     }
   };
 
@@ -198,6 +234,29 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         isComplete,
       };
     } catch (e) {
+      logout();
+      console.error(e);
+      return {
+        isComplete: false,
+      };
+    }
+  };
+
+  const rewardAchievement = async (userAddress: string): Promise<{ isComplete: boolean }> => {
+    try {
+      const response = await axios.post(`${CHAIN_CONFIG.API_HOST}/missions/reward`, { userAddress });
+      let isComplete = false;
+      if (response.data.code === 0) {
+        isComplete = response.data.result.isComplete;
+      }
+
+      console.log('rewardAchievement');
+
+      return {
+        isComplete,
+      };
+    } catch (e) {
+      logout();
       console.error(e);
       return {
         isComplete: false,
@@ -219,6 +278,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         isComplete,
       };
     } catch (e) {
+      logout();
       console.error(e);
       return {
         isComplete: false,
@@ -240,6 +300,7 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         isComplete,
       };
     } catch (e) {
+      logout();
       console.error(e);
       return {
         isComplete: false,
@@ -270,13 +331,16 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         tierList,
         achievementList,
         userData,
+        userRewardDataList,
         currentTier,
         getMissionStatus,
         getMissionList,
         getTierList,
         getAchievementList,
         getUserMissionData,
+        getUserRewardData,
         completeMission,
+        rewardAchievement,
         clickFloatingCoin,
         openTreasureBox,
       }}

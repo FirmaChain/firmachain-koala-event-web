@@ -2,9 +2,11 @@ import React, { useMemo } from 'react';
 
 import Modal from '../base/modal';
 import useModal from '../../../hooks/useModal';
-import { IAchievement, IUserData } from '../../../contexts/missionProvider';
+import useScreen from '../../../hooks/useScreen';
+import { IAchievement, IRewardData, IUserData } from '../../../contexts/missionProvider';
 
 import Borders from '../../../components/borders';
+
 import {
   AchievementIcon,
   AchievementItem,
@@ -17,28 +19,87 @@ import {
   TitleWrapper,
   TorchIcon,
   LockIcon,
+  NftLabel,
+  HoverContent,
+  NftTag,
+  NftNameTypo,
+  NftIdTypo,
+  HoverDivider,
+  RewardAtTypo,
+  BottomSheetContainer,
+  CloseButtonMobile,
+  PrimaryButton,
+  ButtonLeft,
+  ButtonCenter,
+  ButtonRight,
+  DimmedLayer,
+  AchievementDetailIcon,
+  DetailInfo,
+  DetailNftLabel,
+  DetailName,
+  DetailNftId,
+  RewardDate,
+  RewardDateLabel,
+  RewardDateValue,
 } from './styles';
 
 const AchievementListModal = ({
   achievementList,
   userData,
+  userRewardDataList,
 }: {
   achievementList: IAchievement[];
   userData: IUserData;
+  userRewardDataList: IRewardData[];
 }) => {
   const { closeModal } = useModal();
+  const { isMobile } = useScreen();
+  const [isShowDetail, setIsShowDetail] = React.useState(false);
+  const [selectedDetailIndex, setSelectedDetailIndex] = React.useState<number>(0);
 
-  const completeList = useMemo(() => {
-    let result: boolean[] = [];
+  const parseList = useMemo(() => {
+    let result: { isComplete: boolean; isReward: boolean; nftId: string; txHash: string; rewardAt: string }[] = [];
     achievementList.forEach((achievement: IAchievement, index: number) => {
-      if (userData.achievementIdList.includes(achievement.id)) {
-        result[index] = true;
-      } else {
-        result[index] = false;
-      }
+      const rewardData = userRewardDataList.find((rewardData) => rewardData.achievementId === achievement.id);
+
+      result[index] = {
+        isComplete: userData.achievementIdList.includes(achievement.id),
+        isReward: rewardData ? rewardData.isReward : false,
+        nftId: rewardData ? rewardData.nftId : '',
+        txHash: rewardData ? rewardData.txHash : '',
+        rewardAt: rewardData ? rewardData.rewardAt : '',
+      };
     });
     return result;
-  }, [achievementList, userData]);
+  }, [achievementList, userData, userRewardDataList]);
+
+  const formatRewardDate = (date: string) => {
+    const dateObj = new Date(date);
+    const year = String(dateObj.getFullYear()).slice(2);
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const formatRewardDateTime = (date: string) => {
+    const dateObj = new Date(date);
+    const year = String(dateObj.getFullYear()).slice(2);
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const hours = String(dateObj.getHours()).padStart(2, '0');
+    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+    const seconds = String(dateObj.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
+  const handleOpenDetail = (index: number) => {
+    setSelectedDetailIndex(index);
+    setIsShowDetail(true);
+  };
+
+  const handleCloseDetail = () => {
+    setIsShowDetail(false);
+  };
 
   const handleCloseModal = () => {
     closeModal();
@@ -46,6 +107,38 @@ const AchievementListModal = ({
 
   return (
     <Modal visible={true} maskClosable={true} handleClose={handleCloseModal} width={'782px'}>
+      {isMobile && (
+        <React.Fragment>
+          <DimmedLayer $isLoading={isShowDetail} onClick={() => handleCloseDetail()} />
+          <BottomSheetContainer $visible={isShowDetail}>
+            <CloseButtonMobile onClick={() => handleCloseModal()}>
+              <CloseIcon />
+            </CloseButtonMobile>
+            <AchievementDetailIcon $index={selectedDetailIndex} />
+            <DetailInfo>
+              {parseList[selectedDetailIndex].nftId && <DetailNftLabel>NFT</DetailNftLabel>}
+              <DetailName>{achievementList[selectedDetailIndex].name}</DetailName>
+              {parseList[selectedDetailIndex].nftId && (
+                <DetailNftId># {parseList[selectedDetailIndex].nftId}</DetailNftId>
+              )}
+            </DetailInfo>
+
+            {parseList[selectedDetailIndex].nftId && (
+              <RewardDate>
+                <RewardDateLabel>Created At</RewardDateLabel>
+                <RewardDateValue>{formatRewardDateTime(parseList[selectedDetailIndex].rewardAt)}</RewardDateValue>
+              </RewardDate>
+            )}
+
+            <PrimaryButton onClick={() => {}}>
+              <ButtonLeft />
+              <ButtonCenter>CLOSE</ButtonCenter>
+              <ButtonRight />
+            </PrimaryButton>
+          </BottomSheetContainer>
+        </React.Fragment>
+      )}
+
       <ModalDefaultContainer>
         <Borders color='#51290c'>
           <CloseButton onClick={() => handleCloseModal()}>
@@ -59,12 +152,38 @@ const AchievementListModal = ({
             </TitleWrapper>
             <Borders color='#C08960'>
               <AchievementList>
-                {achievementList.map((_, index) => (
-                  <AchievementItem key={index} $complete={completeList[index]}>
-                    <AchievementIcon $index={index} />
-                    <LockIcon />
-                  </AchievementItem>
-                ))}
+                {achievementList.map((achievement, index) => {
+                  const medalName = achievement.name.split(' ')[0];
+                  const medalSubName = achievement.name.split(' ')[1];
+                  const targetData = parseList[index];
+
+                  return (
+                    <AchievementItem
+                      key={index}
+                      $complete={targetData.isComplete}
+                      onClick={() => handleOpenDetail(index)}
+                    >
+                      <AchievementIcon $index={index}>{targetData.nftId && <NftLabel>NFT</NftLabel>}</AchievementIcon>
+                      <LockIcon />
+                      {isMobile === false && (
+                        <HoverContent>
+                          {targetData.nftId && <NftTag>NFT</NftTag>}
+                          <NftNameTypo>
+                            <span>{medalName}</span>
+                            &nbsp;{medalSubName}
+                          </NftNameTypo>
+                          {targetData.nftId && (
+                            <React.Fragment>
+                              <NftIdTypo># {targetData.nftId}</NftIdTypo>
+                              <HoverDivider />
+                              <RewardAtTypo>{formatRewardDate(targetData.rewardAt)}</RewardAtTypo>
+                            </React.Fragment>
+                          )}
+                        </HoverContent>
+                      )}
+                    </AchievementItem>
+                  );
+                })}
               </AchievementList>
             </Borders>
           </ContentsWrapper>

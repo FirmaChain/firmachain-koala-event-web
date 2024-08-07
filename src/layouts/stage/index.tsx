@@ -22,7 +22,7 @@ const Stage = ({ isReady }: { isReady: boolean }) => {
   const handleClick = useCallback(() => {
     clickFloatingCoin(address)
       .then(() => {
-        setType(2);
+        setType(6);
         setClear(true);
         getUserMissionData(address);
       })

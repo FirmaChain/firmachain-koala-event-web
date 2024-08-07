@@ -76,10 +76,8 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
 
   useEffect(() => {
     if (isClear && waitingClear === false) {
-      console.log('CLEAR ON');
       setWaitingClear(true);
     } else if (isClear === false && waitingClear) {
-      console.log('CLEAR OFF');
       setWaitingClear(false);
       getUserMissionData(address);
     }
@@ -155,10 +153,11 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
     }
   };
 
-  const handleMissionButton = () => {
+  const handleMissionButton = async (step?: number) => {
     const currentMission = missionList[stepIndex];
+    const checkStep = step ? step : btnStep;
 
-    if (currentMission.type === MissionType.GENERAL && btnStep === 0) {
+    if (currentMission.type === MissionType.GENERAL && checkStep === 0) {
       setBtnStep(1);
       window.open(currentMission.extra1, '_blank');
     } else {
@@ -173,22 +172,27 @@ const SectionBoard = ({ isReady }: { isReady: boolean }) => {
         case MissionType.WALLET_TRANSACTION:
         case MissionType.TIER:
           if (isProcess) return;
-          setProcess(true);
-          completeMission(address)
-            .then((result) => {
-              if (result.isComplete) {
-                if (currentMission.type === MissionType.TIER) setType(1);
-                setClear(true);
-                setProcess(false);
+
+          try {
+            setProcess(true);
+            const result = await completeMission(address);
+            if (result.isComplete) {
+              if (currentMission.type === MissionType.TIER) {
+                setType(1);
               } else {
-                throw new Error('Mission is not complete');
+                setType(0);
               }
-            })
-            .catch((e) => {
-              console.error(e);
+              setClear(true);
               setProcess(false);
-              enqueueSnackbar('Failed mission', { variant: 'error', autoHideDuration: 1500 });
-            });
+            } else {
+              throw new Error('Mission is not complete');
+            }
+          } catch (e) {
+            console.error(e);
+            setProcess(false);
+            enqueueSnackbar('Failed mission', { variant: 'error', autoHideDuration: 1500 });
+          }
+
           break;
         case MissionType.QUIZ:
           modal.openModal({ type: 'quiz', props: { currentMission } });

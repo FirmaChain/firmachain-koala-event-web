@@ -32,9 +32,7 @@ import {
   TierLabel,
   MenuWrapper,
   MenuItem,
-  MenueLabel,
   MenuTypo,
-  MenuValue,
   CoinList,
   CoinItem,
   CoinLabel,
@@ -69,6 +67,31 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
   const [isShowEcosystem, setShowEcosystem] = useState(false);
   const [isShowProfile, setShowProfile] = useState(false);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const nextDate = new Date(userData.floating.nextDate);
+      const timeDiff = nextDate.getTime() - now.getTime();
+
+      if (timeDiff > 0) {
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60))
+          .toString()
+          .padStart(2, '0');
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
+          .toString()
+          .padStart(2, '0');
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000)
+          .toString()
+          .padStart(2, '0');
+        setRemainingTime(`${hours}h ${minutes}m ${seconds}s`);
+      } else {
+        setRemainingTime('00h 00m 00s');
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [userData.floating.nextDate]);
+
   const dailyFloatingCount = useMemo(() => {
     return userData.floating.count ? userData.floating.count : 0;
   }, [userData]);
@@ -100,31 +123,6 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
     setShowProfile(!isShowProfile);
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      const nextDate = new Date(userData.floating.nextDate);
-      const timeDiff = nextDate.getTime() - now.getTime();
-
-      if (timeDiff > 0) {
-        const hours = Math.floor(timeDiff / (1000 * 60 * 60))
-          .toString()
-          .padStart(2, '0');
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
-          .toString()
-          .padStart(2, '0');
-        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000)
-          .toString()
-          .padStart(2, '0');
-        setRemainingTime(`${hours}h ${minutes}m ${seconds}s`);
-      } else {
-        setRemainingTime('00h 00m 00s');
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [userData.floating.nextDate]);
-
   useOutsideClick([], () => {
     isShowEcosystem && setShowEcosystem(!isShowEcosystem);
     isShowProfile && setShowProfile(!isShowProfile);
@@ -145,12 +143,6 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
         </TierLabel>
 
         <MenuWrapper>
-          <MenuItem>
-            <MenueLabel>
-              <MenuTypo>My Point</MenuTypo>
-            </MenueLabel>
-            <MenuValue>0</MenuValue>
-          </MenuItem>
           <MenuItem>
             <CoinList>
               <CoinItem>

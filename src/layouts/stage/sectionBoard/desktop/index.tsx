@@ -108,7 +108,7 @@ const SecionBoardDesktop = ({
   characterRef: any;
   stageRefs: any;
   missionList: IMission[];
-  handleMissionButton: () => void;
+  handleMissionButton: (step?: number) => Promise<void>;
 }) => {
   return (
     <React.Fragment>

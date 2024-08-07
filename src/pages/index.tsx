@@ -16,7 +16,8 @@ import Loading from '../components/loading';
 
 const HomePage = () => {
   const { isLogin, logout, address } = useWallet();
-  const { getMissionStatus, getMissionList, getTierList, getAchievementList, getUserMissionData } = useMission();
+  const { getMissionStatus, getMissionList, getTierList, getAchievementList, getUserMissionData, getUserRewardData } =
+    useMission();
   const [isPlayStageLoading, setPlayStageLoading] = useState(false);
   const [isLoaded, setLoaded] = useState(false);
   const [isEnded, setEnded] = useState(false);
@@ -32,6 +33,7 @@ const HomePage = () => {
           getTierList(),
           getAchievementList(),
           getUserMissionData(address),
+          getUserRewardData(address),
         ]);
 
         if (missionList.length !== MISSION_COUNT) throw new Error('Failed to get mission data');

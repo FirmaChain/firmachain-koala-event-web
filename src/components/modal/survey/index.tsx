@@ -29,10 +29,10 @@ import {
   TextLength,
 } from './styles';
 
-const QuizModal = () => {
+const SurveyModal = () => {
   const { closeModal } = useModal();
   const { completeMission } = useMission();
-  const { isClear, setClear } = useClear();
+  const { isClear, setClear, setType } = useClear();
   const { address } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -43,10 +43,8 @@ const QuizModal = () => {
 
   useEffect(() => {
     if (isClear && waitingClear === false) {
-      console.log('CLEAR ON');
       setWaitingClear(true);
     } else if (isClear === false && waitingClear) {
-      console.log('CLEAR OFF');
       setWaitingClear(false);
       setRating(0);
       setSurveyText('');
@@ -87,6 +85,7 @@ const QuizModal = () => {
         if (result.isComplete) {
           setTimeout(() => {
             setProcess(false);
+            setType(0);
             setClear(true);
           }, 500);
         } else {
@@ -141,4 +140,4 @@ const QuizModal = () => {
   );
 };
 
-export default React.memo(QuizModal);
+export default React.memo(SurveyModal);

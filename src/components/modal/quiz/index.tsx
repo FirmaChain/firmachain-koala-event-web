@@ -29,7 +29,7 @@ import {
 
 const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
   const { closeModal } = useModal();
-  const { setClear, isClear } = useClear();
+  const { setClear, setType, isClear } = useClear();
   const { completeMission } = useMission();
   const { address } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
@@ -40,10 +40,8 @@ const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
 
   useEffect(() => {
     if (isClear && waitingClear === false) {
-      console.log('CLEAR ON');
       setWaitingClear(true);
     } else if (isClear === false && waitingClear) {
-      console.log('CLEAR OFF');
       setWaitingClear(false);
       setIsSelectTime(false);
       setOptionStatus({});
@@ -80,6 +78,7 @@ const QuizModal = ({ currentMission }: { currentMission: IMission }) => {
           if (result.isComplete) {
             setTimeout(() => {
               setProcess(false);
+              setType(0);
               setClear(true);
             }, 500);
           } else {

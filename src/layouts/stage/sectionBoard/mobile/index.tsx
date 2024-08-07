@@ -1,5 +1,6 @@
 import React from 'react';
 
+import useModal from '../../../../hooks/useModal';
 import { IMission } from '../../../../contexts/missionProvider';
 
 import {
@@ -71,8 +72,15 @@ const SectionBoardMobile = ({
   characterRef: any;
   stageRefs: any;
   missionList: IMission[];
-  handleMissionButton: () => void;
+  handleMissionButton: (step?: number) => Promise<void>;
 }) => {
+  const modal = useModal();
+
+  const handleOpenMissionModal = () => {
+    const currentMission = missionList[stepIndex];
+    modal.openModal({ type: 'mission', props: { btnStep, stepIndex, currentMission, handleMissionButton } });
+  };
+
   return (
     <React.Fragment>
       <CharacterMobileWrapper
@@ -88,7 +96,7 @@ const SectionBoardMobile = ({
         $xOffset={stages[stepIndex].xOffset}
         $yOffset={stages[stepIndex].yOffset}
         $show={showMessageBox}
-        onClick={() => handleMissionButton()}
+        onClick={() => handleOpenMissionModal()}
       />
 
       <BackgroundMobileWrapper>

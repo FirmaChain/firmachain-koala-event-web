@@ -63,7 +63,6 @@ const RequestQR = ({ module, isHidden = false, handleSuccess, handleFailed, para
 
   const handleTick = async () => {
     checkRequest(requestKey).then((requestData) => {
-      console.log(requestData);
       if (Number(requestData.status) === 1) {
         setActiveQR(false);
         handleSuccess(requestData);

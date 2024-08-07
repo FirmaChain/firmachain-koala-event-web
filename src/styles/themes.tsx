@@ -49,6 +49,8 @@ const urls = {
   tierCoin: process.env.PUBLIC_URL + '/images/img_tier_coin.png',
   up: process.env.PUBLIC_URL + '/images/img_up.png',
   backArrow: process.env.PUBLIC_URL + '/images/ic_back_arrow.png',
+  square: process.env.PUBLIC_URL + '/images/ic_square.png',
+  square2: process.env.PUBLIC_URL + '/images/ic_square2.png',
   achievementList: [
     {
       enable: process.env.PUBLIC_URL + '/images/img_badge_bronze.png',
@@ -71,16 +73,16 @@ const urls = {
       disable: process.env.PUBLIC_URL + '/images/img_badge_diamond_disable.png',
     },
     {
-      enable: process.env.PUBLIC_URL + '/images/img_medal_dmts.png',
-      disable: process.env.PUBLIC_URL + '/images/img_medal_dmts_disable.png',
+      enable: process.env.PUBLIC_URL + '/images/img_medal_udc.png',
+      disable: process.env.PUBLIC_URL + '/images/img_medal_udc_disable.png',
     },
     {
       enable: process.env.PUBLIC_URL + '/images/img_medal_bwb.png',
       disable: process.env.PUBLIC_URL + '/images/img_medal_bwb_disable.png',
     },
     {
-      enable: process.env.PUBLIC_URL + '/images/img_medal_udc.png',
-      disable: process.env.PUBLIC_URL + '/images/img_medal_udc_disable.png',
+      enable: process.env.PUBLIC_URL + '/images/img_medal_dmts.png',
+      disable: process.env.PUBLIC_URL + '/images/img_medal_dmts_disable.png',
     },
   ],
   external: process.env.PUBLIC_URL + '/images/ic_external.svg',
@@ -99,6 +101,9 @@ const urls = {
   clearBg2: process.env.PUBLIC_URL + '/images/img_clear_bg2.png',
   clearBg3: process.env.PUBLIC_URL + '/images/img_clear_bg3.png',
   clearBg4: process.env.PUBLIC_URL + '/images/img_clear_bg4.png',
+  clearBg5: process.env.PUBLIC_URL + '/images/img_clear_bg5.png',
+  clearBg6: process.env.PUBLIC_URL + '/images/img_clear_bg6.png',
+  clearBg7: process.env.PUBLIC_URL + '/images/img_clear_bg7.png',
   staking: process.env.PUBLIC_URL + '/images/img_staking.png',
   stakingHover: process.env.PUBLIC_URL + '/images/img_staking_hover.png',
   shop: process.env.PUBLIC_URL + '/images/img_shop.png',
@@ -110,6 +115,7 @@ const urls = {
   koaSpin: process.env.PUBLIC_URL + '/images/img_koa_spin.gif',
   diamond: process.env.PUBLIC_URL + '/images/img_diamond.png',
   fct: process.env.PUBLIC_URL + '/images/ic_fct.png',
+  fctPixcel: process.env.PUBLIC_URL + '/images/img_fct_pixel.png',
   headerLogo: process.env.PUBLIC_URL + '/images/img_header_logo.svg',
   headerLogoMobile: process.env.PUBLIC_URL + '/images/img_header_logo2.svg',
   headerEcosystem: process.env.PUBLIC_URL + '/images/ic_ecosystem.svg',
