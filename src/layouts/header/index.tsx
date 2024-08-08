@@ -58,7 +58,7 @@ import {
 } from './styles';
 
 const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
-  const { address, logout } = useWallet();
+  const { address, balance, logout } = useWallet();
   const { currentTier, userData } = useMission();
   const { enqueueSnackbar } = useSnackbar();
   const { isMobile } = useScreen();
@@ -157,7 +157,7 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
                   <CoinIcon $src={theme.urls.fct} />
                   <CoinTypo>FCT</CoinTypo>
                 </CoinLabel>
-                <CoinValue>0</CoinValue>
+                <CoinValue>{balance}</CoinValue>
               </CoinItem>
             </CoinList>
           </MenuItem>

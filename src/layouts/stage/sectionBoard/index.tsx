@@ -36,7 +36,7 @@ const SectionBoard = ({
 }) => {
   const { address } = useWallet();
   const { enqueueSnackbar } = useSnackbar();
-  const { rewardValue, isClear, setClear, setType, setRewardValue } = useClear();
+  const { isClear, setClear, setType, setRewardValue } = useClear();
   const { isMobile } = useScreen();
   const modal = useModal();
   const {
@@ -48,6 +48,7 @@ const SectionBoard = ({
     completeMission,
     rewardAchievement,
     getUserMissionData,
+    getUserRewardData,
   } = useMission();
 
   const [stepIndex, setStepIndex] = useState(0);
@@ -86,7 +87,7 @@ const SectionBoard = ({
   useEffect(() => {
     if (isReady) {
       setStepIndex(userData.step);
-      moveInitCurrentStep();
+      // moveInitCurrentStep();
       const timeout = setTimeout(
         () => {
           playSpawnAnimation();
@@ -119,6 +120,7 @@ const SectionBoard = ({
     } else if (isClear === false && waitingClear) {
       setWaitingClear(false);
       getUserMissionData(address);
+      getUserRewardData(address);
 
       if (rewardFCT !== '0') {
         setClear(true);
@@ -293,9 +295,10 @@ const SectionBoard = ({
 
       <Plate />
       <TreasureBoxWrapper $active={currentReward !== null} onClick={() => handleRewardButton()}>
-        <RewardIcon $src={theme.urls.achievementList[currentReward?.achievementId!].enable} />
+        <RewardIcon $src={currentReward !== null ? theme.urls.tierList[currentReward?.achievementId!] : ''} />
         <TreasureBoxImage />
         <RewardEffect />
+        {/* <StarEffect /> */}
       </TreasureBoxWrapper>
 
       {isMobile ? (

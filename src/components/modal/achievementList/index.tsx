@@ -116,7 +116,7 @@ const AchievementListModal = ({
             </CloseButtonMobile>
             <AchievementDetailIcon $index={selectedDetailIndex} />
             <DetailInfo>
-              {parseList[selectedDetailIndex].nftId && <DetailNftLabel>NFT</DetailNftLabel>}
+              <DetailNftLabel>{parseList[selectedDetailIndex].nftId ? 'NFT' : 'EVENT'}</DetailNftLabel>
               <DetailName>{achievementList[selectedDetailIndex].name}</DetailName>
               {parseList[selectedDetailIndex].nftId && (
                 <DetailNftId># {parseList[selectedDetailIndex].nftId}</DetailNftId>
@@ -167,10 +167,11 @@ const AchievementListModal = ({
                       <LockIcon />
                       {isMobile === false && (
                         <HoverContent>
-                          {targetData.nftId && <NftTag>NFT</NftTag>}
+                          <NftTag>{targetData.nftId ? 'NFT' : 'EVENT'}</NftTag>
                           <NftNameTypo>
                             <span>{medalName}</span>
-                            &nbsp;{medalSubName}
+                            {targetData.nftId ? ' ' : <br />}
+                            {medalSubName}
                           </NftNameTypo>
                           {targetData.nftId && (
                             <React.Fragment>

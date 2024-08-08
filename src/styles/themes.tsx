@@ -95,7 +95,7 @@ const urls = {
   hudIconMobileMission: process.env.PUBLIC_URL + '/images/img_mission_mobile.png',
   hudIconMobileShop: process.env.PUBLIC_URL + '/images/img_shop_mobile.png',
   hudIconMobileStaking: process.env.PUBLIC_URL + '/images/img_staking_mobile.png',
-
+  star2: process.env.PUBLIC_URL + '/images/img_star.png',
   floatingKoa: process.env.PUBLIC_URL + '/images/img_floating_koa.gif',
   floatingKoaMessage: process.env.PUBLIC_URL + '/images/img_floatingkoa_messagebox.png',
   clearBg1: process.env.PUBLIC_URL + '/images/img_clear_bg1.png',
@@ -114,7 +114,7 @@ const urls = {
   torch: process.env.PUBLIC_URL + '/images/img_torch.gif',
   koa: process.env.PUBLIC_URL + '/images/ic_koa.png',
   koaSpin: process.env.PUBLIC_URL + '/images/img_koa_spin.gif',
-  diamond: process.env.PUBLIC_URL + '/images/img_diamond.png',
+  diamond: process.env.PUBLIC_URL + '/images/img_diamond.gif',
   fct: process.env.PUBLIC_URL + '/images/ic_fct.png',
   fctPixcel: process.env.PUBLIC_URL + '/images/img_fct_pixel.png',
   headerLogo: process.env.PUBLIC_URL + '/images/img_header_logo.svg',

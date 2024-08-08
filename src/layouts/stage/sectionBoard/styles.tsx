@@ -545,7 +545,7 @@ export const GoalEffect = styled.div<{
   background-repeat: no-repeat;
   background-size: contain;
   mix-blend-mode: plus-lighter;
-  filter: blur(7px);
+  filter: blur(8px);
 `;
 
 export const GoalEffectMobile = styled.div<{
@@ -554,17 +554,17 @@ export const GoalEffectMobile = styled.div<{
   $yOffset: number;
 }>`
   ${({ $active }) => $active === false && 'display:none;'}
-  width: calc(170px);
-  height: calc(170px);
+  width: calc(190px);
+  height: calc(190px);
   position: absolute;
 
-  top: calc(${({ $yOffset }) => $yOffset * 110}px - 55px);
-  left: calc(50% - 85px);
+  top: calc(${({ $yOffset }) => $yOffset * 110}px - 72px);
+  left: calc(50% - 95px);
   background-image: url('${({ theme }) => theme.urls.stageGoalEffect}');
   background-repeat: no-repeat;
   background-size: contain;
   mix-blend-mode: plus-lighter;
-  filter: blur(7px);
+  filter: blur(8px);
 `;
 
 export const Character4Image = styled.div`
@@ -954,10 +954,10 @@ export const BackArrow = styled.div`
 export const Staking = styled.div`
   z-index: 3;
   position: absolute;
-  top: -180px;
-  left: calc(50% - 600px);
-  width: calc(346px * 0.8);
-  height: calc(320px * 0.8);
+  top: -230px;
+  left: calc(50% - 670px);
+  width: calc(346px * 1);
+  height: calc(320px * 1);
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(346px * 0.7);
@@ -969,11 +969,11 @@ export const Staking = styled.div`
 
 export const KOASpin = styled.div`
   z-index: 4;
-  width: calc(58px * 0.8);
-  height: calc(59px * 0.8);
+  width: calc(58px);
+  height: calc(59px);
   position: absolute;
-  top: -240px;
-  left: calc(50% - 485px);
+  top: -300px;
+  left: calc(50% - 525px);
   background-image: url('${({ theme }) => theme.urls.koaSpin}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -990,10 +990,10 @@ export const KOASpin = styled.div`
 export const Shop = styled.div`
   z-index: 3;
   position: absolute;
-  top: -200px;
-  left: calc(50% + 320px);
-  width: calc(237px * 0.8);
-  height: calc(340px * 0.8);
+  top: -250px;
+  left: calc(50% + 300px);
+  width: calc(237px);
+  height: calc(340px);
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(237px * 0.7);
@@ -1005,10 +1005,10 @@ export const Shop = styled.div`
 
 export const Diamond = styled.div`
   z-index: 4;
-  width: calc(60px * 0.8);
-  height: calc(60px * 0.8);
+  width: calc(60px);
+  height: calc(60px);
   position: absolute;
-  top: -255px;
+  top: -310px;
   left: calc(50% + 390px);
   background-image: url('${({ theme }) => theme.urls.diamond}');
   background-repeat: no-repeat;
@@ -1027,7 +1027,7 @@ export const Plate = styled.div`
   z-index: 3;
   position: absolute;
   top: -250px;
-  left: calc(50% - 50vw);
+  left: calc(50% - 49.9vw);
   width: 157px;
   height: 45px;
   background-image: url('${({ theme }) => theme.urls.plate}');
@@ -1077,8 +1077,8 @@ export const TreasureBoxImage = styled.div`
 export const RewardIcon = styled.div<{ $src: string }>`
   z-index: 6;
   display: flex;
-  width: calc(155px * 0.44);
-  height: calc(155px * 0.44);
+  width: calc(120px * 0.44);
+  height: calc(120px * 0.44);
   margin-bottom: -15px;
   background-image: url('${({ $src }) => $src}');
   background-repeat: no-repeat;
@@ -1101,11 +1101,11 @@ export const RewardIcon = styled.div<{ $src: string }>`
   @keyframes laserGlow {
     0%,
     100% {
-      transform: translate(-50%, -50%) scale(0.6);
+      transform: translate(-50%, -50%) scale(0.7);
       opacity: 0.5;
     }
     50% {
-      transform: translate(-50%, -50%) scale(0.7);
+      transform: translate(-50%, -50%) scale(0.8);
       opacity: 1;
     }
   }
@@ -1125,43 +1125,14 @@ export const RewardIcon = styled.div<{ $src: string }>`
   }
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(155px * 0.45);
-    height: calc(155px * 0.45);
+    width: calc(120px * 0.45);
+    height: calc(120px * 0.45);
   }
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
-    width: calc(155px * 0.3);
-    height: calc(155px * 0.3);
+    width: calc(120px * 0.3);
+    height: calc(120px * 0.3);
     margin-bottom: -8px;
-  }
-`;
-
-export const TreasureBoxWrapper = styled.div<{ $active: boolean }>`
-  z-index: 3;
-  position: absolute;
-  top: -415px;
-  left: calc(50% - 49.5vw);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  ${({ $active }) => $active && 'cursor:pointer;'}
-
-  & > ${RewardIcon} {
-    visibility: ${({ $active }) => ($active ? 'visible' : 'hidden')};
-  }
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    top: -400px;
-  }
-
-  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
-    top: -138px;
-    left: 3px;
-  }
-
-  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
-    left: calc(50% - 39.7vw);
   }
 `;
 
@@ -1175,4 +1146,83 @@ export const RewardEffect = styled.div`
   mix-blend-mode: plus-lighter;
   filter: blur(5px);
   bottom: 5px;
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(360px * 0.45);
+    height: calc(360px * 0.45);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(360px * 0.35);
+    height: calc(360px * 0.35);
+  }
+`;
+
+export const StarEffect = styled.div`
+  width: calc(20px);
+  height: calc(20px);
+  position: absolute;
+  background-image: url('${({ theme }) => theme.urls.star2}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  mix-blend-mode: plus-lighter;
+  top: -20px;
+  right: 30px;
+  z-index: 6;
+  transform: scale(0);
+
+  animation: scaleAnimation2 1.5s infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.5s;
+
+  @keyframes scaleAnimation2 {
+    0%,
+    100% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1);
+    }
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(360px * 0.45);
+    height: calc(360px * 0.45);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(360px * 0.35);
+    height: calc(360px * 0.35);
+  }
+`;
+
+export const TreasureBoxWrapper = styled.div<{ $active: boolean }>`
+  z-index: 3;
+  position: absolute;
+  top: -392px;
+  left: calc(50% - 49.5vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  ${({ $active }) => $active && 'cursor:pointer;'}
+
+  & > ${RewardIcon} {
+    visibility: ${({ $active }) => ($active ? 'visible' : 'hidden')};
+  }
+  & > ${RewardEffect} {
+    visibility: ${({ $active }) => ($active ? 'visible' : 'hidden')};
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    top: -385px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    top: -124px;
+    left: 3px;
+  }
+
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
+    left: calc(50% - 39.7vw);
+  }
 `;

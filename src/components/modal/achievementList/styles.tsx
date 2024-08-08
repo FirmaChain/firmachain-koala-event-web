@@ -134,11 +134,11 @@ export const LockIcon = styled.div`
 `;
 
 export const HoverContent = styled.div`
-  bottom: -150px;
+  bottom: -165px;
   z-index: 4;
   position: absolute;
-  width: 150px;
-  height: 150px;
+  width: 144px;
+  height: 144px;
   display: flex;
   gap: 4px;
   flex-direction: column;
@@ -169,7 +169,7 @@ export const AchievementItem = styled.div<{ $complete: boolean }>`
       : `& > ${AchievementIcon}{opacity:0.3;filter: grayscale(100%);background-color: rgba(0, 0, 0, 0.7);}`}
 
   &:hover > ${HoverContent} {
-    bottom: 5px;
+    bottom: 8px;
   }
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
@@ -226,6 +226,7 @@ export const NftTag = styled.div`
 `;
 
 export const NftNameTypo = styled.div`
+  text-align: center;
   color: #fff;
   font-family: Poppins;
   font-size: 16px;
@@ -239,7 +240,7 @@ export const NftNameTypo = styled.div`
 `;
 
 export const NftIdTypo = styled.div`
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
   text-align: center;
   font-family: Poppins;
   font-size: 12px;
@@ -260,7 +261,7 @@ export const HoverDivider = styled.div`
 `;
 
 export const RewardAtTypo = styled.div`
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
   font-family: Poppins;
   font-size: 12px;

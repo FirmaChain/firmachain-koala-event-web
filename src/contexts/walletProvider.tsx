@@ -12,6 +12,7 @@ import { convertToFctString } from '../utils/common';
 interface IWalletContext {
   isLogin: boolean;
   address: string;
+  balance: string;
   setUserData: () => Promise<void>;
   logout: () => void;
 }
@@ -20,7 +21,7 @@ export const WalletContext = React.createContext<IWalletContext | null>(null);
 
 const WalletProvider = ({ children }: { children: React.ReactNode }) => {
   const firmaSDK = new FirmaSDK(CHAIN_CONFIG.FIRMACHAIN_CONFIG);
-  const { address } = useSelector((state: rootState) => state.wallet);
+  const { address, balance } = useSelector((state: rootState) => state.wallet);
 
   useEffect(() => {
     address && setUserData();
@@ -61,6 +62,7 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         isLogin,
         address,
+        balance,
         setUserData,
         logout,
       }}
