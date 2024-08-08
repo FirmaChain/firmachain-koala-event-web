@@ -80,7 +80,7 @@ const MissionModal = ({
         <MissionTitleTypo>{currentMission.title}</MissionTitleTypo>
         <MissionDescriptionTypo>{currentMission.description}</MissionDescriptionTypo>
 
-        <PrimaryButton onClick={() => handleAction()}>
+        <PrimaryButton $type={internalBtnStep === 0 ? 0 : 1} onClick={() => handleAction()}>
           <ButtonLeft />
           <ButtonCenter>{internalBtnStep === 0 ? currentMission.btn1 : currentMission.btn2}</ButtonCenter>
           <ButtonRight />

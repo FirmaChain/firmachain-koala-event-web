@@ -11,7 +11,9 @@ import {
   BackgroundMobileGrass,
   BackgroundMobileRoad,
   BackgroundMobileWrapper,
+  Character11Image,
   Character11MobileImage,
+  Character11Plate,
   Character3MobileImage,
   Character4MobileImage,
   Character7MobileImage,
@@ -29,6 +31,9 @@ import {
   StageStoneGoalMobile,
   StageStoneMobile,
   StartStone,
+  TorchLeft,
+  TorchRight,
+  TorchWrapper,
   Tree2Mobile,
   TreeMobile,
 } from '../styles';
@@ -124,6 +129,13 @@ const SectionBoardMobile = ({
         <SignWoodMobile onClick={() => window.open(FIRMACHAIN_URL)}>
           <HoverImage initSrc={theme.urls.signNormal} hoverSrc={theme.urls.signHover} />
         </SignWoodMobile>
+
+        <TorchWrapper $active={stepIndex >= 2}>
+          <TorchLeft />
+          <Character11Image />
+          <Character11Plate />
+          <TorchRight />
+        </TorchWrapper>
 
         <Character3MobileImage />
         <Character4MobileImage />

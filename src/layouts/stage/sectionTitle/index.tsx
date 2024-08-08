@@ -6,7 +6,7 @@ import RepeatingImage from '../../../components/repeatingImage';
 import FlowingImage from '../../../components/flowingImage';
 
 import theme from '../../../styles/themes';
-import { SectionTitleContainer, TitleCoinImage, TitleLogoImage } from './styles';
+import { SectionTitleContainer, TitleCoinImage, TitleLabelImage, TitleLogoImage } from './styles';
 
 interface ICloud {
   src: string;
@@ -85,6 +85,7 @@ const SectionTitle = () => {
       ))}
 
       <TitleLogoImage src={isMobile ? theme.urls.titleLogoMobile2 : theme.urls.titleLogo2} />
+      <TitleLabelImage>Firma Craft Open Event</TitleLabelImage>
     </SectionTitleContainer>
   );
 };

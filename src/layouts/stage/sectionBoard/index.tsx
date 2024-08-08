@@ -87,7 +87,7 @@ const SectionBoard = ({
   useEffect(() => {
     if (isReady) {
       setStepIndex(userData.step);
-      // moveInitCurrentStep();
+      moveInitCurrentStep();
       const timeout = setTimeout(
         () => {
           playSpawnAnimation();
@@ -133,7 +133,6 @@ const SectionBoard = ({
 
   useEffect(() => {
     if (stepIndex !== userData.step) {
-      console.log('CHANGED STEP', userData.step);
       setTimeout(() => {
         setStepIndex(userData.step);
         setType(100);
@@ -223,7 +222,14 @@ const SectionBoard = ({
 
           try {
             setProcess(true);
+            setLoadingOpacity('0.8');
+            setLoading(true);
+
             const result = await completeMission(address);
+
+            setLoading(false);
+            setLoadingOpacity('0.98');
+
             if (result.isComplete) {
               if (currentMission.type === MissionType.TIER) {
                 setType(101);
@@ -298,7 +304,6 @@ const SectionBoard = ({
         <RewardIcon $src={currentReward !== null ? theme.urls.tierList[currentReward?.achievementId!] : ''} />
         <TreasureBoxImage />
         <RewardEffect />
-        {/* <StarEffect /> */}
       </TreasureBoxWrapper>
 
       {isMobile ? (

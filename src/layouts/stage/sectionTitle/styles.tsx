@@ -24,6 +24,10 @@ export const SectionTitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: linear-gradient(180deg, #46d3ff 3.56%, #92ddf4 80.23%);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    height: 65vh;
+  }
 `;
 
 export const TitleCoinImage = styled.img<{ $top: string; $left: string; $widthCustom: string }>`
@@ -43,7 +47,7 @@ export const TitleLogoImage = styled(ReactSVG)`
   z-index: 4;
   width: calc(673px * 0.9);
   height: calc(230px * 0.9);
-  margin-top: -220px;
+  margin-top: 0px;
 
   div {
     line-height: 0;
@@ -56,7 +60,6 @@ export const TitleLogoImage = styled(ReactSVG)`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
     width: calc(673px * 0.6);
     height: calc(230px * 0.6);
-    margin-top: calc(-240px);
 
     svg {
       width: calc(673px * 0.6);
@@ -67,7 +70,6 @@ export const TitleLogoImage = styled(ReactSVG)`
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
     width: calc(673px * 1.4);
     height: calc(230px * 1.4);
-    margin-top: calc(-280px * 1.2);
 
     svg {
       width: calc(673px * 1.4);
@@ -78,7 +80,6 @@ export const TitleLogoImage = styled(ReactSVG)`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
     width: calc(335px);
     height: calc(131px);
-    margin-top: calc(-160px);
 
     svg {
       width: calc(335px);
@@ -134,5 +135,52 @@ export const Plate = styled.div`
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
     left: calc(50% - 800px);
     top: 600px;
+  }
+`;
+
+export const TitleLabelImage = styled.div`
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+
+  width: calc(400px * 0.8);
+  height: calc(85px * 0.8);
+  margin-top: 30px;
+  margin-bottom: 150px;
+  background-image: url('${({ theme }) => theme.urls.introLabel}');
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(400px * 0.7);
+    height: calc(85px * 0.7);
+    margin-top: calc(40px * 0.7);
+    margin-bottom: calc(60px);
+    font-size: 16px;
+  }
+
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
+    width: calc(400px * 1.3);
+    height: calc(85px * 1.3);
+    margin-top: calc(40px * 1.3);
+    margin-bottom: calc(150px * 1.3);
+    font-size: 32px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(400px * 0.6);
+    height: calc(85px * 0.6);
+    margin-top: calc(40px * 0.6);
+    margin-bottom: calc(40px);
+    font-size: 14px;
   }
 `;

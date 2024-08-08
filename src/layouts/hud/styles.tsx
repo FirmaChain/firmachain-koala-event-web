@@ -195,10 +195,12 @@ export const SideMenuItemAchieveImage = styled.div`
 export const TierHUDWrapper = styled.div`
   z-index: 12;
   position: fixed;
-  bottom: 70px;
-  right: 76px;
-  width: auto;
-  height: auto;
+  right: 45px;
+  width: 81px;
+  height: 610px;
+
+  top: calc(50% + 37px);
+  transform: translateY(-50%);
 
   display: flex;
   flex-direction: column;
@@ -206,8 +208,12 @@ export const TierHUDWrapper = styled.div`
   justify-content: center;
   gap: 24px;
 
-  @media screen and (min-width: ${({ theme }) => theme.sizes.maxWidth}) {
-    right: calc(50% - (${({ theme }) => theme.sizes.maxWidth} / 2) + 76px);
+  @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
+    right: calc(50% - (${({ theme }) => theme.sizes.maxWidth} / 2) + 40px);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    height: 540px;
   }
 `;
 

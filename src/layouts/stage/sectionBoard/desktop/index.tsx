@@ -51,6 +51,8 @@ import {
   GoalEffect,
   TooltipIcon,
   TooltipText,
+  Character11Plate,
+  Character12Image,
 } from '../styles';
 
 const stages = [
@@ -136,7 +138,7 @@ const SecionBoardDesktop = ({
               </TooltipIcon>
             )}
           </MissionDescriptionTypo>
-          <PrimaryButton onClick={() => handleMissionButton()}>
+          <PrimaryButton $type={btnStep === 0 ? 0 : 1} onClick={() => handleMissionButton()}>
             <ButtonLeft />
             <ButtonCenter>{btnStep === 0 ? missionList[stepIndex].btn1 : missionList[stepIndex].btn2}</ButtonCenter>
             <ButtonRight />
@@ -157,6 +159,7 @@ const SecionBoardDesktop = ({
         <TorchWrapper $active={stepIndex >= 2}>
           <TorchLeft />
           <Character11Image />
+          <Character11Plate />
           <TorchRight />
         </TorchWrapper>
 
@@ -184,6 +187,7 @@ const SecionBoardDesktop = ({
         <Chest2 />
         <Gem />
 
+        <Character12Image />
         <Character4Image />
         <Character7Image />
         <Character8Image />

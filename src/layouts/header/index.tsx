@@ -67,7 +67,7 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
   const [remainingTime, setRemainingTime] = useState('00h 00m 00s');
   const [isShowEcosystem, setShowEcosystem] = useState(false);
   const [isShowProfile, setShowProfile] = useState(false);
-  const [isShowTooltip, setShowTooltip] = useState(true);
+  const [isShowTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {

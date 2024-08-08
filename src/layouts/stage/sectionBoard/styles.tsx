@@ -412,12 +412,26 @@ export const TooltipIcon = styled.div`
   }
 `;
 
-export const PrimaryButton = styled.div`
+export const PrimaryButton = styled.div<{ $type: number }>`
   width: auto;
   min-width: calc(180px * 0.8);
   height: calc(48px * 0.8);
   display: flex;
   cursor: pointer;
+
+  ${({ $type }) =>
+    $type === 1 &&
+    css`
+      & > div:nth-child(1) {
+        background-image: url('${({ theme }) => theme.urls.buttonLeft2}');
+      }
+      & > div:nth-child(2) {
+        background-image: url('${({ theme }) => theme.urls.buttonCenter2}');
+      }
+      & > div:nth-child(3) {
+        background-image: url('${({ theme }) => theme.urls.buttonRight2}');
+      }
+    `}
 `;
 
 export const ButtonLeft = styled.div`
@@ -693,7 +707,7 @@ export const Character9Image = styled.div`
   position: absolute;
   top: 2950px;
   left: calc(50% - 220px);
-  width: calc(214px * 0.8);
+  width: calc(180px);
   height: calc(214px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character9}');
   background-repeat: no-repeat;
@@ -725,6 +739,26 @@ export const Character3Image = styled.div`
     height: calc(180px * 0.7);
     top: 2470px;
     left: calc(50% - 60px);
+  }
+`;
+
+export const Character12Image = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 260px;
+  left: calc(50% + 270px);
+  width: calc(180px);
+  height: calc(180px);
+  background-image: url('${({ theme }) => theme.urls.character12}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
+    width: calc(160px);
+    height: calc(160px);
+    top: 280px;
+    left: calc(50% + 270px);
   }
 `;
 
@@ -925,6 +959,13 @@ export const TorchLeft = styled.div`
     top: -105px;
     left: calc(50% - 230px);
   }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(108px * 0.35);
+    height: calc(130px * 0.35);
+    top: -45px;
+    left: calc(50% - 98px);
+  }
 `;
 
 export const TorchRight = styled.div`
@@ -945,15 +986,22 @@ export const TorchRight = styled.div`
     top: -105px;
     left: calc(50% + 122px);
   }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(108px * 0.35);
+    height: calc(130px * 0.35);
+    top: -45px;
+    left: calc(50% + 58px);
+  }
 `;
 
 export const Character11Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: -195px;
-  left: calc(50% - 115px);
-  width: 226px;
-  height: 226px;
+  top: -150px;
+  left: calc(50% - 80px);
+  width: 160px;
+  height: 160px;
   background-image: url('${({ theme }) => theme.urls.character11}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -964,6 +1012,29 @@ export const Character11Image = styled.div`
     height: calc(226px * 0.9);
     top: -175px;
     left: calc(50% - 105px);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: calc(226px * 0.45);
+    height: calc(226px * 0.45);
+    top: -95px;
+    left: calc(50% - 50px);
+  }
+`;
+
+export const Character11Plate = styled.div`
+  z-index: 0;
+  position: absolute;
+  top: -10px;
+  left: calc(50% - 45px);
+  width: 90px;
+  height: 15px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 1, 0.24);
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    width: 60px;
+    left: calc(50% - 30px);
   }
 `;
 
@@ -993,6 +1064,7 @@ export const GoToCharacter = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
     padding: 10px 12px;
     font-size: 14px;
+    bottom: 40px;
   }
 `;
 

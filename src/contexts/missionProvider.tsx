@@ -118,7 +118,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/status`);
       const status = response.data.result;
-      console.log('getMissionStatus');
 
       return status;
     } catch (e) {
@@ -137,7 +136,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions`);
       const missionList = response.data.result.missionList;
       if (missionList === undefined) throw new Error('No Mission List');
-      console.log('getMissionList');
 
       setMissionList(missionList);
 
@@ -153,7 +151,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/tiers`);
       const tierList = response.data.result.tierList;
-      console.log('getTierList');
 
       setTierList(tierList);
 
@@ -169,7 +166,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/achievements`);
       const achievementList = response.data.result.achievementList;
-      console.log('getAchievementList');
 
       setAchievementList(achievementList);
 
@@ -185,7 +181,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/${userAddress}`);
       const userData = response.data.result;
-      console.log('getUserMissionData', userData);
 
       setUserData(userData);
 
@@ -208,7 +203,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await axios.get(`${CHAIN_CONFIG.API_HOST}/missions/${userAddress}/rewards`);
       const { rewardDataList } = response.data.result;
-      console.log('getUserRewardData', rewardDataList);
 
       setUserRewardDataList(rewardDataList);
 
@@ -228,8 +222,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
       if (response.data.code === 0) {
         isComplete = response.data.result.isComplete;
       }
-
-      console.log('completeMission');
 
       return {
         isComplete,
@@ -253,8 +245,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         message = response.data.result.message;
       }
 
-      console.log('rewardAchievement');
-
       return {
         isComplete,
         message,
@@ -277,8 +267,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
         isComplete = response.data.result.isComplete;
       }
 
-      console.log('clickFloatingCoin');
-
       return {
         isComplete,
       };
@@ -298,8 +286,6 @@ const MissionProvider = ({ children }: { children: React.ReactNode }) => {
       if (response.data.code === 0) {
         isComplete = response.data.result.isComplete;
       }
-
-      console.log('openTreasureBox');
 
       return {
         isComplete,

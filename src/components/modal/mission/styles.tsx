@@ -1,5 +1,5 @@
 import { ReactSVG } from 'react-svg';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const BottomSheetContainer = styled.div<{ $visible: boolean }>`
   width: 100%;
@@ -97,11 +97,25 @@ export const MissionDescriptionTypo = styled.div`
   margin-bottom: 32px;
 `;
 
-export const PrimaryButton = styled.div`
+export const PrimaryButton = styled.div<{ $type: number }>`
   width: 100%;
   height: 48px;
   display: flex;
   cursor: pointer;
+
+  ${({ $type, theme }) =>
+    $type === 1 &&
+    css`
+      & > div:nth-child(1) {
+        background-image: url('${theme.urls.buttonLeft2}');
+      }
+      & > div:nth-child(2) {
+        background-image: url('${theme.urls.buttonCenter2}');
+      }
+      & > div:nth-child(3) {
+        background-image: url('${theme.urls.buttonRight2}');
+      }
+    `}
 `;
 
 export const ButtonLeft = styled.div`
