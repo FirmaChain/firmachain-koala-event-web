@@ -66,6 +66,7 @@ export const BackgroundGrass = styled.div`
 
 export const BackgroundRoad = styled.div`
   width: 80%;
+  min-width: 1000px;
   height: calc(4014px * 0.8);
   position: absolute;
   top: 0;
@@ -92,6 +93,7 @@ export const BackgroundMobileGrass = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
   background-image: url('${({ theme }) => theme.urls.grassMobile}');
   background-repeat: repeat;
   background-position: top center;
@@ -100,10 +102,12 @@ export const BackgroundMobileGrass = styled.div`
 `;
 
 export const BackgroundMobileRoad = styled.div`
-  width: 45%;
+  width: 200px;
   min-width: 200px;
+  max-width: 200px;
   height: calc(3010px);
   position: absolute;
+  z-index: 1;
   top: 0;
   background-image: url('${({ theme }) => theme.urls.roadMobile}');
   background-repeat: no-repeat;
@@ -157,6 +161,7 @@ export const CharacterMobileWrapper = styled.div<{
   pointer-events: auto;
   cursor: pointer;
   position: absolute;
+
   display: ${({ $animate }) => ($animate ? 'flex' : 'none')};
 
   top: calc(${({ $yOffset }) => $yOffset * 110}px - 45px);
@@ -175,6 +180,7 @@ export const CharacterMobileWrapper = styled.div<{
 export const CharacterMobileImage = styled.div<{ $animate: boolean; $isRun: boolean }>`
   width: calc(106px);
   height: calc(106px);
+  z-index: 1;
   background-image: url('${({ theme, $isRun }) => ($isRun ? theme.urls.character2 : theme.urls.character1)}');
   background-repeat: no-repeat;
   background-size: contain;
@@ -342,6 +348,11 @@ export const MissionTitleTypo = styled.div`
 `;
 
 export const MissionDescriptionTypo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
   color: #707070;
   text-align: center;
   font-family: Poppins;
@@ -351,6 +362,54 @@ export const MissionDescriptionTypo = styled.div`
   line-height: 130%;
   letter-spacing: -0.18px;
   margin-bottom: 24px;
+`;
+
+export const TooltipText = styled.div`
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 180px;
+  padding: 8px;
+
+  color: #fff;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 130%;
+  letter-spacing: -0.14px;
+
+  border-radius: 10px;
+  background-color: #383838;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #383838 transparent;
+  }
+`;
+
+export const TooltipIcon = styled.div`
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  position: relative;
+  background-image: url('${({ theme }) => theme.urls.tooltip}');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  &:hover > ${TooltipText} {
+    display: block;
+  }
 `;
 
 export const PrimaryButton = styled.div`
@@ -455,6 +514,7 @@ export const StageStoneMobile = styled.div<{
   padding-top: 8px;
   padding-left: 2px;
   text-shadow: #999 0px -2px;
+  z-index: 2;
 
   color: ${({ $active }) => ($active ? '#f2f2f2' : '#d8d8d8')};
   text-align: center;
@@ -611,19 +671,18 @@ export const Character7Image = styled.div`
 export const Character8Image = styled.div`
   z-index: 3;
   position: absolute;
-  top: 1800px;
-  left: calc(50% - 300px);
-  width: calc(190px * 0.8);
-  height: calc(190px * 0.8);
-  transform: scaleX(-1);
+  top: 1820px;
+  left: calc(50% - 290px);
+  width: calc(150px * 0.8);
+  height: calc(150px * 0.8);
   background-image: url('${({ theme }) => theme.urls.character8}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(190px * 0.7);
-    height: calc(190px * 0.7);
+    width: calc(150px * 0.7);
+    height: calc(150px * 0.7);
     top: 1800px;
     left: calc(50% - 300px);
   }
@@ -765,18 +824,18 @@ export const StarStone = styled.div`
 export const CharacterStone = styled.div`
   z-index: 3;
   position: absolute;
-  top: 1220px;
+  top: 1200px;
   left: calc(50%);
-  width: calc(266px * 0.8);
-  height: calc(274px * 0.8);
+  width: calc(350px * 0.8);
+  height: calc(350px * 0.8);
   background-image: url('${({ theme }) => theme.urls.characterStone}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
 
   @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaSmallWidth}) {
-    width: calc(266px * 0.7);
-    height: calc(274px * 0.7);
+    width: calc(350px * 0.7);
+    height: calc(350px * 0.7);
     top: 1250px;
     left: calc(50%);
   }
@@ -1225,4 +1284,188 @@ export const TreasureBoxWrapper = styled.div<{ $active: boolean }>`
   @media only screen and (min-width: ${({ theme }) => theme.sizes.mediaQHDWidth}) {
     left: calc(50% - 39.7vw);
   }
+`;
+
+export const Character3MobileImage = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 20px;
+  left: calc(50% - 180px);
+  transform: scaleX(-1);
+
+  width: calc(308px * 0.4);
+  height: calc(180px * 0.4);
+  background-image: url('${({ theme }) => theme.urls.character3}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const Character4MobileImage = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 320px;
+  left: calc(50% + 100px);
+  width: calc(70px);
+  height: calc(70px);
+  background-image: url('${({ theme }) => theme.urls.character4}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const StartStone = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 600px;
+  left: calc(50% - 170px);
+  width: calc(232px * 0.3);
+  height: calc(292px * 0.3);
+  background-image: url('${({ theme }) => theme.urls.star}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const Character7MobileImage = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 690px;
+  left: calc(50% - 170px);
+  width: calc(70px);
+  height: calc(70px);
+  background-image: url('${({ theme }) => theme.urls.character7}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const Character11MobileImage = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 1050px;
+  left: calc(50% + 90px);
+  width: 90px;
+  height: 90px;
+  transform: scaleX(-1);
+  background-image: url('${({ theme }) => theme.urls.character11}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const TreeMobile = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 1220px;
+  left: calc(50% - 166px);
+  width: calc(153px * 0.4);
+  height: calc(311px * 0.4);
+  background-image: url('${({ theme }) => theme.urls.tree}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const GemsMobile = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 1600px;
+  left: calc(50% + 102px);
+  width: 65px;
+  height: 46px;
+  transform: scaleX(-1);
+  background-image: url('${({ theme }) => theme.urls.gems}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 5px 0px #00000040);
+`;
+
+export const GemBoxMobile = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 1750px;
+  left: calc(50% - 185px);
+  width: calc(100px);
+  height: calc(100px);
+  background-image: url('${({ theme }) => theme.urls.gemBox}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const PotionMobile = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 2100px;
+  left: calc(50% + 90px);
+  width: calc(100px);
+  height: calc(100px);
+  background-image: url('${({ theme }) => theme.urls.potion}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const Chest3Mobile = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 2400px;
+  left: calc(50% - 187px);
+  width: calc(100px);
+  height: calc(100px);
+  background-image: url('${({ theme }) => theme.urls.chest3}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const Tree2Mobile = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 2500px;
+  left: calc(50% + 105px);
+  width: calc(153px * 0.4);
+  height: calc(311px * 0.4);
+  background-image: url('${({ theme }) => theme.urls.tree}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const Chest2Mobile = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 2750px;
+  left: calc(50% - 170px);
+  width: calc(188px * 0.35);
+  height: calc(225px * 0.35);
+  background-image: url('${({ theme }) => theme.urls.chest2}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const Charceter9MobileImage = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 2850px;
+  left: calc(50% + 95px);
+  width: calc(90px);
+  height: calc(90px);
+  background-image: url('${({ theme }) => theme.urls.character9}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+`;
+
+export const SignWoodMobile = styled.div`
+  position: absolute;
+  z-index: 0;
+  top: -95px;
+  left: calc(50% + 95px);
+  width: calc(163px * 0.45);
+  height: calc(258px * 0.45);
+  cursor: pointer;
 `;

@@ -112,13 +112,6 @@ export const DailyMobileWrapper = styled.div`
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
   pointer-events: auto;
-  & > div:last-child {
-    color: rgba(54, 60, 96, 0.6);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 130%;
-    letter-spacing: -0.14px;
-  }
 `;
 
 export const DailyLabelTypo = styled.div`
@@ -592,11 +585,46 @@ export const ProfileWrapper = styled.div<{ $isShowProfile: boolean }>`
   }
 `;
 
-export const ProfileIcon = styled.div`
-  width: calc(38px * 0.74);
-  height: calc(25px * 0.74);
-  background-image: url('${({ theme }) => theme.urls.profile}');
+export const ProfileIcon = styled.div<{ $tier: number }>`
+  width: calc(${({ $tier }) => ($tier === 0 ? '38px' : '34px')} * 0.74);
+  height: calc(${({ $tier }) => ($tier === 0 ? '25px' : '34px')} * 0.74);
+  background-image: url('${({ theme, $tier }) => ($tier === 0 ? theme.urls.profile : theme.urls.tierList[$tier - 1])}');
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+`;
+
+export const TooltipText = styled.div<{ $show: boolean }>`
+  display: ${({ $show }) => ($show ? 'block' : 'none')};
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 150px;
+  padding: 8px;
+  z-index: 50;
+  text-align: center;
+
+  color: #fff;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 130%;
+  letter-spacing: -0.14px;
+
+  border-radius: 10px;
+  background-color: #383838;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #383838 transparent;
+  }
 `;

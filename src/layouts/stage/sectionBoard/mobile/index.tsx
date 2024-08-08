@@ -2,17 +2,35 @@ import React from 'react';
 
 import useModal from '../../../../hooks/useModal';
 import { IMission } from '../../../../contexts/missionProvider';
+import { FIRMACHAIN_URL } from '../../../../constants/common';
+
+import HoverImage from '../../../../components/HoverImage';
+import theme from '../../../../styles/themes';
 
 import {
   BackgroundMobileGrass,
   BackgroundMobileRoad,
   BackgroundMobileWrapper,
+  Character11MobileImage,
+  Character3MobileImage,
+  Character4MobileImage,
+  Character7MobileImage,
   CharacterMobileImage,
   CharacterMobileWrapper,
+  Charceter9MobileImage,
+  Chest2Mobile,
+  Chest3Mobile,
+  GemBoxMobile,
+  GemsMobile,
   GoalEffectMobile,
   MissionMessageBoxMobile,
+  PotionMobile,
+  SignWoodMobile,
   StageStoneGoalMobile,
   StageStoneMobile,
+  StartStone,
+  Tree2Mobile,
+  TreeMobile,
 } from '../styles';
 
 const stages = [
@@ -103,6 +121,23 @@ const SectionBoardMobile = ({
       <BackgroundMobileWrapper>
         <BackgroundMobileGrass />
         <BackgroundMobileRoad />
+        <SignWoodMobile onClick={() => window.open(FIRMACHAIN_URL)}>
+          <HoverImage initSrc={theme.urls.signNormal} hoverSrc={theme.urls.signHover} />
+        </SignWoodMobile>
+
+        <Character3MobileImage />
+        <Character4MobileImage />
+        <StartStone />
+        <Character7MobileImage />
+        <Character11MobileImage />
+        <TreeMobile />
+        <GemsMobile />
+        <GemBoxMobile />
+        <PotionMobile />
+        <Chest3Mobile />
+        <Tree2Mobile />
+        <Chest2Mobile />
+        <Charceter9MobileImage />
 
         {stages.map((stage, index) => {
           const tierImage = stageTier.find((tier: any) => tier.value === index);

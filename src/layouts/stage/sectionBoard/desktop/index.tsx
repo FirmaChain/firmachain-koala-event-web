@@ -49,6 +49,8 @@ import {
   Diamond,
   StageStoneGoal,
   GoalEffect,
+  TooltipIcon,
+  TooltipText,
 } from '../styles';
 
 const stages = [
@@ -126,7 +128,14 @@ const SecionBoardDesktop = ({
             </MissionLabelTypo>
           </MissionLabel>
           <MissionTitleTypo>{missionList[stepIndex].title}</MissionTitleTypo>
-          <MissionDescriptionTypo>{missionList[stepIndex].description}</MissionDescriptionTypo>
+          <MissionDescriptionTypo>
+            {missionList[stepIndex].description}
+            {missionList[stepIndex].hint && (
+              <TooltipIcon>
+                <TooltipText>{missionList[stepIndex].hint}</TooltipText>
+              </TooltipIcon>
+            )}
+          </MissionDescriptionTypo>
           <PrimaryButton onClick={() => handleMissionButton()}>
             <ButtonLeft />
             <ButtonCenter>{btnStep === 0 ? missionList[stepIndex].btn1 : missionList[stepIndex].btn2}</ButtonCenter>

@@ -203,7 +203,7 @@ const SectionBoard = ({
 
   const handleMissionButton = async (step?: number) => {
     const currentMission = missionList[stepIndex];
-    const checkStep = step === undefined ? step : btnStep;
+    const checkStep = step !== undefined ? step : btnStep;
 
     if (currentMission.type === MissionType.GENERAL && checkStep === 0) {
       setBtnStep(1);

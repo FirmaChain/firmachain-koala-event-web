@@ -55,6 +55,7 @@ import {
   XTypo,
   ProfileWrapper,
   ProfileIcon,
+  TooltipText,
 } from './styles';
 
 const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
@@ -66,6 +67,7 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
   const [remainingTime, setRemainingTime] = useState('00h 00m 00s');
   const [isShowEcosystem, setShowEcosystem] = useState(false);
   const [isShowProfile, setShowProfile] = useState(false);
+  const [isShowTooltip, setShowTooltip] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -119,13 +121,19 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
 
   const handleClickProfile = () => {
     if (isMobile === false) return;
-
+    setShowTooltip(false);
     setShowProfile(!isShowProfile);
+  };
+
+  const handleClickTooltip = () => {
+    setShowProfile(false);
+    setShowTooltip(!isShowTooltip);
   };
 
   useOutsideClick([], () => {
     isShowEcosystem && setShowEcosystem(!isShowEcosystem);
     isShowProfile && setShowProfile(!isShowProfile);
+    isShowTooltip && setShowTooltip(!isShowTooltip);
   });
 
   const renderUserInfo = () => {
@@ -180,14 +188,16 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
           <RightWrapper>
             {isMobile ? (
               <React.Fragment>
-                <DailyMobileWrapper>
+                <DailyMobileWrapper onClick={() => handleClickTooltip()}>
                   <KOAIcon />
                   <XTypo>x</XTypo>
                   <DailyValueTypo>{dailyFloatingCount}</DailyValueTypo>
+
+                  <TooltipText $show={isShowTooltip}>Lucky Coin Cumulative Count</TooltipText>
                 </DailyMobileWrapper>
 
                 <ProfileWrapper $isShowProfile={isShowProfile}>
-                  <ProfileIcon onClick={() => handleClickProfile()} />
+                  <ProfileIcon $tier={currentTier.order} onClick={() => handleClickProfile()} />
                   {renderUserInfo()}
                 </ProfileWrapper>
               </React.Fragment>
