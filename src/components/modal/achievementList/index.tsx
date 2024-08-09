@@ -58,13 +58,21 @@ const AchievementListModal = ({
   const [selectedDetailIndex, setSelectedDetailIndex] = React.useState<number>(0);
 
   const parseList = useMemo(() => {
-    let result: { isComplete: boolean; isReward: boolean; nftId: string; txHash: string; rewardAt: string }[] = [];
+    let result: {
+      isComplete: boolean;
+      isReward: boolean;
+      isPending: boolean;
+      nftId: string;
+      txHash: string;
+      rewardAt: string;
+    }[] = [];
     achievementList.forEach((achievement: IAchievement, index: number) => {
       const rewardData = userRewardDataList.find((rewardData) => rewardData.achievementId === achievement.id);
 
       result[index] = {
         isComplete: userData.achievementIdList.includes(achievement.id),
         isReward: rewardData ? rewardData.isReward : false,
+        isPending: rewardData ? rewardData.isPending : false,
         nftId: rewardData ? rewardData.nftId : '',
         txHash: rewardData ? rewardData.txHash : '',
         rewardAt: rewardData ? rewardData.rewardAt : '',
@@ -111,7 +119,7 @@ const AchievementListModal = ({
         <React.Fragment>
           <DimmedLayer $isLoading={isShowDetail} onClick={() => handleCloseDetail()} />
           <BottomSheetContainer $visible={isShowDetail}>
-            <CloseButtonMobile onClick={() => handleCloseModal()}>
+            <CloseButtonMobile onClick={() => handleCloseDetail()}>
               <CloseIcon />
             </CloseButtonMobile>
             <AchievementDetailIcon $index={selectedDetailIndex} />
@@ -130,7 +138,7 @@ const AchievementListModal = ({
               </RewardDate>
             )}
 
-            <PrimaryButton onClick={() => {}}>
+            <PrimaryButton onClick={() => handleCloseDetail()}>
               <ButtonLeft />
               <ButtonCenter>CLOSE</ButtonCenter>
               <ButtonRight />

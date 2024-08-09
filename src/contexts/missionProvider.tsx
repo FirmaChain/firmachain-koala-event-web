@@ -83,6 +83,7 @@ export interface IRewardData {
   userAddress: string;
   achievementId: number;
   isReward: boolean;
+  isPending: boolean;
   fct: string;
   nftId: string;
   txHash: string;

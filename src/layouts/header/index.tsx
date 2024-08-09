@@ -60,7 +60,7 @@ import {
 
 const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () => void }) => {
   const { address, balance, logout } = useWallet();
-  const { currentTier, userData } = useMission();
+  const { currentTier, userData, getUserMissionData } = useMission();
   const { enqueueSnackbar } = useSnackbar();
   const { isMobile } = useScreen();
 
@@ -68,34 +68,43 @@ const Header = ({ isLogin, handleLogout }: { isLogin: boolean; handleLogout: () 
   const [isShowEcosystem, setShowEcosystem] = useState(false);
   const [isShowProfile, setShowProfile] = useState(false);
   const [isShowTooltip, setShowTooltip] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      const nextDate = new Date(userData.floating.nextDate);
-      const timeDiff = nextDate.getTime() - now.getTime();
+    if (userData && userData.floating && userData.floating.nextDate) {
+      const timer = setInterval(() => {
+        const now = new Date();
+        const nextDate = new Date(userData.floating.nextDate);
+        const timeDiff = nextDate.getTime() - now.getTime();
 
-      if (timeDiff > 0) {
-        const hours = Math.floor(timeDiff / (1000 * 60 * 60))
-          .toString()
-          .padStart(2, '0');
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
-          .toString()
-          .padStart(2, '0');
-        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000)
-          .toString()
-          .padStart(2, '0');
-        setRemainingTime(`${hours}h ${minutes}m ${seconds}s`);
-      } else {
-        setRemainingTime('00h 00m 00s');
-      }
-    }, 1000);
+        if (timeDiff > 0) {
+          const hours = Math.floor(timeDiff / (1000 * 60 * 60))
+            .toString()
+            .padStart(2, '0');
+          const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
+            .toString()
+            .padStart(2, '0');
+          const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000)
+            .toString()
+            .padStart(2, '0');
 
-    return () => clearInterval(timer);
-  }, [userData.floating.nextDate]);
+          setRefresh(false);
+          setRemainingTime(`${hours}h ${minutes}m ${seconds}s`);
+        } else {
+          if (refresh === false) {
+            getUserMissionData(address);
+            setRefresh(true);
+          }
+          setRemainingTime('00h 00m 00s');
+        }
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const dailyFloatingCount = useMemo(() => {
-    return userData.floating.count ? userData.floating.count : 0;
+    return userData && userData.floating && userData.floating.count ? userData.floating.count : 0;
   }, [userData]);
 
   const handleLogoutHeader = () => {

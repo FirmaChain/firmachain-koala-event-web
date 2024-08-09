@@ -39,4 +39,8 @@ export const MessageBox = styled.div<{ $left: number; $top: number }>`
   background-image: url('${({ theme }) => theme.urls.floatingKoaMessage}');
   background-repeat: no-repeat;
   background-size: contain;
+
+  @media only screen and (max-width: ${({ theme }) => theme.sizes.mediaMobileWidth}) {
+    left: calc(${({ $left }) => $left}px - 19px);
+  }
 `;

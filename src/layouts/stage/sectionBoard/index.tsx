@@ -75,7 +75,7 @@ const SectionBoard = ({
   }, [achievementList, tierList]);
 
   const currentReward = useMemo(() => {
-    const rewards = userRewardDataList.filter((reward) => reward.isReward === false);
+    const rewards = userRewardDataList.filter((reward) => reward.isReward === false && reward.isPending === false);
 
     if (rewards.length === 0) return null;
 
@@ -284,6 +284,7 @@ const SectionBoard = ({
         enqueueSnackbar(e.message, { variant: 'error', autoHideDuration: 1500 });
       } finally {
         setProcessReward(false);
+        getUserRewardData(address);
       }
     }, 1000);
   };
